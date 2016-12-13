@@ -1,0 +1,19 @@
+{
+  "name": "js-to-tkcode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "karma start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lpre-ys/js-to-tkcode.git"
+  },
+  "author": "lpre-ys",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lpre-ys/js-to-tkcode/issues"
+  },
+  "homepage": "https://github.com/lpre-ys/js-to-tkcode#readme"
+}
