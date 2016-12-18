@@ -1,0 +1,27 @@
+{
+    "extends": "eslint:recommended",
+    "env": {
+      "browser": true,
+      "node" : true,
+      "es6": true
+    },
+    "globals": {
+      'Gin': true,
+      'm' : true
+    },
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module"
+    },
+    "ecmaFeatures": {
+      "modules": true
+    },
+    "rules": {
+      "comma-spacing": [2, {"before": false, "after": true}],
+      "semi": [2, "always"],
+      "no-console": [1],
+      "no-spaced-func" : [2],
+      "space-before-function-paren" : [2, {"anonymous": "always", "named": "never"}],
+      "no-unused-vars" : [1]
+    }
+}
