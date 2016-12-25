@@ -1,20 +1,21 @@
 'use strict';
+
 class Command {
   constructor() {
     this.mode = 'exec';
     this.executeLog = require('./execute-log');
   }
-  getMethod() {
+  execute(...args) {
     if (this.mode == 'exec') {
-      return this.exec;
+      return this.run.apply(this, args);
     } else if (this.mode == 'output') {
-      return this.output;
+      return this.output.apply(this, args);
     }
   }
   get JP_NAME() {
     return 'TODO';
   }
-  exec() {
+  run() {
 
   }
   output() {

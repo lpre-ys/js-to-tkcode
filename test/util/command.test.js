@@ -1,18 +1,23 @@
 const assert = require('power-assert');
+const sinon = require('sinon');
 
 const Command = require('../../js/util/command');
 const executeLog = require('../../js/util/execute-log');
 
 describe('Command', () => {
   const command = new Command();
-  describe('getMethod', () => {
+  describe('execute', () => {
     it('execモード時、テストメソッドを返すこと', () => {
+      const spy = sinon.spy(command, "run");
       command.mode = 'exec';
-      assert(command.getMethod().name == 'exec');
+      command.execute();
+      assert(spy.calledOnce);
     });
     it('outputモード時、出力用メソッドを返すこと', () => {
+      const spy = sinon.spy(command, 'output');
       command.mode = 'output';
-      assert(command.getMethod().name == 'output');
+      command.execute();
+      assert(spy.calledOnce);
     });
   });
   describe('executeLog', () => {

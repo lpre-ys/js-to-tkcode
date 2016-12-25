@@ -1,29 +1,29 @@
 const assert = require('power-assert');
 
-const KeyDown = require('../../../js/util/commands/key-down');
+const KeyEntry = require('../../../js/util/commands/key-entry');
 const Command = require('../../../js/util/command');
 const executeLog = require('../../../js/util/execute-log');
 
-describe('keyDown(キー入力)', () => {
-  const keyDown = new KeyDown();
+describe('keyEntry(キー入力)', () => {
+  const keyEntry = new KeyEntry();
   describe('constructor', () => {
     it('Commandクラスを継承していること', () => {
-      assert(keyDown instanceof Command);
+      assert(keyEntry instanceof Command);
     });
   });
   describe('JP_NAME', () => {
     it('JP_NAMEがキー入力の処理であること', () => {
-      assert(keyDown.JP_NAME == 'キー入力の処理');
+      assert(keyEntry.JP_NAME == 'キー入力の処理');
     });
   });
   // exec
-  describe('exec', () => {
+  describe('run', () => {
     it('戻り値がtrueであること', () => {
-      assert(keyDown.exec());
+      assert(keyEntry.run());
     });
     describe('実行ログ', () => {
       it('実行ログに記載されること', () => {
-        keyDown.exec(42);
+        keyEntry.run(42);
         assert(executeLog.last == '◆キー入力の処理：var[42], push[true], target[ALL]');
       });
     });
@@ -33,7 +33,7 @@ describe('keyDown(キー入力)', () => {
   describe('output', () => {
     describe('最少呼び出し時', () => {
       it('キー押下待ち有り、かつ、全キー取得', () => {
-        const tkCode = keyDown.output(123);
+        const tkCode = keyEntry.output(123);
         assert(tkCode, `KeyEntry(123, 1, 1, 1, 1, 1, 1, 1, 1, 1)`);
       });
     });

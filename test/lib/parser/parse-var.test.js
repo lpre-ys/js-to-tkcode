@@ -5,7 +5,7 @@ const tkVarManager = require('../../../js/lib/tk-var-manager');
 const esprima = require('esprima');
 
 describe('Parser parseVar', () => {
-  before(() => {
+  beforeEach(() => {
     const varList = {
       'test': 42
     };

@@ -1,11 +1,14 @@
 const assert = require('power-assert');
+const sinon = require('sinon');
 
 const TkMock = require('../../js/util/tk-mock');
 
 describe('TkMock', () => {
   let tkMock;
-  describe('ステータス', () => {
+  beforeEach(() => {
     tkMock = new TkMock();
+  });
+  describe('ステータス', () => {
     describe('初期状態', () => {
       it('stateが存在していること', () => {
         assert(tkMock.state);
@@ -24,11 +27,38 @@ describe('TkMock', () => {
       });
     });
   });
-  // コマンド関係
-  describe('◆キー入力の処理', () => {
-    // const tkMock = new TkMock();
-    it('TkMock.keyDownが存在していること', () => {
-      // assert(TkMock.keyDown);
+  describe('makeFunctionName', () => {
+    it('snake to camel', () => {
+      const snake = 'test-function';
+      const camel = tkMock.makeFunctionName(snake);
+      assert(camel === 'testFunction');
+    });
+  });
+  // コマンド関係生成処理
+  // key-entry.jsが存在する前提。そのうちSinonで依存切る
+  describe('init', () => {
+    describe('reset executeLog', () => {
+      it('ログがリセットされること', () => {
+        const executeLog = require('../../js/util/execute-log');
+        const spy = sinon.spy(executeLog, 'reset');
+        new TkMock();
+        assert(spy.calledOnce);
+      });
+    });
+    describe('commands', () => {
+      it('tkMock.commands.keyEntryが存在していること', () => {
+        assert(tkMock.commands.length == 1);
+      });
+    });
+    describe('this.function', () => {
+      it('tkMock.keyEntryが存在していること', () => {
+        assert(tkMock.keyEntry);
+      });
+      it('tkMock.keyEntryの実体が、KeyEntry.executeであること', () => {
+        const spy = sinon.spy(tkMock.commands[0], 'execute');
+        tkMock.keyEntry();
+        assert(spy.calledOnce);
+      });
     });
   });
 

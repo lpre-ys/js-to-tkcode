@@ -2,16 +2,16 @@
 
 const parseTest = require('./parse-test');
 
-function parseIf(node, outputs, that) {
+function parseIf(node, parser) {
   let {test, consequent, alternate} = node;
-  parseTest(test, outputs);
+  parseTest(test, parser.outputs);
   consequent.type = 'Program';
-  that.parseAst(consequent);
+  parser.parseAst(consequent);
   if (alternate) {
-    outputs.push(`Else`);
-    that.parseAst(alternate);
+    parser.outputs.push(`Else`);
+    parser.parseAst(alternate);
   }
-  outputs.push(`EndIf`);
+  parser.outputs.push(`EndIf`);
 }
 
 module.exports = parseIf;

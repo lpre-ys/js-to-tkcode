@@ -33,7 +33,6 @@ function optimizeFor(node) {
     });
     result.body.push(bodyAst);
   }
-
   return result;
 }
 

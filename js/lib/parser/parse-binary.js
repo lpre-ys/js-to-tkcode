@@ -5,7 +5,7 @@ const escodegen = require('escodegen');
 
 const tmpVarFactory = require('../tmp-var-factory');
 
-function parseBinary(node, jsToTkcode) {
+function parseBinary(node, parser) {
   let {
     operator,
     left,
@@ -27,7 +27,7 @@ function parseBinary(node, jsToTkcode) {
   const rightCode = escodegen.generate(right);
 
   const tmpName = tmpVarFactory.make();
-  jsToTkcode.parseAst(esprima.parse(`${tmpName} = ${leftCode}; ${tmpName} ${operator}= ${rightCode}`), true);
+  parser.parseAst(esprima.parse(`${tmpName} = ${leftCode}; ${tmpName} ${operator}= ${rightCode}`), true);
 
   return esprima.parse(`${tmpName}`).body[0].expression;
 }
