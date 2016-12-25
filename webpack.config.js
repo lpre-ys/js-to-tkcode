@@ -4,10 +4,10 @@ var current = process.cwd();
 
 module.exports = {
   entry: {
-    app: './js/app.js'
+    app: './js/front/app.js'
   },
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.resolve(__dirname, 'docs/build'),
     filename: '[name].bundle.js'
   },
   resolve: {
@@ -28,7 +28,7 @@ module.exports = {
   plugins: [
     new webpack.DllReferencePlugin({
       context: __dirname,
-      manifest: require('./build/vendor-manifest.json')
+      manifest: require('./docs/build/vendor-manifest.json')
     })
   ],
   stats: {

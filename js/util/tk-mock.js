@@ -1,8 +1,8 @@
 'use strict';
 
-const fs = require('fs');
-
 const executeLog = require('./execute-log');
+
+const KeyEntry = require('./commands/key-entry');
 
 class TkMock {
   constructor() {
@@ -11,17 +11,22 @@ class TkMock {
     executeLog.reset();
     this.Const = require('./const');
     // set Functions;
-    const dir = __dirname + '/commands';
-    const filelist = fs.readdirSync(dir);
-    filelist.forEach((filename) => {
-      const functionName = this.makeFunctionName(filename.slice(0, -3));
-      const cmdClass = require(dir + '/' + filename);
-      const instance = new cmdClass();
-      this[functionName] = (...args) => {
-        return instance.execute.apply(instance, args);
-      };
-      this.commands.push(instance);
-    });
+    const keyEntry = new KeyEntry();
+    this.keyEntry = (...args) => {
+      return keyEntry.execute.apply(keyEntry, args);
+    };
+    this.commands.push(keyEntry);
+    // const dir = __dirname + '/commands';
+    // const filelist = ['key-entry.js'];  // TODO
+    // filelist.forEach((filename) => {
+    //   const functionName = this.makeFunctionName(filename.slice(0, -3));
+    //   const cmdClass = require(dir + '/' + filename);
+    //   const instance = new cmdClass();
+    //   this[functionName] = (...args) => {
+    //     return instance.execute.apply(instance, args);
+    //   };
+    //   this.commands.push(instance);
+    // });
   }
   setOutputMode() {
     this.state = 'output';

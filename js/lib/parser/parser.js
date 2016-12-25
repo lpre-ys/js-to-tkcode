@@ -27,6 +27,10 @@ class Parser {
     }
   }
 
+  reset() {
+    this.outputs.length = 0;
+  }
+
   parseAst(ast, isTmp = false) {
       const that = this;
       // TODO functionのパース

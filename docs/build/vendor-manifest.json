@@ -1,0 +1,27 @@
+{
+  "name": "vendor_library",
+  "content": {
+    "./node_modules/esprima/esprima.js": 1,
+    "./node_modules/escodegen/escodegen.js": 2,
+    "./node_modules/estraverse/estraverse.js": 3,
+    "./node_modules/esutils/lib/utils.js": 4,
+    "./node_modules/esutils/lib/ast.js": 5,
+    "./node_modules/esutils/lib/code.js": 6,
+    "./node_modules/esutils/lib/keyword.js": 7,
+    "./node_modules/source-map/lib/source-map.js": 8,
+    "./node_modules/source-map/lib/source-map/source-map-generator.js": 9,
+    "./node_modules/source-map/lib/source-map/base64-vlq.js": 10,
+    "./node_modules/source-map/lib/source-map/base64.js": 11,
+    "./node_modules/source-map/lib/source-map/util.js": 12,
+    "./node_modules/source-map/lib/source-map/array-set.js": 13,
+    "./node_modules/source-map/lib/source-map/mapping-list.js": 14,
+    "./node_modules/source-map/lib/source-map/source-map-consumer.js": 15,
+    "./node_modules/source-map/lib/source-map/indexed-source-map-consumer.js": 16,
+    "./node_modules/source-map/lib/source-map/binary-search.js": 17,
+    "./node_modules/source-map/lib/source-map/basic-source-map-consumer.js": 18,
+    "./node_modules/source-map/lib/source-map/source-node.js": 19,
+    "./node_modules/escodegen/package.json": 20,
+    "./node_modules/mithril/mithril.js": 21,
+    "./node_modules/webpack/buildin/module.js": 22
+  }
+}

@@ -21,7 +21,9 @@
   },
   "homepage": "https://github.com/lpre-ys/js-to-tkcode#readme",
   "dependencies": {
-    "escodegen": "^1.8.1"
+    "escodegen": "^1.8.1",
+    "json-loader": "^0.5.4",
+    "mithril": "^0.2.5"
   },
   "devDependencies": {
     "intelli-espower-loader": "^1.0.1",

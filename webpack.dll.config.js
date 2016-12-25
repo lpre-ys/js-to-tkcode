@@ -3,10 +3,10 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    vendor: ['esprima']
+    vendor: ['esprima', 'escodegen', 'estraverse', 'mithril']
   },
   output: {
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, 'docs/build'),
     filename: '[name].dll.js',
     library: '[name]_library'
   },
@@ -17,7 +17,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DllPlugin({
-      path: path.join(__dirname, 'build', '[name]-manifest.json'),
+      path: path.join(__dirname, 'docs/build', '[name]-manifest.json'),
       name: '[name]_library'
     })
   ]
