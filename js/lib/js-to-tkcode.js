@@ -14,13 +14,14 @@ const Parser = require('./parser/parser');
 class JsToTkcode {
   constructor(options) {
     tkVarManager.setOptions(options);
-    const tkMock = new TkMock();
-    this.parser = new Parser(tkMock);
+    this.TkMock = TkMock;
+    this.tkMock = new TkMock();
+    this.parser = new Parser(this.tkMock);
   }
   translate(script, isTmp = false) {
     this.parser.reset();
     const ast = esprima.parse(script);
-    const optimized = optimize(ast);
+    const optimized = optimize(ast, this.tkMock.Const);
     this.parser.parseAst(optimized, isTmp);
 
     return this.parser.outputs.join("\n");

@@ -5,11 +5,13 @@ const executeLog = require('./execute-log');
 const KeyEntry = require('./commands/key-entry');
 
 class TkMock {
-  constructor() {
+  constructor(prjConst = {}) {
     this.state = 'test';
     this.commands = [];
     executeLog.reset();
+    // const merge
     this.Const = require('./const');
+    this.Const = Object.assign(this.Const, prjConst);
     // set Functions;
     const keyEntry = new KeyEntry();
     this.keyEntry = (...args) => {
