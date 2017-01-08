@@ -27,13 +27,6 @@ describe('TkMock', () => {
       });
     });
   });
-  describe('makeFunctionName', () => {
-    it('snake to camel', () => {
-      const snake = 'test-function';
-      const camel = tkMock.makeFunctionName(snake);
-      assert(camel === 'testFunction');
-    });
-  });
   // コマンド関係生成処理
   // key-entry.jsが存在する前提。そのうちSinonで依存切る
   describe('init', () => {
