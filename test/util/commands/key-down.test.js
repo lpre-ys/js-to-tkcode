@@ -3,9 +3,13 @@ const assert = require('power-assert');
 const KeyEntry = require('../../../js/util/commands/key-entry');
 const Command = require('../../../js/util/command');
 const executeLog = require('../../../js/util/execute-log');
+const tkVarManager = require('../../../js/lib/tk-var-manager');
 
 describe('keyEntry(キー入力)', () => {
   const keyEntry = new KeyEntry();
+  beforeEach(() => {
+    executeLog.reset();
+  });
   describe('constructor', () => {
     it('Commandクラスを継承していること', () => {
       assert(keyEntry instanceof Command);
@@ -22,9 +26,19 @@ describe('keyEntry(キー入力)', () => {
       assert(keyEntry.run());
     });
     describe('実行ログ', () => {
-      it('実行ログに記載されること', () => {
+      it('キー入力が数字の場合、実行ログにそのまま記載されること', () => {
         keyEntry.run(42);
         assert(executeLog.last == '◆キー入力の処理：var[42], push[true], target[ALL]');
+      });
+      it('キー入力が文字列の場合、実行ログに文字列+数字で記載されること', () => {
+        const varList = {
+          'testVar': 45
+        };
+        const tmpStart = 100;
+        const tmpEnd = 102;
+        tkVarManager.setOptions({varList, tmpStart, tmpEnd});
+        keyEntry.run('testVar');
+        assert(executeLog.last == '◆キー入力の処理：var[testVar(45)], push[true], target[ALL]');
       });
     });
   });

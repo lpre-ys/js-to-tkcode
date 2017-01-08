@@ -26,6 +26,9 @@ class JsToTkcode {
 
     return this.parser.outputs.join("\n");
   }
+  resetConfig(options) {
+    tkVarManager.setOptions(options);
+  }
 }
 
 module.exports = JsToTkcode;

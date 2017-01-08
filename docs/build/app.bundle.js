@@ -46,8 +46,8 @@
 
 	'use strict';
 	
-	const m = __webpack_require__(25);
-	const component = __webpack_require__(26);
+	const m = __webpack_require__(1);
+	const component = __webpack_require__(3);
 	
 	m.mount(document.getElementById('root'), component);
 
@@ -56,32 +56,119 @@
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = (__webpack_require__(2))(21);
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	module.exports = vendor_library;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const m = __webpack_require__(1);
+	const JsToTkcode = __webpack_require__(4);
+	const yaml = __webpack_require__(27);
+	
+	const component = {
+	  controller: function () {
+	    const input = m.prop('');
+	    const config = m.prop('');
+	    // TODO
+	    const varList = {
+	      'test': 42,
+	      'test2': 43,
+	      'test3': 44
+	    };
+	    const tmpStart = 101;
+	    const tmpEnd = 200;
+	    const switchList = {
+	      'isTest1': 21
+	    };
+	    const jsToTkcode = new JsToTkcode({varList, tmpStart, tmpEnd, switchList});
+	    return {
+	      input: input,
+	      config: config,
+	      getOutput: () => {
+	        // TODO
+	        let ret = '';
+	        try {
+	          ret = jsToTkcode.translate(input());
+	        } catch (e) {
+	          console.log(e);
+	        }
+	
+	        return ret;
+	      },
+	      setConfig: (value) => {
+	        config(value);
+	        const configObj = yaml.load(value);
+	        jsToTkcode.resetConfig(configObj);
+	      }
+	    };
+	  },
+	  view: (ctrl) => {
+	    // const vm = ctrl.vm;
+	    return m('.app', [
+	      m('h1', 'JavaScript to TKcode'),
+	      m('.main', [
+	        m('h2', 'config'),
+	        m('textarea#config', {
+	          onkeyup: m.withAttr('value', ctrl.setConfig)
+	        }, ctrl.config()),
+	        m('h2', 'input'),
+	        m('textarea#input', {
+	          onkeyup: m.withAttr('value', ctrl.input)
+	        }, ctrl.input()),
+	        m('h2', 'output'),
+	        m('textarea#output', {
+	          readonly: 'readonly',
+	          onfocus: (e) => { e.target.select(); }
+	        }, ctrl.getOutput())
+	      ])
+	    ]);
+	  }
+	};
+	
+	module.exports = component;
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 	
-	const esprima = __webpack_require__(2);
+	const esprima = __webpack_require__(5);
 	// const estraverse = require('estraverse');
 	// const escodegen = require('escodegen');
 	
-	const tkVarManager = __webpack_require__(4);
-	const TkMock = __webpack_require__(5);
+	const tkVarManager = __webpack_require__(6);
+	const TkMock = __webpack_require__(7);
 	
 	
-	const optimize = __webpack_require__(10);
-	const Parser = __webpack_require__(16);
+	const optimize = __webpack_require__(12);
+	const Parser = __webpack_require__(18);
 	
 	class JsToTkcode {
 	  constructor(options) {
 	    tkVarManager.setOptions(options);
-	    const tkMock = new TkMock();
-	    this.parser = new Parser(tkMock);
+	    this.TkMock = TkMock;
+	    this.tkMock = new TkMock();
+	    this.parser = new Parser(this.tkMock);
 	  }
 	  translate(script, isTmp = false) {
 	    this.parser.reset();
 	    const ast = esprima.parse(script);
-	    const optimized = optimize(ast);
+	    const optimized = optimize(ast, this.tkMock.Const);
 	    this.parser.parseAst(optimized, isTmp);
 	
 	    return this.parser.outputs.join("\n");
+	  }
+	  resetConfig(options) {
+	    tkVarManager.setOptions(options);
 	  }
 	}
 	
@@ -89,19 +176,13 @@
 
 
 /***/ },
-/* 2 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(3))(1);
+	module.exports = (__webpack_require__(2))(1);
 
 /***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	module.exports = vendor_library;
-
-/***/ },
-/* 4 */
+/* 6 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -138,21 +219,23 @@
 
 
 /***/ },
-/* 5 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const executeLog = __webpack_require__(6);
+	const executeLog = __webpack_require__(8);
 	
-	const KeyEntry = __webpack_require__(7);
+	const KeyEntry = __webpack_require__(9);
 	
 	class TkMock {
-	  constructor() {
+	  constructor(prjConst = {}) {
 	    this.state = 'test';
 	    this.commands = [];
 	    executeLog.reset();
-	    this.Const = __webpack_require__(9);
+	    // const merge
+	    this.Const = __webpack_require__(11);
+	    this.Const = Object.assign(this.Const, prjConst);
 	    // set Functions;
 	    const keyEntry = new KeyEntry();
 	    this.keyEntry = (...args) => {
@@ -195,7 +278,7 @@
 
 
 /***/ },
-/* 6 */
+/* 8 */
 /***/ function(module, exports) {
 
 	class ExecuteLog {
@@ -229,17 +312,22 @@
 
 
 /***/ },
-/* 7 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const Command = __webpack_require__(8);
+	const Command = __webpack_require__(10);
+	const tkVarManager = __webpack_require__(6);
 	
 	const keys = ['enter', 'cancel', 'shift', 'down', 'left', 'right', 'up'];
 	class KeyEntry extends Command {
 	
 	  run(receive, push = true, targetKeys = false) {
+	    if (typeof receive == 'string') {
+	      const number = tkVarManager.getVarNumber(receive);
+	      receive = `${receive}(${number})`;
+	    }
 	    this.writeLog(`var[${receive}], push[${push}], target[${targetKeys ? targetKeys.join(',') : "ALL"}]`);
 	
 	    return true;
@@ -261,7 +349,7 @@
 
 
 /***/ },
-/* 8 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -269,7 +357,7 @@
 	class Command {
 	  constructor() {
 	    this.mode = 'exec';
-	    this.executeLog = __webpack_require__(6);
+	    this.executeLog = __webpack_require__(8);
 	  }
 	  execute(...args) {
 	    if (this.mode == 'exec') {
@@ -295,7 +383,7 @@
 
 
 /***/ },
-/* 9 */
+/* 11 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -315,16 +403,16 @@
 
 
 /***/ },
-/* 10 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const estraverse = __webpack_require__(11);
+	const estraverse = __webpack_require__(13);
 	
-	const optimizeFor = __webpack_require__(12);
-	const optimizeConst = __webpack_require__(14);
-	const FunctionOptimizer = __webpack_require__(15);
+	const optimizeFor = __webpack_require__(14);
+	const optimizeConst = __webpack_require__(16);
+	const FunctionOptimizer = __webpack_require__(17);
 	
 	function optimize(ast) {
 	  const functionOptimizer = new FunctionOptimizer();
@@ -384,20 +472,20 @@
 
 
 /***/ },
-/* 11 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(3))(3);
+	module.exports = (__webpack_require__(2))(3);
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const esprima = __webpack_require__(2);
-	const escodegen = __webpack_require__(13);
-	const estraverse = __webpack_require__(11);
+	const esprima = __webpack_require__(5);
+	const escodegen = __webpack_require__(15);
+	const estraverse = __webpack_require__(13);
 	
 	function optimizeFor(node) {
 	  // pre perseが必要
@@ -435,18 +523,18 @@
 
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(3))(2);
+	module.exports = (__webpack_require__(2))(2);
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const escodegen = __webpack_require__(13);
+	const escodegen = __webpack_require__(15);
 	
 	function optimizeConst(node, Const) {
 	  const code = escodegen.generate(node);
@@ -464,12 +552,12 @@
 
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const esprima = __webpack_require__(2);
-	const estraverse = __webpack_require__(11);
-	const escodegen = __webpack_require__(13);
+	const esprima = __webpack_require__(5);
+	const estraverse = __webpack_require__(13);
+	const escodegen = __webpack_require__(15);
 	
 	class FunctionOptimizer{
 	  constructor() {
@@ -526,20 +614,20 @@
 
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const estraverse = __webpack_require__(11);
+	const estraverse = __webpack_require__(13);
 	
-	const tmpVarFactory = __webpack_require__(17);
+	const tmpVarFactory = __webpack_require__(19);
 	
-	const parseAssign = __webpack_require__(18);
-	const parseBinary = __webpack_require__(20);
-	const parseIf = __webpack_require__(21);
-	const parseWhile = __webpack_require__(23);
-	const parseCall = __webpack_require__(24);
+	const parseAssign = __webpack_require__(20);
+	const parseBinary = __webpack_require__(22);
+	const parseIf = __webpack_require__(23);
+	const parseWhile = __webpack_require__(25);
+	const parseCall = __webpack_require__(26);
 	
 	class Parser {
 	  constructor(tkMock) {
@@ -612,7 +700,7 @@
 
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -642,12 +730,12 @@
 
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseVar = __webpack_require__(19);
+	const parseVar = __webpack_require__(21);
 	
 	function parseAssign(node, parser) {
 	  const left = parseVar(node.left);
@@ -687,13 +775,13 @@
 
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const tkVarManager = __webpack_require__(4);
-	const tmpVarFactory = __webpack_require__(17);
+	const tkVarManager = __webpack_require__(6);
+	const tmpVarFactory = __webpack_require__(19);
 	
 	function parseVar(node) {
 	  switch (node.type) {
@@ -721,15 +809,15 @@
 
 
 /***/ },
-/* 20 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const esprima = __webpack_require__(2);
-	const escodegen = __webpack_require__(13);
+	const esprima = __webpack_require__(5);
+	const escodegen = __webpack_require__(15);
 	
-	const tmpVarFactory = __webpack_require__(17);
+	const tmpVarFactory = __webpack_require__(19);
 	
 	function parseBinary(node, parser) {
 	  let {
@@ -809,12 +897,12 @@
 
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseTest = __webpack_require__(22);
+	const parseTest = __webpack_require__(24);
 	
 	function parseIf(node, parser) {
 	  let {test, consequent, alternate} = node;
@@ -832,12 +920,12 @@
 
 
 /***/ },
-/* 22 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseVar = __webpack_require__(19);
+	const parseVar = __webpack_require__(21);
 	
 	function parseTest(node, outputs) {
 	  // test句のパース
@@ -880,12 +968,12 @@
 
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseTest = __webpack_require__(22);
+	const parseTest = __webpack_require__(24);
 	
 	function parseWhile(node, parser) {
 	  parser.outputs.push(`Loop`);
@@ -902,10 +990,10 @@
 
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const escodegen = __webpack_require__(13);
+	const escodegen = __webpack_require__(15);
 	
 	function parseCall(node, parser) {
 	  const tkMock = parser.tkMock;
@@ -949,67 +1037,10 @@
 
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = (__webpack_require__(3))(21);
-
-/***/ },
-/* 26 */
-/***/ function(module, exports, __webpack_require__) {
-
-	const m = __webpack_require__(25);
-	const JsToTkcode = __webpack_require__(1);
-	
-	const component = {
-	  controller: function () {
-	    const input = m.prop('TEST');
-	    // TODO
-	    const varList = {
-	      'test': 42,
-	      'test2': 43,
-	      'test3': 44
-	    };
-	    const tmpStart = 101;
-	    const tmpEnd = 200;
-	    const switchList = {
-	      'isTest1': 21
-	    };
-	    const jsToTkcode = new JsToTkcode({varList, tmpStart, tmpEnd, switchList});
-	    return {
-	      input: input,
-	      getOutput: () => {
-	        // TODO
-	        let ret = '';
-	        try {
-	          ret = jsToTkcode.translate(input());
-	        } catch (e) {
-	          console.log(e);
-	        }
-	
-	        return ret;
-	      }
-	    };
-	  },
-	  view: (ctrl) => {
-	    // const vm = ctrl.vm;
-	    return m('.app', [
-	      m('h1', 'JavaScript to TKcode'),
-	      m('.main', [
-	        m('textarea#input', {
-	          onkeyup: m.withAttr('value', ctrl.input)
-	        }, ctrl.input()),
-	        m('textarea#output', {
-	          readonly: 'readonly',
-	          onfocus: (e) => { e.target.select(); }
-	        }, ctrl.getOutput())
-	      ])
-	    ]);
-	  }
-	};
-	
-	module.exports = component;
-
+	module.exports = (__webpack_require__(2))(23);
 
 /***/ }
 /******/ ]);

@@ -1,11 +1,16 @@
 'use strict';
 
 const Command = require('../command');
+const tkVarManager = require('../../lib/tk-var-manager');
 
 const keys = ['enter', 'cancel', 'shift', 'down', 'left', 'right', 'up'];
 class KeyEntry extends Command {
 
   run(receive, push = true, targetKeys = false) {
+    if (typeof receive == 'string') {
+      const number = tkVarManager.getVarNumber(receive);
+      receive = `${receive}(${number})`;
+    }
     this.writeLog(`var[${receive}], push[${push}], target[${targetKeys ? targetKeys.join(',') : "ALL"}]`);
 
     return true;

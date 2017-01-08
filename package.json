@@ -1,6 +1,6 @@
 {
   "name": "js-to-tkcode",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "JavaScript to TKcode",
   "main": "app.js",
   "private": true,
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/lpre-ys/js-to-tkcode#readme",
   "dependencies": {
     "escodegen": "^1.8.1",
+    "js-yaml": "^3.7.0",
     "json-loader": "^0.5.4",
     "mithril": "^0.2.5"
   },

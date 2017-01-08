@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    vendor: ['esprima', 'escodegen', 'estraverse', 'mithril']
+    vendor: ['esprima', 'escodegen', 'estraverse', 'mithril', 'js-yaml']
   },
   output: {
     path: path.join(__dirname, 'docs/build'),
