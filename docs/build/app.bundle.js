@@ -70,7 +70,7 @@
 
 	const m = __webpack_require__(1);
 	const JsToTkcode = __webpack_require__(4);
-	const yaml = __webpack_require__(30);
+	const yaml = __webpack_require__(32);
 	
 	const component = {
 	  controller: function () {
@@ -149,8 +149,8 @@
 	const TkMock = __webpack_require__(7);
 	
 	
-	const optimize = __webpack_require__(15);
-	const Parser = __webpack_require__(21);
+	const optimize = __webpack_require__(17);
+	const Parser = __webpack_require__(23);
 	
 	class JsToTkcode {
 	  constructor(options) {
@@ -228,11 +228,11 @@
 	const executeLog = __webpack_require__(8);
 	
 	const KeyEntry = __webpack_require__(9);
-	const MemberAdd = __webpack_require__(11);
-	const MemberRemove = __webpack_require__(12);
+	const AddMember = __webpack_require__(11);
+	const RemoveMember = __webpack_require__(12);
 	const MovePlace = __webpack_require__(13);
-	const PcHide = __webpack_require__(31);
-	const PcShow = __webpack_require__(32);
+	const HidePc = __webpack_require__(14);
+	const ShowPc = __webpack_require__(15);
 	
 	
 	class TkMock {
@@ -241,15 +241,15 @@
 	    this.commands = [];
 	    executeLog.reset();
 	    // const merge
-	    this.Const = __webpack_require__(14);
+	    this.Const = __webpack_require__(16);
 	    this.Const = Object.assign(this.Const, prjConst);
 	    // setFunctions
 	    this.setFunction(KeyEntry);
 	    this.setFunction(MovePlace);  // TODO test
-	    this.setFunction(MemberAdd);
-	    this.setFunction(MemberRemove);
-	    this.setFunction(PcHide);
-	    this.setFunction(PcShow);
+	    this.setFunction(AddMember);
+	    this.setFunction(RemoveMember);
+	    this.setFunction(HidePc);
+	    this.setFunction(ShowPc);
 	  }
 	  setOutputMode() {
 	    this.state = 'output';
@@ -390,7 +390,7 @@
 	'use strict';
 	
 	const Command = __webpack_require__(10);
-	class MemberAdd extends Command {
+	class AddMember extends Command {
 	
 	  run(member) {
 	    this.writeLog(`追加: ${member}`);
@@ -407,7 +407,7 @@
 	  }
 	}
 	
-	module.exports = MemberAdd;
+	module.exports = AddMember;
 
 
 /***/ },
@@ -466,6 +466,60 @@
 
 /***/ },
 /* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	const Command = __webpack_require__(10);
+	class HidePc extends Command {
+	
+	  run() {
+	    this.writeLog(`非表示`);
+	
+	    return true;
+	  }
+	
+	  output() {
+	    return [`Transparency(0)`];
+	  }
+	
+	  get JP_NAME() {
+	    return '主人公の透明状態変更';
+	  }
+	}
+	
+	module.exports = HidePc;
+
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	const Command = __webpack_require__(10);
+	class ShowPc extends Command {
+	
+	  run() {
+	    this.writeLog(`表示`);
+	
+	    return true;
+	  }
+	
+	  output() {
+	    return [`Transparency(1)`];
+	  }
+	
+	  get JP_NAME() {
+	    return '主人公の透明状態変更';
+	  }
+	}
+	
+	module.exports = ShowPc;
+
+
+/***/ },
+/* 16 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -485,16 +539,16 @@
 
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const estraverse = __webpack_require__(16);
+	const estraverse = __webpack_require__(18);
 	
-	const optimizeFor = __webpack_require__(17);
-	const optimizeConst = __webpack_require__(19);
-	const FunctionOptimizer = __webpack_require__(20);
+	const optimizeFor = __webpack_require__(19);
+	const optimizeConst = __webpack_require__(21);
+	const FunctionOptimizer = __webpack_require__(22);
 	
 	function optimize(ast, Const) {
 	  const functionOptimizer = new FunctionOptimizer();
@@ -554,20 +608,20 @@
 
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = (__webpack_require__(2))(3);
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	const esprima = __webpack_require__(5);
-	const escodegen = __webpack_require__(18);
-	const estraverse = __webpack_require__(16);
+	const escodegen = __webpack_require__(20);
+	const estraverse = __webpack_require__(18);
 	
 	function optimizeFor(node) {
 	  // pre perseが必要
@@ -605,18 +659,18 @@
 
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = (__webpack_require__(2))(2);
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const escodegen = __webpack_require__(18);
+	const escodegen = __webpack_require__(20);
 	
 	function optimizeConst(node, Const) {
 	  const code = escodegen.generate(node);
@@ -634,12 +688,12 @@
 
 
 /***/ },
-/* 20 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const esprima = __webpack_require__(5);
-	const estraverse = __webpack_require__(16);
-	const escodegen = __webpack_require__(18);
+	const estraverse = __webpack_require__(18);
+	const escodegen = __webpack_require__(20);
 	
 	class FunctionOptimizer{
 	  constructor() {
@@ -696,20 +750,20 @@
 
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const estraverse = __webpack_require__(16);
+	const estraverse = __webpack_require__(18);
 	
-	const tmpVarFactory = __webpack_require__(22);
+	const tmpVarFactory = __webpack_require__(24);
 	
-	const parseAssign = __webpack_require__(23);
-	const parseBinary = __webpack_require__(25);
-	const parseIf = __webpack_require__(26);
-	const parseWhile = __webpack_require__(28);
-	const parseCall = __webpack_require__(29);
+	const parseAssign = __webpack_require__(25);
+	const parseBinary = __webpack_require__(27);
+	const parseIf = __webpack_require__(28);
+	const parseWhile = __webpack_require__(30);
+	const parseCall = __webpack_require__(31);
 	
 	class Parser {
 	  constructor(tkMock) {
@@ -791,7 +845,7 @@
 
 
 /***/ },
-/* 22 */
+/* 24 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -821,12 +875,12 @@
 
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseVar = __webpack_require__(24);
+	const parseVar = __webpack_require__(26);
 	
 	function parseAssign(node, parser) {
 	  const left = parseVar(node.left);
@@ -866,13 +920,13 @@
 
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	const tkVarManager = __webpack_require__(6);
-	const tmpVarFactory = __webpack_require__(22);
+	const tmpVarFactory = __webpack_require__(24);
 	
 	function parseVar(node) {
 	  switch (node.type) {
@@ -900,15 +954,15 @@
 
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	const esprima = __webpack_require__(5);
-	const escodegen = __webpack_require__(18);
+	const escodegen = __webpack_require__(20);
 	
-	const tmpVarFactory = __webpack_require__(22);
+	const tmpVarFactory = __webpack_require__(24);
 	
 	function parseBinary(node, parser) {
 	  let {
@@ -988,12 +1042,12 @@
 
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseTest = __webpack_require__(27);
+	const parseTest = __webpack_require__(29);
 	
 	function parseIf(node, parser) {
 	  let {test, consequent, alternate} = node;
@@ -1011,12 +1065,12 @@
 
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseVar = __webpack_require__(24);
+	const parseVar = __webpack_require__(26);
 	
 	function parseTest(node, outputs) {
 	  // test句のパース
@@ -1059,12 +1113,12 @@
 
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseTest = __webpack_require__(27);
+	const parseTest = __webpack_require__(29);
 	
 	function parseWhile(node, parser) {
 	  parser.outputs.push(`Loop`);
@@ -1081,10 +1135,10 @@
 
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const escodegen = __webpack_require__(18);
+	const escodegen = __webpack_require__(20);
 	
 	function parseCall(node, parser) {
 	  const tkMock = parser.tkMock;
@@ -1128,64 +1182,10 @@
 
 
 /***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = (__webpack_require__(2))(23);
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	const Command = __webpack_require__(10);
-	class PcHide extends Command {
-	
-	  run() {
-	    this.writeLog(`非表示`);
-	
-	    return true;
-	  }
-	
-	  output() {
-	    return [`Transparency(0)`];
-	  }
-	
-	  get JP_NAME() {
-	    return '主人公の透明状態変更';
-	  }
-	}
-	
-	module.exports = PcHide;
-
-
-/***/ },
 /* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-	
-	const Command = __webpack_require__(10);
-	class PcShow extends Command {
-	
-	  run() {
-	    this.writeLog(`表示`);
-	
-	    return true;
-	  }
-	
-	  output() {
-	    return [`Transparency(1)`];
-	  }
-	
-	  get JP_NAME() {
-	    return '主人公の透明状態変更';
-	  }
-	}
-	
-	module.exports = PcShow;
-
+	module.exports = (__webpack_require__(2))(23);
 
 /***/ }
 /******/ ]);

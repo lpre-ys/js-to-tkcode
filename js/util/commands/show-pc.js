@@ -1,16 +1,16 @@
 'use strict';
 
 const Command = require('../command');
-class PcHide extends Command {
+class ShowPc extends Command {
 
   run() {
-    this.writeLog(`非表示`);
+    this.writeLog(`表示`);
 
     return true;
   }
 
   output() {
-    return [`Transparency(0)`];
+    return [`Transparency(1)`];
   }
 
   get JP_NAME() {
@@ -18,4 +18,4 @@ class PcHide extends Command {
   }
 }
 
-module.exports = PcHide;
+module.exports = ShowPc;

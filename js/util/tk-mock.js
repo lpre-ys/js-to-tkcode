@@ -3,11 +3,11 @@
 const executeLog = require('./execute-log');
 
 const KeyEntry = require('./commands/key-entry');
-const MemberAdd = require('./commands/member-add');
-const MemberRemove = require('./commands/member-remove');
+const AddMember = require('./commands/add-member');
+const RemoveMember = require('./commands/remove-member');
 const MovePlace = require('./commands/move-place');
-const PcHide = require('./commands/pc-hide');
-const PcShow = require('./commands/pc-show');
+const HidePc = require('./commands/hide-pc');
+const ShowPc = require('./commands/show-pc');
 
 
 class TkMock {
@@ -21,10 +21,10 @@ class TkMock {
     // setFunctions
     this.setFunction(KeyEntry);
     this.setFunction(MovePlace);  // TODO test
-    this.setFunction(MemberAdd);
-    this.setFunction(MemberRemove);
-    this.setFunction(PcHide);
-    this.setFunction(PcShow);
+    this.setFunction(AddMember);
+    this.setFunction(RemoveMember);
+    this.setFunction(HidePc);
+    this.setFunction(ShowPc);
   }
   setOutputMode() {
     this.state = 'output';
