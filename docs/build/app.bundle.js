@@ -70,7 +70,7 @@
 
 	const m = __webpack_require__(1);
 	const JsToTkcode = __webpack_require__(4);
-	const yaml = __webpack_require__(28);
+	const yaml = __webpack_require__(30);
 	
 	const component = {
 	  controller: function () {
@@ -149,8 +149,8 @@
 	const TkMock = __webpack_require__(7);
 	
 	
-	const optimize = __webpack_require__(13);
-	const Parser = __webpack_require__(19);
+	const optimize = __webpack_require__(15);
+	const Parser = __webpack_require__(21);
 	
 	class JsToTkcode {
 	  constructor(options) {
@@ -228,7 +228,12 @@
 	const executeLog = __webpack_require__(8);
 	
 	const KeyEntry = __webpack_require__(9);
-	const MovePlace = __webpack_require__(11);
+	const MemberAdd = __webpack_require__(11);
+	const MemberRemove = __webpack_require__(12);
+	const MovePlace = __webpack_require__(13);
+	const PcHide = __webpack_require__(31);
+	const PcShow = __webpack_require__(32);
+	
 	
 	class TkMock {
 	  constructor(prjConst = {}) {
@@ -236,11 +241,15 @@
 	    this.commands = [];
 	    executeLog.reset();
 	    // const merge
-	    this.Const = __webpack_require__(12);
+	    this.Const = __webpack_require__(14);
 	    this.Const = Object.assign(this.Const, prjConst);
 	    // setFunctions
 	    this.setFunction(KeyEntry);
 	    this.setFunction(MovePlace);  // TODO test
+	    this.setFunction(MemberAdd);
+	    this.setFunction(MemberRemove);
+	    this.setFunction(PcHide);
+	    this.setFunction(PcShow);
 	  }
 	  setOutputMode() {
 	    this.state = 'output';
@@ -381,6 +390,60 @@
 	'use strict';
 	
 	const Command = __webpack_require__(10);
+	class MemberAdd extends Command {
+	
+	  run(member) {
+	    this.writeLog(`追加: ${member}`);
+	
+	    return true;
+	  }
+	
+	  output(member) {
+	    return [`Member(0, 0, ${member})`];
+	  }
+	
+	  get JP_NAME() {
+	    return 'メンバーの入れ替え';
+	  }
+	}
+	
+	module.exports = MemberAdd;
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	const Command = __webpack_require__(10);
+	class MemberRemove extends Command {
+	
+	  run(member) {
+	    this.writeLog(`削除: ${member}`);
+	
+	    return true;
+	  }
+	
+	  output(member) {
+	    return [`Member(1, 0, ${member})`];
+	  }
+	
+	  get JP_NAME() {
+	    return 'メンバーの入れ替え';
+	  }
+	}
+	
+	module.exports = MemberRemove;
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	const Command = __webpack_require__(10);
 	class MovePlace extends Command {
 	
 	  run(map, x, y) {
@@ -402,7 +465,7 @@
 
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -422,16 +485,16 @@
 
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const estraverse = __webpack_require__(14);
+	const estraverse = __webpack_require__(16);
 	
-	const optimizeFor = __webpack_require__(15);
-	const optimizeConst = __webpack_require__(17);
-	const FunctionOptimizer = __webpack_require__(18);
+	const optimizeFor = __webpack_require__(17);
+	const optimizeConst = __webpack_require__(19);
+	const FunctionOptimizer = __webpack_require__(20);
 	
 	function optimize(ast, Const) {
 	  const functionOptimizer = new FunctionOptimizer();
@@ -491,20 +554,20 @@
 
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = (__webpack_require__(2))(3);
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	const esprima = __webpack_require__(5);
-	const escodegen = __webpack_require__(16);
-	const estraverse = __webpack_require__(14);
+	const escodegen = __webpack_require__(18);
+	const estraverse = __webpack_require__(16);
 	
 	function optimizeFor(node) {
 	  // pre perseが必要
@@ -542,18 +605,18 @@
 
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = (__webpack_require__(2))(2);
 
 /***/ },
-/* 17 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const escodegen = __webpack_require__(16);
+	const escodegen = __webpack_require__(18);
 	
 	function optimizeConst(node, Const) {
 	  const code = escodegen.generate(node);
@@ -571,12 +634,12 @@
 
 
 /***/ },
-/* 18 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const esprima = __webpack_require__(5);
-	const estraverse = __webpack_require__(14);
-	const escodegen = __webpack_require__(16);
+	const estraverse = __webpack_require__(16);
+	const escodegen = __webpack_require__(18);
 	
 	class FunctionOptimizer{
 	  constructor() {
@@ -633,20 +696,20 @@
 
 
 /***/ },
-/* 19 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const estraverse = __webpack_require__(14);
+	const estraverse = __webpack_require__(16);
 	
-	const tmpVarFactory = __webpack_require__(20);
+	const tmpVarFactory = __webpack_require__(22);
 	
-	const parseAssign = __webpack_require__(21);
-	const parseBinary = __webpack_require__(23);
-	const parseIf = __webpack_require__(24);
-	const parseWhile = __webpack_require__(26);
-	const parseCall = __webpack_require__(27);
+	const parseAssign = __webpack_require__(23);
+	const parseBinary = __webpack_require__(25);
+	const parseIf = __webpack_require__(26);
+	const parseWhile = __webpack_require__(28);
+	const parseCall = __webpack_require__(29);
 	
 	class Parser {
 	  constructor(tkMock) {
@@ -728,7 +791,7 @@
 
 
 /***/ },
-/* 20 */
+/* 22 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -758,12 +821,12 @@
 
 
 /***/ },
-/* 21 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseVar = __webpack_require__(22);
+	const parseVar = __webpack_require__(24);
 	
 	function parseAssign(node, parser) {
 	  const left = parseVar(node.left);
@@ -803,13 +866,13 @@
 
 
 /***/ },
-/* 22 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	const tkVarManager = __webpack_require__(6);
-	const tmpVarFactory = __webpack_require__(20);
+	const tmpVarFactory = __webpack_require__(22);
 	
 	function parseVar(node) {
 	  switch (node.type) {
@@ -837,15 +900,15 @@
 
 
 /***/ },
-/* 23 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	const esprima = __webpack_require__(5);
-	const escodegen = __webpack_require__(16);
+	const escodegen = __webpack_require__(18);
 	
-	const tmpVarFactory = __webpack_require__(20);
+	const tmpVarFactory = __webpack_require__(22);
 	
 	function parseBinary(node, parser) {
 	  let {
@@ -925,12 +988,12 @@
 
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseTest = __webpack_require__(25);
+	const parseTest = __webpack_require__(27);
 	
 	function parseIf(node, parser) {
 	  let {test, consequent, alternate} = node;
@@ -948,12 +1011,12 @@
 
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseVar = __webpack_require__(22);
+	const parseVar = __webpack_require__(24);
 	
 	function parseTest(node, outputs) {
 	  // test句のパース
@@ -996,12 +1059,12 @@
 
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseTest = __webpack_require__(25);
+	const parseTest = __webpack_require__(27);
 	
 	function parseWhile(node, parser) {
 	  parser.outputs.push(`Loop`);
@@ -1018,10 +1081,10 @@
 
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const escodegen = __webpack_require__(16);
+	const escodegen = __webpack_require__(18);
 	
 	function parseCall(node, parser) {
 	  const tkMock = parser.tkMock;
@@ -1065,10 +1128,64 @@
 
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = (__webpack_require__(2))(23);
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	const Command = __webpack_require__(10);
+	class PcHide extends Command {
+	
+	  run() {
+	    this.writeLog(`非表示`);
+	
+	    return true;
+	  }
+	
+	  output() {
+	    return [`Transparency(0)`];
+	  }
+	
+	  get JP_NAME() {
+	    return '主人公の透明状態変更';
+	  }
+	}
+	
+	module.exports = PcHide;
+
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	const Command = __webpack_require__(10);
+	class PcShow extends Command {
+	
+	  run() {
+	    this.writeLog(`表示`);
+	
+	    return true;
+	  }
+	
+	  output() {
+	    return [`Transparency(1)`];
+	  }
+	
+	  get JP_NAME() {
+	    return '主人公の透明状態変更';
+	  }
+	}
+	
+	module.exports = PcShow;
+
 
 /***/ }
 /******/ ]);
