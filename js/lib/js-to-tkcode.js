@@ -15,7 +15,7 @@ class JsToTkcode {
   constructor(options) {
     tkVarManager.setOptions(options);
     this.TkMock = TkMock;
-    this.tkMock = new TkMock();
+    this.tkMock = new TkMock(options.pjConst || {});
     this.parser = new Parser(this.tkMock);
   }
   translate(script, isTmp = false) {
@@ -28,6 +28,7 @@ class JsToTkcode {
   }
   resetConfig(options) {
     tkVarManager.setOptions(options);
+    this.tkMock = new TkMock(options.pjConst || {});
   }
 }
 

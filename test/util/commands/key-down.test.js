@@ -38,7 +38,7 @@ describe('keyEntry(キー入力)', () => {
         const tmpEnd = 102;
         tkVarManager.setOptions({varList, tmpStart, tmpEnd});
         keyEntry.run('testVar');
-        assert(executeLog.last == '◆キー入力の処理：var[testVar(45)], push[true], target[ALL]');
+        assert(executeLog.last == '◆キー入力の処理：var[testVar], push[true], target[ALL]');
       });
     });
   });
