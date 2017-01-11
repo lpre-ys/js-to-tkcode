@@ -70,7 +70,7 @@
 
 	const m = __webpack_require__(1);
 	const JsToTkcode = __webpack_require__(4);
-	const yaml = __webpack_require__(27);
+	const yaml = __webpack_require__(28);
 	
 	const component = {
 	  controller: function () {
@@ -149,8 +149,8 @@
 	const TkMock = __webpack_require__(7);
 	
 	
-	const optimize = __webpack_require__(12);
-	const Parser = __webpack_require__(18);
+	const optimize = __webpack_require__(13);
+	const Parser = __webpack_require__(19);
 	
 	class JsToTkcode {
 	  constructor(options) {
@@ -227,6 +227,7 @@
 	const executeLog = __webpack_require__(8);
 	
 	const KeyEntry = __webpack_require__(9);
+	const MovePlace = __webpack_require__(11);
 	
 	class TkMock {
 	  constructor(prjConst = {}) {
@@ -234,25 +235,11 @@
 	    this.commands = [];
 	    executeLog.reset();
 	    // const merge
-	    this.Const = __webpack_require__(11);
+	    this.Const = __webpack_require__(12);
 	    this.Const = Object.assign(this.Const, prjConst);
-	    // set Functions;
-	    const keyEntry = new KeyEntry();
-	    this.keyEntry = (...args) => {
-	      return keyEntry.execute.apply(keyEntry, args);
-	    };
-	    this.commands.push(keyEntry);
-	    // const dir = __dirname + '/commands';
-	    // const filelist = ['key-entry.js'];  // TODO
-	    // filelist.forEach((filename) => {
-	    //   const functionName = this.makeFunctionName(filename.slice(0, -3));
-	    //   const cmdClass = require(dir + '/' + filename);
-	    //   const instance = new cmdClass();
-	    //   this[functionName] = (...args) => {
-	    //     return instance.execute.apply(instance, args);
-	    //   };
-	    //   this.commands.push(instance);
-	    // });
+	    // setFunctions
+	    this.setFunction(KeyEntry);
+	    this.setFunction(MovePlace);  // TODO test
 	  }
 	  setOutputMode() {
 	    this.state = 'output';
@@ -260,15 +247,19 @@
 	      command.mode = 'output';
 	    });
 	  }
+	
+	  setFunction(Klass) {
+	    // TODO test
+	    const obj = new Klass();
+	    const functionName = Klass.name.charAt(0).toLowerCase() + Klass.name.substr(1);
+	    this[functionName] = (...args) => {
+	      return obj.execute.apply(obj, args);
+	    };
+	    this.commands.push(obj);
+	  }
+	
 	  get name() {
 	    return 'tkMock';
-	  }
-	  makeFunctionName(str) {
-	    const ret = str.replace(/-./g, (matched) => {
-	        return matched.charAt(1).toUpperCase();
-	    });
-	
-	    return ret;
 	  }
 	  get log() {
 	    return executeLog.log;
@@ -324,10 +315,6 @@
 	class KeyEntry extends Command {
 	
 	  run(receive, push = true, targetKeys = false) {
-	    if (typeof receive == 'string') {
-	      const number = tkVarManager.getVarNumber(receive);
-	      receive = `${receive}(${number})`;
-	    }
 	    this.writeLog(`var[${receive}], push[${push}], target[${targetKeys ? targetKeys.join(',') : "ALL"}]`);
 	
 	    return true;
@@ -338,6 +325,10 @@
 	      keyCodes.push((!targetKeys || targetKeys.includes(key)) ? 1 : 0);
 	    });
 	
+	    if (typeof receive == 'string') {
+	      const number = tkVarManager.getVarNumber(receive);
+	      receive = number;
+	    }
 	    return [`KeyEntry(${receive}, ${push ? 1 : 0}, 1, ${keyCodes.join(', ')})`];
 	  }
 	  get JP_NAME() {
@@ -384,6 +375,33 @@
 
 /***/ },
 /* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	const Command = __webpack_require__(10);
+	class MovePlace extends Command {
+	
+	  run(map, x, y) {
+	    this.writeLog(`map[${map}], x[${x}], y[${y}]`);
+	
+	    return true;
+	  }
+	
+	  output(map, x, y) {
+	    return [`MovePlace(${map}, ${x}, ${y})`];
+	  }
+	
+	  get JP_NAME() {
+	    return '場所移動';
+	  }
+	}
+	
+	module.exports = MovePlace;
+
+
+/***/ },
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -403,18 +421,18 @@
 
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const estraverse = __webpack_require__(13);
+	const estraverse = __webpack_require__(14);
 	
-	const optimizeFor = __webpack_require__(14);
-	const optimizeConst = __webpack_require__(16);
-	const FunctionOptimizer = __webpack_require__(17);
+	const optimizeFor = __webpack_require__(15);
+	const optimizeConst = __webpack_require__(17);
+	const FunctionOptimizer = __webpack_require__(18);
 	
-	function optimize(ast) {
+	function optimize(ast, Const) {
 	  const functionOptimizer = new FunctionOptimizer();
 	  // 基本のoptimizeと、functionを退避
 	  estraverse.replace(ast, {
@@ -425,7 +443,7 @@
 	          return optimizeFor(node);
 	        }
 	        case 'MemberExpression': {
-	          const newNode = optimizeConst(node);
+	          const newNode = optimizeConst(node, Const);
 	          if (newNode) {
 	            return newNode;
 	          }
@@ -472,20 +490,20 @@
 
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = (__webpack_require__(2))(3);
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	const esprima = __webpack_require__(5);
-	const escodegen = __webpack_require__(15);
-	const estraverse = __webpack_require__(13);
+	const escodegen = __webpack_require__(16);
+	const estraverse = __webpack_require__(14);
 	
 	function optimizeFor(node) {
 	  // pre perseが必要
@@ -523,18 +541,18 @@
 
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = (__webpack_require__(2))(2);
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const escodegen = __webpack_require__(15);
+	const escodegen = __webpack_require__(16);
 	
 	function optimizeConst(node, Const) {
 	  const code = escodegen.generate(node);
@@ -552,12 +570,12 @@
 
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	const esprima = __webpack_require__(5);
-	const estraverse = __webpack_require__(13);
-	const escodegen = __webpack_require__(15);
+	const estraverse = __webpack_require__(14);
+	const escodegen = __webpack_require__(16);
 	
 	class FunctionOptimizer{
 	  constructor() {
@@ -614,20 +632,20 @@
 
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const estraverse = __webpack_require__(13);
+	const estraverse = __webpack_require__(14);
 	
-	const tmpVarFactory = __webpack_require__(19);
+	const tmpVarFactory = __webpack_require__(20);
 	
-	const parseAssign = __webpack_require__(20);
-	const parseBinary = __webpack_require__(22);
-	const parseIf = __webpack_require__(23);
-	const parseWhile = __webpack_require__(25);
-	const parseCall = __webpack_require__(26);
+	const parseAssign = __webpack_require__(21);
+	const parseBinary = __webpack_require__(23);
+	const parseIf = __webpack_require__(24);
+	const parseWhile = __webpack_require__(26);
+	const parseCall = __webpack_require__(27);
 	
 	class Parser {
 	  constructor(tkMock) {
@@ -671,6 +689,15 @@
 	              this.skip();
 	              break;
 	            }
+	            case 'ExpressionStatement': {
+	              // skip module
+	              if (node.expression.type == 'AssignmentExpression'
+	                  && node.expression.left.type == 'MemberExpression'
+	                  && node.expression.left.object.name == 'module') {
+	                this.skip();
+	              }
+	              break;
+	            }
 	          }
 	        },
 	        leave: function (node) {
@@ -700,7 +727,7 @@
 
 
 /***/ },
-/* 19 */
+/* 20 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -730,12 +757,12 @@
 
 
 /***/ },
-/* 20 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseVar = __webpack_require__(21);
+	const parseVar = __webpack_require__(22);
 	
 	function parseAssign(node, parser) {
 	  const left = parseVar(node.left);
@@ -775,13 +802,13 @@
 
 
 /***/ },
-/* 21 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	const tkVarManager = __webpack_require__(6);
-	const tmpVarFactory = __webpack_require__(19);
+	const tmpVarFactory = __webpack_require__(20);
 	
 	function parseVar(node) {
 	  switch (node.type) {
@@ -809,15 +836,15 @@
 
 
 /***/ },
-/* 22 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	const esprima = __webpack_require__(5);
-	const escodegen = __webpack_require__(15);
+	const escodegen = __webpack_require__(16);
 	
-	const tmpVarFactory = __webpack_require__(19);
+	const tmpVarFactory = __webpack_require__(20);
 	
 	function parseBinary(node, parser) {
 	  let {
@@ -897,12 +924,12 @@
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseTest = __webpack_require__(24);
+	const parseTest = __webpack_require__(25);
 	
 	function parseIf(node, parser) {
 	  let {test, consequent, alternate} = node;
@@ -920,12 +947,12 @@
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseVar = __webpack_require__(21);
+	const parseVar = __webpack_require__(22);
 	
 	function parseTest(node, outputs) {
 	  // test句のパース
@@ -968,12 +995,12 @@
 
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	const parseTest = __webpack_require__(24);
+	const parseTest = __webpack_require__(25);
 	
 	function parseWhile(node, parser) {
 	  parser.outputs.push(`Loop`);
@@ -990,10 +1017,10 @@
 
 
 /***/ },
-/* 26 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	const escodegen = __webpack_require__(15);
+	const escodegen = __webpack_require__(16);
 	
 	function parseCall(node, parser) {
 	  const tkMock = parser.tkMock;
@@ -1037,7 +1064,7 @@
 
 
 /***/ },
-/* 27 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = (__webpack_require__(2))(23);

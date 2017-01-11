@@ -7,10 +7,6 @@ const keys = ['enter', 'cancel', 'shift', 'down', 'left', 'right', 'up'];
 class KeyEntry extends Command {
 
   run(receive, push = true, targetKeys = false) {
-    if (typeof receive == 'string') {
-      const number = tkVarManager.getVarNumber(receive);
-      receive = `${receive}(${number})`;
-    }
     this.writeLog(`var[${receive}], push[${push}], target[${targetKeys ? targetKeys.join(',') : "ALL"}]`);
 
     return true;
@@ -21,6 +17,10 @@ class KeyEntry extends Command {
       keyCodes.push((!targetKeys || targetKeys.includes(key)) ? 1 : 0);
     });
 
+    if (typeof receive == 'string') {
+      const number = tkVarManager.getVarNumber(receive);
+      receive = number;
+    }
     return [`KeyEntry(${receive}, ${push ? 1 : 0}, 1, ${keyCodes.join(', ')})`];
   }
   get JP_NAME() {

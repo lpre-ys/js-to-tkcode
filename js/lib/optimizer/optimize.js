@@ -6,7 +6,7 @@ const optimizeFor = require('./optimize-for');
 const optimizeConst = require('./optimize-const');
 const FunctionOptimizer = require('./function-optimizer');
 
-function optimize(ast) {
+function optimize(ast, Const) {
   const functionOptimizer = new FunctionOptimizer();
   // 基本のoptimizeと、functionを退避
   estraverse.replace(ast, {
@@ -17,7 +17,7 @@ function optimize(ast) {
           return optimizeFor(node);
         }
         case 'MemberExpression': {
-          const newNode = optimizeConst(node);
+          const newNode = optimizeConst(node, Const);
           if (newNode) {
             return newNode;
           }

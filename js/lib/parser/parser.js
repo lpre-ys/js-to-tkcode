@@ -52,6 +52,15 @@ class Parser {
               this.skip();
               break;
             }
+            case 'ExpressionStatement': {
+              // skip module
+              if (node.expression.type == 'AssignmentExpression'
+                  && node.expression.left.type == 'MemberExpression'
+                  && node.expression.left.object.name == 'module') {
+                this.skip();
+              }
+              break;
+            }
           }
         },
         leave: function (node) {

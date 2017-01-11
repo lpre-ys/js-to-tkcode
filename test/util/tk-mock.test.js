@@ -40,7 +40,7 @@ describe('TkMock', () => {
     });
     describe('commands', () => {
       it('tkMock.commands.keyEntryが存在していること', () => {
-        assert(tkMock.commands.length == 1);
+        assert(tkMock.commands.length >= 1);
       });
     });
     describe('this.function', () => {
