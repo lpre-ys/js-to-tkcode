@@ -13,7 +13,7 @@ function optimize(ast, Const) {
     enter: function (node) {
       switch (node.type) {
         case 'ForStatement': {
-          this.skip();
+          // this.skip();
           return optimizeFor(node);
         }
         case 'MemberExpression': {

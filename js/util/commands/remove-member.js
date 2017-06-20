@@ -1,7 +1,7 @@
 'use strict';
 
 const Command = require('../command');
-class MemberRemove extends Command {
+class RemoveMember extends Command {
 
   run(member) {
     this.writeLog(`削除: ${member}`);
@@ -18,4 +18,4 @@ class MemberRemove extends Command {
   }
 }
 
-module.exports = MemberRemove;
+module.exports = RemoveMember;

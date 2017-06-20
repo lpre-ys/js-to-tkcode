@@ -29,15 +29,22 @@ describe('Parser parseVar', () => {
 
         assert(ret == 100);
       });
+      it('普通の配列(添え時0)', () => {
+        const node = esprima.parse('test[0]').body[0].expression;
+        const ret = parseVar(node);
+
+        assert(ret == 42);
+      });
+      it('普通の配列(添え時3)', () => {
+        const node = esprima.parse('test[3]').body[0].expression;
+        const ret = parseVar(node);
+
+        assert(ret == 45);
+      });
     });
   });
   describe('異常系', () => {
     describe('MemberExpression', () => {
-      it('TMP以外のオブジェクト', () => {
-        const node = esprima.parse('TEST[0]').body[0].expression;
-
-        assert.throws(() => {parseVar(node);}, Error);
-      });
       it('Literal以外のプロパティ', () => {
         const node = esprima.parse('TEST.test').body[0].expression;
 

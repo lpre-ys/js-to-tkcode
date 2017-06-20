@@ -1,5 +1,7 @@
 'use strict';
 
+const tkVarManager = require('../lib/tk-var-manager');
+
 class Command {
   constructor() {
     this.mode = 'exec';
@@ -23,6 +25,20 @@ class Command {
   }
   writeLog(message) {
     this.executeLog.push(`◆${this.JP_NAME}：${message}`);
+  }
+
+  parseVar(variable) {
+    if (typeof variable == 'string') {
+      // 配列のパース TODO test書きたい
+      const matchResult = variable.match(/(.*)\[(\d+)\]/);
+      if (matchResult) {
+        variable = tkVarManager.getVarNumber(matchResult[1]) + parseInt(matchResult[2], 10);
+      } else {
+        variable = tkVarManager.getVarNumber(variable);
+      }
+    }
+
+    return variable;
   }
 }
 module.exports = Command;

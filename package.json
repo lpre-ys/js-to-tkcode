@@ -3,6 +3,9 @@
   "version": "1.0.3",
   "description": "JavaScript to TKcode",
   "main": "app.js",
+  "bin": {
+    "js2tk": "js/bin/main.js"
+  },
   "private": true,
   "scripts": {
     "build": "webpack",
@@ -21,10 +24,16 @@
   },
   "homepage": "https://github.com/lpre-ys/js-to-tkcode#readme",
   "dependencies": {
+    "chokidar": "^1.6.1",
     "escodegen": "^1.8.1",
+    "fs": "0.0.1-security",
+    "fs-readdir-recursive": "^1.0.0",
     "js-yaml": "^3.7.0",
     "json-loader": "^0.5.4",
-    "mithril": "^0.2.5"
+    "minimist": "^1.2.0",
+    "mithril": "^0.2.5",
+    "mkdirp": "^0.5.1",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "intelli-espower-loader": "^1.0.1",

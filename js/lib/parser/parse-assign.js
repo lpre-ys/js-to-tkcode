@@ -15,6 +15,13 @@ function parseAssign(node, parser) {
       }
       break;
     }
+    case 'UnaryExpression': {
+      if (right.operator !== '-') {
+        throw Error(`parseAssignにて未対応の右辺: ${JSON.stringify(node.right)}`);
+      }
+      parser.outputs.push(`Variable(0, ${left}, ${left}, ${opeNumber}, 0, ${right.argument.value * -1}, 0)`);
+      break;
+    }
     case 'MemberExpression':
     case 'Identifier': {
       const rightNumber = parseVar(right);

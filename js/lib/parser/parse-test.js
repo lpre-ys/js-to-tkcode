@@ -2,21 +2,35 @@
 
 const parseVar = require('./parse-var');
 
-function parseTest(node, outputs) {
+function parseTest(node, outputs, hasElse = false) {
   // test句のパース
   switch (node.type) {
     case 'BinaryExpression': {
       const varType = node.right.type === 'Literal' ? 0 : 1;
       const right = node.right.type === 'Literal' ? node.right.value : parseVar(node.right);
-      outputs.push(`If(01, ${parseVar(node.left)}, ${varType}, ${right}, ${TestOperators[node.operator]}, 0)`);
+      outputs.push(`If(01, ${parseVar(node.left)}, ${varType}, ${right}, ${TestOperators[node.operator]}, ${hasElse ? 1 : 0})`);
       break;
     }
     case 'Identifier': {
-      outputs.push(`If(00, ${parseVar(node)}, 0, 0, 0, 0)`);
+      outputs.push(`If(00, ${parseVar(node)}, 0, 0, 0, ${hasElse ? 1 : 0})`);
       break;
     }
     case 'UnaryExpression': {
-      outputs.push(`If(00, ${parseVar(node.argument)}, 1, 0, 0, 0)`);
+      outputs.push(`If(00, ${parseVar(node.argument)}, 1, 0, 0, ${hasElse ? 1 : 0})`);
+      break;
+    }
+    case 'CallExpression': {
+      const args = node.arguments;
+      const params = [];
+      for (let i = 0; i < 5; i++) {
+        if (args[i] !== undefined) {
+          params.push(args[i].value);
+        } else {
+          params.push(0);
+        }
+      }
+      params.push(hasElse ? 1 : 0);
+      outputs.push(`If(${params.join(', ')})`);
       break;
     }
     case 'Literal': {

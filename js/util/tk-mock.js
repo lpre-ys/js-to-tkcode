@@ -1,14 +1,7 @@
 'use strict';
 
 const executeLog = require('./execute-log');
-
-const KeyEntry = require('./commands/key-entry');
-const AddMember = require('./commands/add-member');
-const RemoveMember = require('./commands/remove-member');
-const MovePlace = require('./commands/move-place');
-const HidePc = require('./commands/hide-pc');
-const ShowPc = require('./commands/show-pc');
-
+const commandList = require('./command-list');
 
 class TkMock {
   constructor(prjConst = {}) {
@@ -19,12 +12,10 @@ class TkMock {
     this.Const = require('./const');
     this.Const = Object.assign(this.Const, prjConst);
     // setFunctions
-    this.setFunction(KeyEntry);
-    this.setFunction(MovePlace);  // TODO test
-    this.setFunction(AddMember);
-    this.setFunction(RemoveMember);
-    this.setFunction(HidePc);
-    this.setFunction(ShowPc);
+
+    Object.keys(commandList).forEach((key) => {
+      this.setFunction(commandList[key]);
+    });
   }
   setOutputMode() {
     this.state = 'output';
@@ -41,6 +32,10 @@ class TkMock {
       return obj.execute.apply(obj, args);
     };
     this.commands.push(obj);
+  }
+
+  addConfig(constObj) {
+    this.Const = Object.assign(this.Const, constObj);
   }
 
   get name() {

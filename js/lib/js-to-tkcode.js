@@ -18,11 +18,11 @@ class JsToTkcode {
     this.tkMock = new TkMock(options.pjConst || {});
     this.parser = new Parser(this.tkMock);
   }
-  translate(script, isTmp = false) {
+  translate(script, subConst = {}) {
     this.parser.reset();
     const ast = esprima.parse(script);
-    const optimized = optimize(ast, this.tkMock.Const);
-    this.parser.parseAst(optimized, isTmp);
+    const optimized = optimize(ast, Object.assign(this.tkMock.Const, subConst));
+    this.parser.parseAst(optimized, false);
 
     return this.parser.outputs.join("\n");
   }

@@ -1,0 +1,82 @@
+const AddMember = require('./commands/add-member');
+const HidePc = require('./commands/hide-pc');
+const KeyEntry = require('./commands/key-entry');
+const RemoveMember = require('./commands/remove-member');
+const MovePlace = require('./commands/move-place');
+const ShowPc = require('./commands/show-pc');
+const HideScreen = require('./commands/hide-screen');
+const ShowScreen = require('./commands/show-screen');
+const ShowPicture = require('./commands/show-picture');
+const MovePicture = require('./commands/move-picture');
+const DeletePicture = require('./commands/delete-picture');
+const PlaySound = require('./commands/play-sound');
+const Choice = require('./commands/choice');
+const ExitEvent = require('./commands/exit-event');
+const Rand = require('./commands/rand');
+const RangeAssign = require('./commands/range-assign');
+const RangeBoolean = require('./commands/range-boolean');
+const CallEvent = require('./commands/call-event');
+const CallMapEvent = require('./commands/call-map-event');
+const Wait = require('./commands/wait');
+const ExecAllAction = require('./commands/exec-all-action');
+const StartAction = require('./commands/start-action');
+const Action = require('./commands/action');
+const ActionSound = require('./commands/action-sound');
+const ActionSwitch = require('./commands/action-switch');
+const ActionGraphic = require('./commands/action-graphic');
+const Effect = require('./commands/effect');
+const MoveEvent = require('./commands/move-event');
+const Message = require('./commands/message');
+const ChangeTone = require('./commands/change-tone');
+
+const StackInit = require('./commands/stack/stack-init');
+const StackPush = require('./commands/stack/stack-push');
+const StackPop = require('./commands/stack/stack-pop');
+
+const QueueInit = require('./commands/queue/queue-init');
+const QueueEnqueue = require('./commands/queue/queue-enqueue');
+const QueueDequeue = require('./commands/queue/queue-dequeue');
+
+const Raw = require('./commands/raw');
+
+const commandList = {
+  KeyEntry,
+  AddMember,
+  RemoveMember,
+  MovePlace,
+  HidePc,
+  ShowPc,
+  HideScreen,
+  ShowScreen,
+  ShowPicture,
+  MovePicture,
+  DeletePicture,
+  PlaySound,
+  Choice,
+  ExitEvent,
+  CallEvent,
+  CallMapEvent,
+  Rand,
+  RangeAssign,
+  RangeBoolean,
+  Wait,
+  ExecAllAction,
+  StartAction,
+  Action,
+  ActionSound,
+  ActionSwitch,
+  ActionGraphic,
+  Effect,
+  MoveEvent,
+  Message,
+  ChangeTone,
+  StackInit,
+  StackPush,
+  StackPop,
+  QueueInit,
+  QueueEnqueue,
+  QueueDequeue,
+  Raw
+};
+
+module.exports = commandList;

@@ -175,7 +175,7 @@ EndIf`);
         } else {
           test2 = 789;
         }`);
-        assert(ret == `If(01, 42, 0, 123, 0, 0)
+        assert(ret == `If(01, 42, 0, 123, 0, 1)
 Variable(0, 43, 43, 0, 0, 456, 0)
 Else
 Variable(0, 43, 43, 0, 0, 789, 0)
@@ -183,5 +183,14 @@ EndIf`);
       });
     });
   });
-
+  describe('Constの合算', () => {
+    it('Const追加無し', () => {
+      const ret = jsToTkcode.translate(`test = tkMock.Const.KEY_DOWN`);
+      assert(ret == "Variable(0, 42, 42, 0, 0, 1, 0)");
+    });
+    it('Const追加有り', () => {
+      const ret = jsToTkcode.translate(`test = tkMock.Const.ADD_CONST`, {'ADD_CONST': 1432});
+      assert(ret == "Variable(0, 42, 42, 0, 0, 1432, 0)");
+    });
+  });
 });
