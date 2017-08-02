@@ -10,11 +10,8 @@
       'm' : true
     },
     "parserOptions": {
-      "ecmaVersion": 6,
+      "ecmaVersion": 2017,
       "sourceType": "module"
-    },
-    "ecmaFeatures": {
-      "modules": true
     },
     "rules": {
       "comma-spacing": [2, {"before": false, "after": true}],

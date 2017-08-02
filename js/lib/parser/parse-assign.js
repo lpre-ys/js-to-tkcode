@@ -3,15 +3,20 @@
 const parseVar = require('./parse-var');
 
 function parseAssign(node, parser) {
-  const left = parseVar(node.left);
+  let left = parseVar(node.left, parser);
+  let leftType = 0;
+  if (typeof left == 'object') {
+    left = left.indexVarNum;
+    leftType = 2;
+  }
   const right = node.right;
   const opeNumber = Operators[node.operator.substr(0, 1)];
   switch (right.type) {
     case 'Literal': {
       if(typeof right.value === 'boolean') {
-        parser.outputs.push(`Switch(0, ${left}, ${left}, ${right.value ? 0 : 1})`);
+        parser.outputs.push(`Switch(${leftType}, ${left}, ${leftType == 2 ? 0 : left}, ${right.value ? 0 : 1})`);
       } else {
-        parser.outputs.push(`Variable(0, ${left}, ${left}, ${opeNumber}, 0, ${right.value}, 0)`);
+        parser.outputs.push(`Variable(${leftType}, ${left}, ${leftType == 2 ? 0 : left}, ${opeNumber}, 0, ${right.value}, 0)`);
       }
       break;
     }
@@ -19,13 +24,18 @@ function parseAssign(node, parser) {
       if (right.operator !== '-') {
         throw Error(`parseAssignにて未対応の右辺: ${JSON.stringify(node.right)}`);
       }
-      parser.outputs.push(`Variable(0, ${left}, ${left}, ${opeNumber}, 0, ${right.argument.value * -1}, 0)`);
+      parser.outputs.push(`Variable(${leftType}, ${left}, ${leftType == 2 ? 0 : left}, ${opeNumber}, 0, ${right.argument.value * -1}, 0)`);
       break;
     }
     case 'MemberExpression':
     case 'Identifier': {
-      const rightNumber = parseVar(right);
-      parser.outputs.push(`Variable(0, ${left}, ${left}, ${opeNumber}, 1, ${rightNumber}, 0)`);
+      let rightNumber = parseVar(right, parser);
+      let rightType = 1;
+      if (typeof rightNumber == 'object') {
+        rightNumber = rightNumber.indexVarNum;
+        rightType = 2;
+      }
+      parser.outputs.push(`Variable(${leftType}, ${left}, ${leftType == 2 ? 0 : left}, ${opeNumber}, ${rightType}, ${rightNumber}, 0)`);
       break;
     }
     default: {

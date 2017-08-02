@@ -37,17 +37,24 @@ const libs = [];
 readdirRec(libPath, libs, /.*\.js$/);
 
 const pjConfig = yaml.load(fs.readFileSync(path.resolve(config.pjConfig)).toString());
+if (config.database) {
+  pjConfig['database'] = path.resolve(config.database);
+}
 const jsToTkcode = new JsToTkcode(pjConfig);
-
-// load lib
 let buildedLib = '';
-loadLib();
 
-// build
-scripts.forEach((script) => {
-  build(script, buildedLib);
+// load database
+jsToTkcode.loadDatabase().then(() => {
+  // load lib
+  loadLib();
+
+  // build
+  scripts.forEach((script) => {
+    build(script, buildedLib);
+  });
+  console.log(`INIT-END`);
 });
-console.log(`INIT-END`);
+
 
 
 function build(scriptPath, lib) {
@@ -72,6 +79,8 @@ function build(scriptPath, lib) {
   } catch (e) {
     console.error(`${red}!!!BUILD-ERROR!!!${reset}: ${scriptPath.replace(scriptsPath, '')}`);
     console.error(`        ${e.message}`);
+    // DEBUG
+    // console.error(e.stack);
     return;
   }
   console.log(`${green}BUILD-END${reset}: ${scriptPath.replace(scriptsPath, '')}`);

@@ -23,7 +23,7 @@ class StackPush extends Command {
     ret.push(`If(01, ${base}, 1, ${base + 1}, 1, 1)`); // equalでもいいけど……
 
     // debug Message  // TODO エラー処理
-    ret.push(`Text("isFull")`);
+    // ret.push(`Text("isFull")`);
 
     ret.push(`Else`);
 
@@ -31,10 +31,10 @@ class StackPush extends Command {
     if (typeof value == 'string') {
       // var
       value = this.parseVar(value);
-      ret.push(`Variable(2, ${base}, ${base}, 0, 1, ${value}, 0)`);
+      ret.push(`Variable(2, ${base}, 0, 0, 1, ${value}, 0)`);
     } else {
       // int扱い
-      ret.push(`Variable(2, ${base}, ${base}, 0, 0, ${value}, 0)`);
+      ret.push(`Variable(2, ${base}, 0, 0, 0, ${value}, 0)`);
     }
     // TOP++
     ret.push(`Variable(0, ${base}, ${base}, 1, 0, 1, 0)`);

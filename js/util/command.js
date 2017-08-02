@@ -40,5 +40,8 @@ class Command {
 
     return variable;
   }
+  getTmpVarNumber(index) {
+    return tkVarManager.getTmpVarNumber(index);
+  }
 }
 module.exports = Command;

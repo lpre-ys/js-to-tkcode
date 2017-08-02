@@ -2,14 +2,27 @@
 
 const tkVarManager = require('../tk-var-manager');
 const tmpVarFactory = require('../tmp-var-factory');
+const esprima = require('esprima');
 
-function parseVar(node) {
+function parseVar(node, parser = false) {
   switch (node.type) {
     case 'Identifier': {
       const varNumber = tkVarManager.getVarNumber(node.name);
       return varNumber;
     }
     case 'MemberExpression': {
+      if (node.property.type === 'Identifier') {
+        if (parser === false) {
+          throw Error(`parseVar Parser指定なしで、添え字が変数の配列パースは出来ません: ${JSON.stringify(node)}`);
+        }
+        // 変数番を計算する
+        const tmpName = tmpVarFactory.make();
+        const baseNumber = tkVarManager.getVarNumber(node.object.name);
+        const indexName = node.property.name;
+        const tmpIndex = tmpVarFactory.tmpIndex - 1;
+        parser.parseAst(esprima.parse(`${tmpName} = ${baseNumber}; ${tmpName} += ${indexName}`), true);
+        return {isArray: true, indexVarNum: tkVarManager.getTmpVarNumber(tmpIndex)};
+      }
       if (node.property.type !== 'Literal') {
         throw Error(`parseVar 不正なプロパティです: ${JSON.stringify(node.property)}`);
       }

@@ -41,7 +41,11 @@ const Const = {
   'ACT_THROUGH_ON': 36,
   'ACT_THROUGH_OFF': 37,
   'ACT_ANIME_STOP': 38,
-  'ACT_ANIME_START': 39
+  'ACT_ANIME_START': 39,
+  // SCREEN-EFFECT
+  'SCREEN_INHERIT': '-1',
+  'SCREEN_FEEDOUT': '00',
+  'SCREEN_NO_WAIT': '19'
 };
 
 module.exports = Const;

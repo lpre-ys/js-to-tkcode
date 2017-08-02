@@ -34,7 +34,7 @@ class QueueEnqueue extends Command {
     ret.push(`If(01, ${base}, 1, ${base + 3}, 0, 1)`);
 
     // debug Message  TODO エラー処理
-    ret.push(`Text("isFull")`);
+    // ret.push(`Text("isFull")`);
 
     ret.push(`Else`);
 
@@ -42,10 +42,10 @@ class QueueEnqueue extends Command {
     if (typeof value == 'string') {
       // var
       value = this.parseVar(value);
-      ret.push(`Variable(2, ${base + 1}, ${base + 1}, 0, 1, ${value}, 0)`);
+      ret.push(`Variable(2, ${base + 1}, 0, 0, 1, ${value}, 0)`);
     } else {
       // int扱い
-      ret.push(`Variable(2, ${base + 1}, ${base + 1}, 0, 0, ${value}, 0) `); // var[tail] = value;
+      ret.push(`Variable(2, ${base + 1}, 0, 0, 0, ${value}, 0) `); // var[tail] = value;
     }
 
     // calc max index

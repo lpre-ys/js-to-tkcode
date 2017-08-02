@@ -1,18 +1,25 @@
 'use strict';
 
 const parseVar = require('./parse-var');
+const tkVarManager = require('../tk-var-manager');
+const tmpVarFactory = require('../tmp-var-factory');
 
-function parseTest(node, outputs, hasElse = false) {
+function parseTest(node, parser, hasElse = false) {
   // test句のパース
+  const outputs = parser.outputs;
   switch (node.type) {
     case 'BinaryExpression': {
       const varType = node.right.type === 'Literal' ? 0 : 1;
-      const right = node.right.type === 'Literal' ? node.right.value : parseVar(node.right);
-      outputs.push(`If(01, ${parseVar(node.left)}, ${varType}, ${right}, ${TestOperators[node.operator]}, ${hasElse ? 1 : 0})`);
+      const right = node.right.type === 'Literal' ? node.right.value : parseVarForIf(node.right, parser);
+      outputs.push(`If(01, ${parseVarForIf(node.left, parser)}, ${varType}, ${right}, ${TestOperators[node.operator]}, ${hasElse ? 1 : 0})`);
       break;
     }
     case 'Identifier': {
       outputs.push(`If(00, ${parseVar(node)}, 0, 0, 0, ${hasElse ? 1 : 0})`);
+      break;
+    }
+    case 'MemberExpression': {
+      outputs.push(`If(00, ${parseVarForIf(node, parser)}, 0, 0, 0, ${hasElse ? 1 : 0})`);
       break;
     }
     case 'UnaryExpression': {
@@ -52,5 +59,18 @@ const TestOperators = {
   '<'  : 4,
   '!=' : 5
 };
+
+function parseVarForIf(node, parser) {
+  const v = parseVar(node, parser);
+  let varNum = v;
+  if (typeof v == 'object') {
+    tmpVarFactory.make();
+    const tmpVarNum = tkVarManager.getTmpVarNumber(tmpVarFactory.tmpIndex - 1);
+    parser.outputs.push(`Variable(0, ${tmpVarNum}, ${tmpVarNum}, 0, 2, ${v.indexVarNum}, 0)`);
+    varNum = tmpVarNum;
+  }
+
+  return varNum;
+}
 
 module.exports = parseTest;

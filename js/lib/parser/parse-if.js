@@ -11,16 +11,17 @@ function parseIf(node, parser) {
     } else if (alternate) {
       parser.parseAst(alternate);
     }
-  } else if (isLiteralEqual(test)) {
-    // リテラル == リテラルの場合も崩す
-    if (test.right.value == test.left.value) {
+  } else if (isLiteralTest(test)) {
+    // リテラル同士の比較も崩す
+    const checkResult = eval(`${getLiteralVar(test.left)} ${test.operator} ${getLiteralVar(test.right)}`);
+    if (checkResult) {
       parser.parseAst(consequent);
     } else if (alternate) {
       parser.parseAst(alternate);
     }
   } else {
     // 普通のIF
-    parseTest(test, parser.outputs, !!alternate);
+    parseTest(test, parser, !!alternate);
     consequent.type = 'Program';
     parser.parseAst(consequent);
     if (alternate) {
@@ -31,16 +32,31 @@ function parseIf(node, parser) {
   }
 }
 
-function isLiteralEqual(test) {
+function isLiteralTest(test) {
   if (!test.right || !test.left) {
     return false;
   }
-  if (test.right.type == 'Literal'
-    && test.left.type == 'Literal'
-    && test.operator == '==') {
+  if ((test.right.type == 'Literal' || isUnary(test.right))
+    && (test.left.type == 'Literal' || isUnary(test.left))) {
       return true;
   }
   return false;
+}
+
+function isUnary(node) {
+  if (node.type == 'UnaryExpression') {
+    return true;
+  }
+  return false;
+}
+
+// TODO 他でも使う気がする……
+function getLiteralVar(node) {
+  if (isUnary(node)) {
+    return eval(`0 ${node.operator} ${node.argument.value}`);
+  } else {
+    return node.value;
+  }
 }
 
 module.exports = parseIf;

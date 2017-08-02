@@ -17,21 +17,27 @@ describe('Parser parseTest', () => {
   describe('正常系', () => {
     it('Literalの場合、falseを返す', () => {
       const node = esprima.parse('true').body[0].expression;
-      const ret = parseTest(node);
+      const outputs = [];
+      const parser = {outputs};
+      const ret = parseTest(node, parser);
 
       assert(ret === false);
     });
+
     describe('変数比較', () => {
       it('戻り値がtrueであること', () => {
         const node = esprima.parse('test == 123').body[0].expression;
-        const ret = parseTest(node, []);
+        const outputs = [];
+        const parser = {outputs};
+        const ret = parseTest(node, parser);
 
         assert(ret === true);
       });
       it('右辺が変数の場合', () => {
         const node = esprima.parse('test == test2').body[0].expression;
         const outputs = [];
-        parseTest(node, outputs);
+        const parser = {outputs};
+        parseTest(node, parser);
 
         assert(outputs[0] === `If(01, 42, 1, 43, 0, 0)`);
       });
@@ -39,42 +45,48 @@ describe('Parser parseTest', () => {
         it('==', () => {
           const node = esprima.parse('test == 123').body[0].expression;
           const outputs = [];
-          parseTest(node, outputs);
+          const parser = {outputs};
+          parseTest(node, parser);
 
           assert(outputs[0] === `If(01, 42, 0, 123, 0, 0)`);
         });
         it('>=', () => {
           const node = esprima.parse('test >= 123').body[0].expression;
           const outputs = [];
-          parseTest(node, outputs);
+          const parser = {outputs};
+          parseTest(node, parser);
 
           assert(outputs[0] === `If(01, 42, 0, 123, 1, 0)`);
         });
         it('<=', () => {
           const node = esprima.parse('test <= 123').body[0].expression;
           const outputs = [];
-          parseTest(node, outputs);
+          const parser = {outputs};
+          parseTest(node, parser);
 
           assert(outputs[0] === `If(01, 42, 0, 123, 2, 0)`);
         });
         it('>', () => {
           const node = esprima.parse('test > 123').body[0].expression;
           const outputs = [];
-          parseTest(node, outputs);
+          const parser = {outputs};
+          parseTest(node, parser);
 
           assert(outputs[0] === `If(01, 42, 0, 123, 3, 0)`);
         });
         it('<', () => {
           const node = esprima.parse('test < 123').body[0].expression;
           const outputs = [];
-          parseTest(node, outputs);
+          const parser = {outputs};
+          parseTest(node, parser);
 
           assert(outputs[0] === `If(01, 42, 0, 123, 4, 0)`);
         });
         it('!=', () => {
           const node = esprima.parse('test != 123').body[0].expression;
           const outputs = [];
-          parseTest(node, outputs);
+          const parser = {outputs};
+          parseTest(node, parser);
 
           assert(outputs[0] === `If(01, 42, 0, 123, 5, 0)`);
         });
@@ -83,14 +95,17 @@ describe('Parser parseTest', () => {
     describe('switch', () => {
       it('戻り値がtrueであること', () => {
         const node = esprima.parse('test').body[0].expression;
-        const ret = parseTest(node, []);
+        const outputs = [];
+        const parser = {outputs};
+        const ret = parseTest(node, parser);
 
         assert(ret === true);
       });
       it('outputsにスイッチtrueのIf文が設定されること', () => {
         const node = esprima.parse('test').body[0].expression;
         const outputs = [];
-        parseTest(node, outputs);
+        const parser = {outputs};
+        parseTest(node, parser);
 
         assert(outputs[0] === `If(00, 42, 0, 0, 0, 0)`);
       });
@@ -98,14 +113,17 @@ describe('Parser parseTest', () => {
     describe('!switch', () => {
       it('戻り値がtrueであること', () => {
         const node = esprima.parse('test').body[0].expression;
-        const ret = parseTest(node, []);
+        const outputs = [];
+        const parser = {outputs};
+        const ret = parseTest(node, parser);
 
         assert(ret === true);
       });
       it('outputsにスイッチfalseのIf文が設定されること', () => {
         const node = esprima.parse('!test').body[0].expression;
         const outputs = [];
-        parseTest(node, outputs);
+        const parser = {outputs};
+        parseTest(node, parser);
 
         assert(outputs[0] === `If(00, 42, 1, 0, 0, 0)`);
       });

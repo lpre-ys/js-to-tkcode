@@ -26,8 +26,8 @@ class StackPop extends Command {
 
     // return dummy var (0)
     ret.push(`Variable(0, ${retVar}, ${retVar}, 0, 0, 0, 0)`);
-    // debug Message
-    ret.push(`Text("isEmpty")`);
+    // debug Message TODO
+    // ret.push(`Text("isEmpty")`);
 
     ret.push(`Else`);
 

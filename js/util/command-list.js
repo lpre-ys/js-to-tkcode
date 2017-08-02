@@ -3,6 +3,7 @@ const HidePc = require('./commands/hide-pc');
 const KeyEntry = require('./commands/key-entry');
 const RemoveMember = require('./commands/remove-member');
 const MovePlace = require('./commands/move-place');
+const StorePlace = require('./commands/store-place');
 const ShowPc = require('./commands/show-pc');
 const HideScreen = require('./commands/hide-screen');
 const ShowScreen = require('./commands/show-screen');
@@ -28,6 +29,9 @@ const Effect = require('./commands/effect');
 const MoveEvent = require('./commands/move-event');
 const Message = require('./commands/message');
 const ChangeTone = require('./commands/change-tone');
+const Label = require('./commands/label');
+const Goto = require('./commands/goto');
+const ArrayUtil = require('./commands/array-util');
 
 const StackInit = require('./commands/stack/stack-init');
 const StackPush = require('./commands/stack/stack-push');
@@ -36,14 +40,19 @@ const StackPop = require('./commands/stack/stack-pop');
 const QueueInit = require('./commands/queue/queue-init');
 const QueueEnqueue = require('./commands/queue/queue-enqueue');
 const QueueDequeue = require('./commands/queue/queue-dequeue');
+const QueueIsEmpty = require('./commands/queue/queue-is-empty');
 
 const Raw = require('./commands/raw');
+const Comment = require('./commands/comment');
+
+const SetDbRow = require('./commands/set-db-row');
 
 const commandList = {
   KeyEntry,
   AddMember,
   RemoveMember,
   MovePlace,
+  StorePlace,
   HidePc,
   ShowPc,
   HideScreen,
@@ -70,13 +79,19 @@ const commandList = {
   MoveEvent,
   Message,
   ChangeTone,
+  Label,
+  Goto,
+  ArrayUtil,
   StackInit,
   StackPush,
   StackPop,
   QueueInit,
   QueueEnqueue,
   QueueDequeue,
-  Raw
+  QueueIsEmpty,
+  Comment,
+  Raw,
+  SetDbRow
 };
 
 module.exports = commandList;

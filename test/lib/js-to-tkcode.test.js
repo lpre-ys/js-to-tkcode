@@ -145,9 +145,10 @@ Variable(0, 42, 42, 0, 0, 2, 0)`);
       }`);
       assert(ret == `Loop
 If(01, 42, 0, 321, 0, 0)
+Variable(0, 43, 43, 0, 0, 654, 0)
+Else
 Break
 EndIf
-Variable(0, 43, 43, 0, 0, 654, 0)
 EndLoop`);
     });
     it('無限ループ', () => {
