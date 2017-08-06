@@ -21,7 +21,7 @@ class QueueDequeue extends Command {
     base = this.parseVar(base);
     retVar = this.parseVar(retVar);
 
-    // TODO isEmpty
+    // isEmpty
     ret.push(`If(01, ${base}, 1, ${base + 1}, 0, 1)`);
     // error TODO
     // return dummy var (0)

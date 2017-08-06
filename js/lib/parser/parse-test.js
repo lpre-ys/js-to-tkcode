@@ -9,7 +9,7 @@ function parseTest(node, parser, hasElse = false) {
   const outputs = parser.outputs;
   switch (node.type) {
     case 'BinaryExpression': {
-      const varType = node.right.type === 'Literal' ? 0 : 1;
+      const varType = (node.right.type === 'Literal' || node.right.type === 'UnaryExpression') ? 0 : 1;
       const right = node.right.type === 'Literal' ? node.right.value : parseVarForIf(node.right, parser);
       outputs.push(`If(01, ${parseVarForIf(node.left, parser)}, ${varType}, ${right}, ${TestOperators[node.operator]}, ${hasElse ? 1 : 0})`);
       break;
@@ -61,6 +61,9 @@ const TestOperators = {
 };
 
 function parseVarForIf(node, parser) {
+  if (node.type === 'UnaryExpression') {
+    return node.argument.value * -1;
+  }
   const v = parseVar(node, parser);
   let varNum = v;
   if (typeof v == 'object') {

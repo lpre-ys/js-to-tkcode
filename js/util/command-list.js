@@ -41,6 +41,7 @@ const QueueInit = require('./commands/queue/queue-init');
 const QueueEnqueue = require('./commands/queue/queue-enqueue');
 const QueueDequeue = require('./commands/queue/queue-dequeue');
 const QueueIsEmpty = require('./commands/queue/queue-is-empty');
+const QueueRevert = require('./commands/queue/queue-revert');
 
 const Raw = require('./commands/raw');
 const Comment = require('./commands/comment');
@@ -89,6 +90,7 @@ const commandList = {
   QueueEnqueue,
   QueueDequeue,
   QueueIsEmpty,
+  QueueRevert,
   Comment,
   Raw,
   SetDbRow
