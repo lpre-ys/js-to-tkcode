@@ -47,6 +47,7 @@ const Raw = require('./commands/raw');
 const Comment = require('./commands/comment');
 
 const SetDbRow = require('./commands/set-db-row');
+const Import = require('./commands/import');
 
 const commandList = {
   KeyEntry,
@@ -93,7 +94,8 @@ const commandList = {
   QueueRevert,
   Comment,
   Raw,
-  SetDbRow
+  SetDbRow,
+  Import
 };
 
 module.exports = commandList;
