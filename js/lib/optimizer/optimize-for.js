@@ -4,12 +4,12 @@ const esprima = require('esprima');
 const escodegen = require('escodegen');
 const estraverse = require('estraverse');
 
-function optimizeFor(node) {
+function optimizeFor(node, Const) {
   // pre perseが必要
   const init = node.init.declarations[0].init.value;
   const varName = node.init.declarations[0].id.name;
   // init, test, update
-  const max = node.test.right.value;
+  const max = getMaxValue(node.test.right, Const);
   const add = 1;  //TODO
   // 複雑な条件文には対応しない
   // console.log(node.body);
@@ -34,6 +34,18 @@ function optimizeFor(node) {
     result.body.push(bodyAst);
   }
   return result;
+}
+
+function getMaxValue(node, Const) {
+  if (node.type === 'Literal') {
+    return node.value;
+  }
+  if (node.type == 'MemberExpression') {
+    if (node.property.type !== 'Identifier') {
+      throw Error(`optimizeFor 不正なMAX指定です: ${JSON.stringify(node)}`);
+    }
+    return Const[node.property.name];
+  }
 }
 
 module.exports = optimizeFor;

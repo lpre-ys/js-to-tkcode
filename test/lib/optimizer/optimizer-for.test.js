@@ -35,4 +35,12 @@ describe('Optimizer optimizeFor', () => {
 
     assert(escodegen.generate(ret, escodegenOption) == `{{test = 0;test2 = 0 * 2;}{test = 1;test2 = 1 * 2;}{test = 2;test2 = 2 * 2;}}`);
   });
+  it('MAX値が定数', () => {
+    const code = `for (let i = 0; i < tkMock.Const.TEST_FOR_MAX; i++) {test = 1}`;
+    const node = esprima.parse(code).body[0];
+    const Const = {'TEST_FOR_MAX': 4};
+    const ret = optimizeFor(node, Const);
+
+    assert(escodegen.generate(ret, escodegenOption) == `{{test = 1;}{test = 1;}{test = 1;}{test = 1;}}`);
+  });
 });

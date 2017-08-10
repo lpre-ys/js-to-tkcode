@@ -14,7 +14,7 @@ function optimize(ast, Const) {
       switch (node.type) {
         case 'ForStatement': {
           // this.skip();
-          return optimizeFor(node);
+          return optimizeFor(node, Const);
         }
         case 'MemberExpression': {
           const newNode = optimizeConst(node, Const);
