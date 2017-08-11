@@ -12,7 +12,6 @@ function optimizeFor(node, Const) {
   const max = getMaxValue(node.test.right, Const);
   const add = 1;  //TODO
   // 複雑な条件文には対応しない
-  // console.log(node.body);
   let result = esprima.parse(`{}`).body[0];
   for (let i = init; i < max; i += add) {
     // TODO body parse
