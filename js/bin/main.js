@@ -14,7 +14,7 @@ if (!args.config) {
 const configPath = path.resolve(args.config);
 const config = require(configPath);
 const scriptsPath = path.resolve(config.scripts);
-const libPath = path.resolve(config.lib);
+const libPath = config.lib ? path.resolve(config.lib) : false;
 
 const red     = '\u001b[31m';
 // const black   = '\u001b[30m';
@@ -34,7 +34,9 @@ const scripts = [];
 readdirRec(scriptsPath, scripts, /.*\.js$/);
 
 const libs = [];
-readdirRec(libPath, libs, /.*\.js$/);
+if (libPath) {
+  readdirRec(libPath, libs, /.*\.js$/);
+}
 
 const pjConfig = yaml.load(fs.readFileSync(path.resolve(config.pjConfig)).toString());
 if (config.database) {
@@ -58,6 +60,10 @@ jsToTkcode.loadDatabase().then(() => {
 
 
 function build(scriptPath, lib) {
+  if (scriptPath.indexOf(config.exclude) > -1) {
+    console.log(`${cyan}SKIP${reset}: ${scriptPath.replace(scriptsPath, '')}`);
+    return;
+  }
   console.log(`BUILD-START: ${scriptPath.replace(scriptsPath, '')}`);
 
   // ディレクトリが無かったら作っとく
@@ -138,23 +144,25 @@ scriptWatcher.on('ready', () => {
 });
 
 // lib watch
-const libWatcher = chokidar.watch(libPath, {
-  ignored:/[\/\\]\./,
-  persistent:true
-});
+if (libPath) {
+  const libWatcher = chokidar.watch(libPath, {
+    ignored:/[\/\\]\./,
+    persistent:true
+  });
 
-libWatcher.on('ready', () => {
-  // 負荷ヤバかったら、loadLibの方式変える
-  console.log(`LIB WATCH START`);
-  libWatcher.on('add', (filepath) => {
-    console.log(`LIB ADD: ${filepath}`);
-    loadLib();
+  libWatcher.on('ready', () => {
+    // 負荷ヤバかったら、loadLibの方式変える
+    console.log(`LIB WATCH START`);
+    libWatcher.on('add', (filepath) => {
+      console.log(`LIB ADD: ${filepath}`);
+      loadLib();
+    });
+    libWatcher.on('change', (filepath) => {
+      console.log(`LIB CHANGE: ${filepath}`);
+      loadLib();
+    });
   });
-  libWatcher.on('change', (filepath) => {
-    console.log(`LIB CHANGE: ${filepath}`);
-    loadLib();
-  });
-});
+}
 
 // config watch
 

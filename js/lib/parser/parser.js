@@ -9,6 +9,7 @@ const parseBinary = require('./parse-binary');
 const parseIf = require('./parse-if');
 const parseWhile = require('./parse-while');
 const parseCall = require('./parse-call');
+const parseBreak = require('./parse-break');
 
 class Parser {
   constructor(tkMock) {
@@ -59,6 +60,10 @@ class Parser {
                   && node.expression.left.object.name == 'module') {
                 this.skip();
               }
+              break;
+            }
+            case 'BreakStatement': {
+              parseBreak(node, that);
               break;
             }
           }

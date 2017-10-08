@@ -7,6 +7,7 @@ const StorePlace = require('./commands/store-place');
 const ShowPc = require('./commands/show-pc');
 const HideScreen = require('./commands/hide-screen');
 const ShowScreen = require('./commands/show-screen');
+const Flash = require('./commands/flash');
 const ShowPicture = require('./commands/show-picture');
 const MovePicture = require('./commands/move-picture');
 const DeletePicture = require('./commands/delete-picture');
@@ -32,6 +33,7 @@ const ChangeTone = require('./commands/change-tone');
 const Label = require('./commands/label');
 const Goto = require('./commands/goto');
 const ArrayUtil = require('./commands/array-util');
+const SetString = require('./commands/set-string');
 
 const StackInit = require('./commands/stack/stack-init');
 const StackPush = require('./commands/stack/stack-push');
@@ -59,6 +61,7 @@ const commandList = {
   ShowPc,
   HideScreen,
   ShowScreen,
+  Flash,
   ShowPicture,
   MovePicture,
   DeletePicture,
@@ -84,6 +87,7 @@ const commandList = {
   Label,
   Goto,
   ArrayUtil,
+  SetString,
   StackInit,
   StackPush,
   StackPop,
