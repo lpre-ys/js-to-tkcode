@@ -10,19 +10,19 @@
 const Command = require('../../command');
 class StackPop extends Command {
 
-  run(base, retVar) {
-    this.writeLog(`base: ${base}, retVar: ${retVar}`); //TODO
+  run(base, retVar, length = 1) {
+    this.writeLog(`base: ${base}, retVar: ${retVar}, length: ${length}`); //TODO
 
     return true;
   }
 
-  output(base, retVar) {
+  output(base, retVar, length = 1) {
     const ret = [];
     base = this.parseVar(base);
     retVar = this.parseVar(retVar);
 
     // isEmpty
-    ret.push(`If(01, ${base}, 0, ${base + 2}, 2, 1)`); // equalでもいいけど……
+    ret.push(`If(01, ${base}, 0, ${base + 2 + length - 1}, 2, 1)`); // equalでもいいけど……
 
     // return dummy var (0)
     ret.push(`Variable(0, ${retVar}, ${retVar}, 0, 0, 0, 0)`);
@@ -31,10 +31,12 @@ class StackPop extends Command {
 
     ret.push(`Else`);
 
-    // TOP--
-    ret.push(`Variable(0, ${base}, ${base}, 2, 0, 1, 0)`);
-    // pop var
-    ret.push(`Variable(0, ${retVar}, ${retVar}, 0, 2, ${base}, 0)`);
+    for (let i = 0; i < length; i++) {
+      // TOP--
+      ret.push(`Variable(0, ${base}, ${base}, 2, 0, 1, 0)`);
+      // pop var
+      ret.push(`Variable(0, ${retVar + length - i - 1}, ${retVar + length - i - 1}, 0, 2, ${base}, 0)`);
+    }
 
     ret.push(`EndIf`);
 

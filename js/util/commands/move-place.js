@@ -3,13 +3,13 @@
 const Command = require('../command');
 class MovePlace extends Command {
 
-  run(map, x, y) {
+  run(map, x = 0, y = 0) {
     this.writeLog(`map[${map}], x[${x}], y[${y}]`);
 
     return true;
   }
 
-  output(map, x, y) {
+  output(map, x = 0, y = 0) {
     if (typeof map == 'string') {
       map = this.parseVar(map);
       x = this.parseVar(x);
