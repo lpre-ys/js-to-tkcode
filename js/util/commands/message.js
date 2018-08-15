@@ -13,11 +13,10 @@ class Message extends Command {
     if (!Array.isArray(text)) {
       text = [text];
     }
-    let preFlash = isFlash ? '\\>' : '';
-    let postFlash = isFlash ? '\\<' : '';
-    const ret = [`Text("${preFlash}${text[0]}${postFlash}")`];
+    const preFlash = isFlash ? '\\>' : '';
+    const ret = [`Text("${preFlash}${text[0]}")`];
     for (let i = 1; i < text.length; i++) {
-      ret.push(`SubT("${preFlash}${text[i]}${postFlash}")`);
+      ret.push(`SubT("${preFlash}${text[i]}")`);
     }
     return ret;
   }

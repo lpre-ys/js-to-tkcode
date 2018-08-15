@@ -4,15 +4,15 @@ const executeLog = require('./execute-log');
 const commandList = require('./command-list');
 
 class TkMock {
-  constructor(prjConst = {}) {
+  constructor(pjConst = {}) {
     this.state = 'test';
     this.commands = [];
     executeLog.reset();
     // const merge
     this.Const = require('./const');
-    this.Const = Object.assign(this.Const, prjConst);
-    // setFunctions
+    this.Const = Object.assign(this.Const, pjConst.hasOwnProperty('pjConst') ? pjConst.pjConst : pjConst);
 
+    // setFunctions
     Object.keys(commandList).forEach((key) => {
       this.setFunction(commandList[key]);
     });

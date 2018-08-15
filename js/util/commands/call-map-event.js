@@ -10,7 +10,14 @@ class CallMapEvent extends Command {
   }
 
   output(id, page = 1) {
-    return [`Call(1, ${id}, ${page})`];
+    let isVar = false;
+    if (typeof id === 'string') {
+      id = this.parseVar(id);
+      page = this.parseVar(page);
+      isVar = true;
+    }
+
+    return [`Call(${isVar ? 2 : 1}, ${id}, ${page})`];
   }
 
   get JP_NAME() {

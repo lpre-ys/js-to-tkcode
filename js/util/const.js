@@ -2,6 +2,7 @@
 
 // TODO なんかYamlとかで定義する？
 const Const = {
+  'KEY_NONE'  : 0,
   'KEY_DOWN'  : 1,
   'KEY_LEFT'  : 2,
   'KEY_RIGHT' : 3,
@@ -18,6 +19,7 @@ const Const = {
   'CALL_MAP': 1,
   // EVENT_TARGET
   'EVENT_HERO': 10001,
+  'EVENT_THIS': 10005,
   // ACT type
   'ACT_GO_UP': 0,
   'ACT_GO_RIGHT': 1,
@@ -49,7 +51,13 @@ const Const = {
   // SCREEN-EFFECT
   'SCREEN_INHERIT': '-1',
   'SCREEN_FEEDOUT': '00',
-  'SCREEN_NO_WAIT': '19'
+  'SCREEN_STRIPE_HORIZONTAL': '05',
+  'SCREEN_STRIPE_VERTICAL': '06',
+  'SCREEN_NO_WAIT': '19',
+  // MESSAGE-POSITION
+  'MSG_POSITION_TOP': 0,
+  'MSG_POSITION_MIDDLE': 1,
+  'MSG_POSITION_BOTTOM': 2
 };
 
 module.exports = Const;

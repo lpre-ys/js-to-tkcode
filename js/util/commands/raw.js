@@ -10,6 +10,9 @@ class Raw extends Command {
   }
 
   output(cmd) {
+    if (Array.isArray(cmd)) {
+      return cmd;
+    }
     return [cmd];
   }
 

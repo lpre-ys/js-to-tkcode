@@ -9,7 +9,11 @@ function optimizeFor(node, Const) {
   const init = node.init.declarations[0].init.value;
   const varName = node.init.declarations[0].id.name;
   // init, test, update
-  const max = getMaxValue(node.test.right, Const);
+  let max = getMaxValue(node.test.right, Const);
+  // 以下を疑似的に再現
+  if (node.test.operator === '<=') {
+    max += 1;
+  }
   const add = 1;  //TODO
   // 複雑な条件文には対応しない
   let result = esprima.parse(`{}`).body[0];

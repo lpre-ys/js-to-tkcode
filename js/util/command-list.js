@@ -13,6 +13,11 @@ const ShowStickyPicture = require('./commands/show-sticky-picture');
 const MovePicture = require('./commands/move-picture');
 const DeletePicture = require('./commands/delete-picture');
 const PlaySound = require('./commands/play-sound');
+const LoadBgm = require('./commands/load-bgm');
+const SaveBgm = require('./commands/save-bgm');
+const PlayBgm = require('./commands/play-bgm');
+const StopBgm = require('./commands/stop-bgm');
+const FadeoutBgm = require('./commands/fadeout-bgm');
 const Choice = require('./commands/choice');
 const ExitEvent = require('./commands/exit-event');
 const Rand = require('./commands/rand');
@@ -36,6 +41,8 @@ const Goto = require('./commands/goto');
 const ArrayUtil = require('./commands/array-util');
 const SetString = require('./commands/set-string');
 const ClearString = require('./commands/clear-string');
+const MessageOption = require('./commands/message-option');
+const ResetFace = require('./commands/reset-face');
 
 const StackInit = require('./commands/stack/stack-init');
 const StackPush = require('./commands/stack/stack-push');
@@ -69,6 +76,11 @@ const commandList = {
   MovePicture,
   DeletePicture,
   PlaySound,
+  LoadBgm,
+  SaveBgm,
+  PlayBgm,
+  StopBgm,
+  FadeoutBgm,
   Choice,
   ExitEvent,
   CallEvent,
@@ -92,6 +104,8 @@ const commandList = {
   ArrayUtil,
   SetString,
   ClearString,
+  MessageOption,
+  ResetFace,
   StackInit,
   StackPush,
   StackPop,

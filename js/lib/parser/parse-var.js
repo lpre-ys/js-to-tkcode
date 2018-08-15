@@ -23,6 +23,21 @@ function parseVar(node, parser = false) {
         parser.parseAst(esprima.parse(`${tmpName} = ${baseNumber}; ${tmpName} += ${indexName}`), true);
         return {isArray: true, indexVarNum: tkVarManager.getTmpVarNumber(tmpIndex)};
       }
+      if (node.property.type === 'BinaryExpression') {
+        // TODO 未テスト
+        if (node.property.left.type !== 'Literal' || node.property.right.type !== 'Literal') {
+          throw Error(`parseVar 未対応の添え字式です: ${JSON.stringify(node.property)}`);
+        }
+        let index = 0;
+        if (node.property.operator === "+") {
+          index = node.property.left.value + node.property.right.value;
+        } else if (node.property.operator === "-") {
+          index = node.property.left.value - node.property.right.value;
+        } else {
+          throw Error(`parseVar 未対応の添え字式です: ${JSON.stringify(node.property)}`);
+        }
+        return tkVarManager.getVarNumber(node.object.name) + index;
+      }
       if (node.property.type !== 'Literal') {
         throw Error(`parseVar 不正なプロパティです: ${JSON.stringify(node.property)}`);
       }

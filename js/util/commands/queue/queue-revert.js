@@ -19,8 +19,6 @@ class QueueRevert extends Command {
   output(base) {
     const ret = [];
     base = this.parseVar(base);
-    // TODO debug comment
-    ret.push(`Note("Queue revert start")`);
 
     // isEmpty check
     ret.push(`If(01, ${base}, 1, ${base + 1}, 5, 0)`);
@@ -37,7 +35,7 @@ class QueueRevert extends Command {
     ret.push(`EndIf`);
 
     ret.push(`EndIf`);
-    ret.push(`Note("Queue revert end")`);
+
     return ret;
   }
 
