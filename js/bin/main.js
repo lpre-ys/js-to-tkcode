@@ -30,6 +30,8 @@ const reset   = '\u001b[0m';
 
 // init
 console.log(`INIT-START`);
+writeTime(config.tmpFile);
+
 const scripts = [];
 readdirRec(scriptsPath, scripts, /.*\.js$/);
 
@@ -64,6 +66,13 @@ function build(scriptPath, lib) {
     console.log(`${cyan}SKIP${reset}: ${scriptPath.replace(scriptsPath, '')}`);
     return;
   }
+  if (config.excludes.findIndex((exclude) => {
+    return scriptPath.indexOf(exclude) > -1;
+  }) > -1) {
+    console.log(`${cyan}SKIP${reset}: ${scriptPath.replace(scriptsPath, '')}`);
+    return;
+  }
+
   console.log(`BUILD-START: ${scriptPath.replace(scriptsPath, '')}`);
 
   // ディレクトリが無かったら作っとく
@@ -71,11 +80,13 @@ function build(scriptPath, lib) {
   mkdirp.sync(path.dirname(tkcodePath));
 
   // libをくっつける
-  const script = fs.readFileSync(scriptPath).toString() + "\n" + lib;
+  const script = fs.readFileSync(scriptPath).toString().replace(/.*Math\.floor.*/g, '') + "\n" + lib;
 
   // local constを読む
+  const localDirConstPath = path.resolve(path.dirname(scriptPath) + '/config.yaml');
+  const localConst = fs.existsSync(localDirConstPath) ? yaml.safeLoad(fs.readFileSync(localDirConstPath, 'utf8')) : {};
   const localConstPath = scriptPath.replace('.js', '.yaml');
-  const localConst = fs.existsSync(localConstPath) ? yaml.safeLoad(fs.readFileSync(localConstPath, 'utf8')) : {};
+  Object.assign(localConst, fs.existsSync(localConstPath) ? yaml.safeLoad(fs.readFileSync(localConstPath, 'utf8')) : {});
   try {
     const tkcode = jsToTkcode.translate(script, localConst);
     if (tkcode.match(/undefined/)) {
@@ -114,7 +125,7 @@ function readdirRec(dir, list, filter = false) {
 function loadLib() {
   const libTexts = [];
   libs.forEach((lib) => {
-    const libText = fs.readFileSync(lib).toString();
+    const libText = fs.readFileSync(lib).toString().replace(/.*Math\.floor.*/g, '');
     libTexts.push(libText);
   });
   buildedLib = libTexts.join("\n");
@@ -139,7 +150,10 @@ scriptWatcher.on('ready', () => {
   });
   scriptWatcher.on('change', (filepath) => {
     console.log(`SCRIPT CHANGE: ${filepath}`);
-    build(filepath, buildedLib);
+    if (checkTime(filepath, config.tmpFile)) {
+      writeTime(config.tmpFile);
+      build(filepath, buildedLib);
+    }
   });
 });
 
@@ -174,3 +188,11 @@ configWatch.on('ready', () => {
     loadPjConfig();
   });
 });
+
+function writeTime(file) {
+  fs.closeSync(fs.openSync(file, 'w'));
+}
+
+function checkTime(target, tmpFile) {
+  return fs.statSync(target).atime > fs.statSync(tmpFile).atime;
+}
