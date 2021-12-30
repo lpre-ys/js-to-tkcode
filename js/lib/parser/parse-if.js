@@ -1,6 +1,7 @@
 'use strict';
 
 const parseTest = require('./parse-test');
+const literal = require('../literal');
 
 function parseIf(node, parser) {
   let {test, consequent, alternate} = node;
@@ -11,9 +12,18 @@ function parseIf(node, parser) {
     } else if (alternate) {
       parser.parseAst(alternate);
     }
-  } else if (isLiteralTest(test)) {
+  } else if (literal.isLiteralTest(test)) {
     // リテラル同士の比較も崩す
-    const checkResult = eval(`${getLiteralVar(test.left)} ${test.operator} ${getLiteralVar(test.right)}`);
+    const checkResult = eval(`${literal.getLiteralVar(test.left)} ${test.operator} ${literal.getLiteralVar(test.right)}`);
+    if (checkResult) {
+      parser.parseAst(consequent);
+    } else if (alternate) {
+      parser.parseAst(alternate);
+    }
+  } else if (literal.isLiteral(test.right) && literal.isLiteralTest(test.left)) {
+    // 左項が定数式、右が定数の場合
+    const leftResult = literal.parseLiteralBinary(test.left);
+    const checkResult = eval(`${leftResult} ${test.operator} ${literal.getLiteralVar(test.right)}`);
     if (checkResult) {
       parser.parseAst(consequent);
     } else if (alternate) {
@@ -29,33 +39,6 @@ function parseIf(node, parser) {
       parser.parseAst(alternate);
     }
     parser.outputs.push(`EndIf`);
-  }
-}
-
-function isLiteralTest(test) {
-  if (!test.right || !test.left) {
-    return false;
-  }
-  if ((test.right.type == 'Literal' || isUnary(test.right))
-    && (test.left.type == 'Literal' || isUnary(test.left))) {
-      return true;
-  }
-  return false;
-}
-
-function isUnary(node) {
-  if (node.type == 'UnaryExpression') {
-    return true;
-  }
-  return false;
-}
-
-// TODO 他でも使う気がする……
-function getLiteralVar(node) {
-  if (isUnary(node)) {
-    return eval(`0 ${node.operator} ${node.argument.value}`);
-  } else {
-    return node.value;
   }
 }
 

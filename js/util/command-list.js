@@ -9,6 +9,7 @@ const ShowPc = require('./commands/show-pc');
 const HideScreen = require('./commands/hide-screen');
 const ShowScreen = require('./commands/show-screen');
 const SetTransition = require('./commands/set-transition');
+const EventFlash = require('./commands/event-flash');
 const Flash = require('./commands/flash');
 const ShowPicture = require('./commands/show-picture');
 const ShowStickyPicture = require('./commands/show-sticky-picture');
@@ -80,6 +81,7 @@ const commandList = {
   ShowScreen,
   SetTransition,
   Flash,
+  EventFlash,
   ShowPicture,
   ShowStickyPicture,
   MovePicture,

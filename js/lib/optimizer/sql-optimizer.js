@@ -87,7 +87,12 @@ function replaceNode(node, data) {
       key = node.property.name;
     }
 
-    const value = typeof data[table][key] === 'undefined' ? -1 : data[table][key][column];
+    // 値が見つからなかった場合、エラーにする
+    if (typeof data[table][key] === 'undefined' || typeof data[table][key][column] === 'undefined') {
+      throw Error(`optimizerSql 値が見つかりませんでした: ${table} ${key} ${column}`);
+    }
+
+    const value = data[table][key][column];
     if (value < 0) {
       return {
         "type": "UnaryExpression",

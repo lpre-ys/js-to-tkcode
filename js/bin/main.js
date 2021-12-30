@@ -10,6 +10,9 @@ const fsPromises = require('fs').promises;
 const yaml = require('js-yaml');
 const JsToTkcode = require('../lib/js-to-tkcode');
 
+const md5 = require('md5');
+const md5File = require('md5-file');
+
 const args = parseArgs(process.argv);
 if (!args.config) {
   args.config = 'js2tk.config.js';
@@ -38,10 +41,21 @@ let writed = 0;
 let skipped = 0;
 let errorCount = 0;
 let isInit = true;
+let isDiffSkip = true;  // ファイル差分によるスキップを許可する
 writeTime(config.tmpFile);
 
 // set timer
 const timer = setInterval(initLog, 100);
+
+// loadHashList
+const hashList = {};
+try {
+  Object.assign(hashList, JSON.parse(fs.readFileSync(config.hashFile)));
+} catch(err) {
+  if (err.code !== 'ENOENT') {
+    throw err;
+  }
+}
 
 const scripts = [];
 readdirRec(scriptsPath, scripts, /.*\.js$/);
@@ -52,10 +66,23 @@ if (libPath) {
   readdirRec(libPath, libs, /.*\.js$/);
 }
 
-const pjConfig = yaml.load(fs.readFileSync(path.resolve(config.pjConfig)).toString());
+const pjConfigFile = fs.readFileSync(path.resolve(config.pjConfig).toString());
+const pjConfigMd5 = md5(pjConfigFile);
+if (!hashList['pjConfig'] || hashList['pjConfig'] !== pjConfigMd5 ) {
+  isDiffSkip = false;
+  hashList['pjConfig'] = pjConfigMd5;
+}
+const pjConfig = yaml.load(pjConfigFile);
 if (config.database) {
   pjConfig['database'] = path.resolve(config.database);
+  // hash check
+  const dbMd5 = md5File.sync(pjConfig['database']);
+  if (!hashList['database'] || hashList['database'] !== dbMd5) {
+    isDiffSkip = false;
+    hashList['database'] = dbMd5;
+  }
 }
+
 const jsToTkcode = new JsToTkcode(pjConfig);
 let buildedLib = '';
 
@@ -80,6 +107,7 @@ jsToTkcode.loadDatabase().then(() => {
 }).then((result) => {
   // TODO 結果リスト
   initLog();
+  writeHashFile();
   console.log(`INIT-BUILD END`);
   isInit = false;
   clearInterval(timer);
@@ -99,8 +127,9 @@ function build(scriptPath, lib) {
         type: 'skip',
         path: scriptPath.replace(scriptsPath, '')
       });
+      return;
     }
-    if (config.excludes.findIndex((exclude) => {
+    if (config.excludes && config.excludes.findIndex((exclude) => {
         return scriptPath.indexOf(exclude) > -1;
       }) > -1) {
       resolve({
@@ -109,8 +138,6 @@ function build(scriptPath, lib) {
       });
       return;
     }
-
-
     // console.log(`BUILD-INIT: ${scriptPath.replace(scriptsPath, '')}`);
     // ディレクトリが無かったら作っとく
     const tkcodePath = getBuildPath(scriptPath);
@@ -121,6 +148,22 @@ function build(scriptPath, lib) {
     }).then((results) => {
       // データがそろったらビルド
       const [script, localConst] = results;
+      // スキップチェック
+      const keyHash = md5(scriptPath);
+      const newHash = md5(script + JSON.stringify(localConst));
+      const oldHash = hashList[keyHash];
+      // ハッシュ上書き
+      hashList[keyHash] = newHash;
+      if (oldHash && newHash === oldHash) {
+        if (isDiffSkip) {
+          // スキップ可ならスキップして終わる
+          resolve({
+            type: 'skip',
+            path: scriptPath.replace(scriptsPath, '')
+          });
+          return {type: 'skip'};
+        }
+      }
       // スクリプト・Constが揃ったら、ビルドを行う
       // console.log(`BUILD-START: ${scriptPath.replace(scriptsPath, '')}`);
       return translatePromises(script, localConst).catch((error) => {
@@ -135,23 +178,30 @@ function build(scriptPath, lib) {
         });
       });
     }).then((result) => {
-      if (isInit) builded += 1;
       const {
         type,
         tkcode
       } = result;
+      if (type === 'skip') {
+        return false;
+      }
+
+      if (isInit) builded += 1;
       if (type === 'undefined') {
         console.log(`${yellow}[WARNING] find UNDEFINED${reset}: ${scriptPath.replace(scriptsPath, '')}`);
       }
+
       // ビルドが終わったら、ファイルに書き込む
       return fsPromises.writeFile(tkcodePath, tkcode);
-    }).then(() => {
-      if (isInit) writed += 1;
-      // console.log(`${green}BUILD-END${reset}: ${scriptPath.replace(scriptsPath, '')}`);
-      resolve({
-        type: 'OK',
-        path: scriptPath.replace(scriptsPath, '')
-      });
+    }).then((result) => {
+      if (result !== false) {
+        if (isInit) writed += 1;
+        // console.log(`${green}BUILD-END${reset}: ${scriptPath.replace(scriptsPath, '')}`);
+        resolve({
+          type: 'OK',
+          path: scriptPath.replace(scriptsPath, '')
+        });
+      }
     }).catch((error) => {
       console.error(`${red}!!!WRITE-ERROR!!!${reset}: ${scriptPath.replace(scriptsPath, '')}`);
       resolve({
@@ -193,6 +243,10 @@ function makeDir(tkcodePath) {
     });
   });
 
+}
+
+function writeHashFile() {
+  fs.writeFileSync(config.hashFile, JSON.stringify(hashList));
 }
 
 function readScript(scriptPath, lib) {
@@ -271,6 +325,8 @@ function loadPjConfig() {
 
 // script watch
 function startWatch() {
+  // watch時は、DIFFによるスキップは行わない
+  isDiffSkip = false;
   const scriptWatcher = chokidar.watch(scriptsPath, {
     ignored: '**/*.yaml',
     persistent: true
@@ -283,17 +339,16 @@ function startWatch() {
       build(filepath, buildedLib).then((result) => {
         const {type, path} = result;
         watchBuildLog(type, path);
+        writeHashFile();
       });
     });
     scriptWatcher.on('change', (filepath) => {
       console.log(`SCRIPT CHANGE: ${filepath}`);
-      if (checkTime(filepath, config.tmpFile)) {
-        writeTime(config.tmpFile);
-        build(filepath, buildedLib).then((result) => {
-          const {type, path} = result;
-          watchBuildLog(type, path);
-        });
-      }
+      build(filepath, buildedLib).then((result) => {
+        const {type, path} = result;
+        watchBuildLog(type, path);
+        writeHashFile();
+      });
     });
   });
 
