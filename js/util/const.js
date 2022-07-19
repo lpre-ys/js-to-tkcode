@@ -2,18 +2,18 @@
 
 // TODO なんかYamlとかで定義する？
 const Const = {
-  'KEY_NONE'  : 0,
-  'KEY_DOWN'  : 1,
-  'KEY_LEFT'  : 2,
-  'KEY_RIGHT' : 3,
-  'KEY_UP'    : 4,
-  'KEY_ENTER' : 5,
+  'KEY_NONE': 0,
+  'KEY_DOWN': 1,
+  'KEY_LEFT': 2,
+  'KEY_RIGHT': 3,
+  'KEY_UP': 4,
+  'KEY_ENTER': 5,
   'KEY_CANCEL': 6,
-  'KEY_SHIFT' : 7,
+  'KEY_SHIFT': 7,
   // IF-kind
   'IF_KIND_PC': '05',
   // IF-PC-TYPE
-  'IF_PC_IN'  : '00',
+  'IF_PC_IN': '00',
   // Call-type
   'CALL_COMMON': 0,
   'CALL_MAP': 1,
@@ -51,6 +51,8 @@ const Const = {
   'ACT_THROUGH_OFF': 37,
   'ACT_ANIME_STOP': 38,
   'ACT_ANIME_START': 39,
+  'ACT_TRANSPARENT_UP': 40,
+  'ACT_TRANSPARENT_DOWN': 41,
   // SCREEN-EFFECT
   'SCREEN_INHERIT': '-1',
   'SCREEN_FADEOUT': '00',
