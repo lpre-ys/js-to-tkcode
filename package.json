@@ -1,6 +1,6 @@
 {
   "name": "js-to-tkcode",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "JavaScript to TKcode",
   "main": "app.js",
   "bin": {
@@ -36,7 +36,7 @@
     "mithril": "^2.0.4",
     "mkdirp": "^1.0.4",
     "path": "^0.12.7",
-    "sqlite3": "^5.0.2"
+    "sqlite3": "^5.1.6"
   },
   "devDependencies": {
     "intelli-espower-loader": "^1.1.0",

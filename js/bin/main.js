@@ -127,6 +127,7 @@ function initLog() {
 }
 
 function build(scriptPath, lib) {
+  scriptPath = path.normalize(scriptPath);
   return new Promise((resolve) => {
     if (scriptPath.indexOf(config.exclude) > -1) {
       resolve({
@@ -138,7 +139,7 @@ function build(scriptPath, lib) {
     if (
       config.excludes &&
       config.excludes.findIndex((exclude) => {
-        return scriptPath.indexOf(exclude) > -1;
+        return scriptPath.indexOf(path.normalize(exclude)) > -1;
       }) > -1
     ) {
       resolve({
@@ -375,6 +376,7 @@ function startWatch() {
   scriptWatcher.on("ready", () => {
     console.log(`SCRIPT WATCH START`);
     scriptWatcher.on("add", (filepath) => {
+      if (!filepath.endsWith(".js")) return;
       console.log(`SCRIPT ADD: ${filepath}`);
       build(filepath, buildedLib).then((result) => {
         const { type, path } = result;
@@ -383,6 +385,7 @@ function startWatch() {
       });
     });
     scriptWatcher.on("change", (filepath) => {
+      if (!filepath.endsWith(".js")) return;
       console.log(`SCRIPT CHANGE: ${filepath}`);
       build(filepath, buildedLib).then((result) => {
         const { type, path } = result;

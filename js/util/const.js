@@ -1,6 +1,9 @@
 'use strict';
 
 // TODO なんかYamlとかで定義する？
+/**
+ * @readonly
+ */
 const Const = {
   'KEY_NONE': 0,
   'KEY_DOWN': 1,
@@ -93,4 +96,5 @@ const Const = {
   'DIRECTION_LEFT': 4
 };
 
+/** @module Const */
 module.exports = Const;
