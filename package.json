@@ -36,7 +36,7 @@
     "mithril": "^2.0.4",
     "mkdirp": "^1.0.4",
     "path": "^0.12.7",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "^6.0.1"
   },
   "devDependencies": {
     "diff": "^8.0.4",
