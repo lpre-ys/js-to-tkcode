@@ -41,3 +41,7 @@ work
 
 # docs build
 docs/build/
+
+# claude
+CLAUDE.md
+.claude

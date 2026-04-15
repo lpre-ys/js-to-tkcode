@@ -33,8 +33,10 @@ const cyan = "\u001b[36m";
 
 const reset = "\u001b[0m";
 
+const { version } = require("../../package.json");
+
 // init
-console.log(`INIT-START`);
+console.log(`INIT-START v${version}`);
 let builded = 0;
 let writed = 0;
 let skipped = 0;
@@ -196,6 +198,7 @@ function build(scriptPath, lib) {
             type: "error",
             path: scriptPath.replace(scriptsPath, ""),
           });
+          return { type: "error" };
         });
       })
       .then((result) => {
@@ -252,6 +255,7 @@ function translatePromises(script, localConst) {
           type: "undefined",
           tkcode: tkcode,
         });
+        return;
       }
       resolve({
         type: "ok",
@@ -448,6 +452,29 @@ function writeTime(file) {
   fs.closeSync(fs.openSync(file, "w"));
 }
 
-function checkTime(target, tmpFile) {
-  return fs.statSync(target).atime > fs.statSync(tmpFile).atime;
-}
+// キー入力監視
+process.stdin.setEncoding("utf8");
+process.stdin.resume();
+process.stdin.on("data", (data) => {
+  const input = data.trim();
+  if (input === "d" || input === "r") {
+    console.log(`${cyan}RELOAD DB...${reset}`);
+    jsToTkcode
+      .loadDatabase()
+      .then(() => {
+        console.log(`${green}RELOAD DB DONE${reset}`);
+        if (input === "r") {
+          console.log(`${cyan}REBUILD ALL...${reset}`);
+          return Promise.all(
+            scripts.map((script) => build(script, buildedLib))
+          ).then(() => {
+            writeHashFile();
+            console.log(`${green}REBUILD ALL DONE${reset}`);
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(`${red}RELOAD ERROR${reset}`, err);
+      });
+  }
+});

@@ -1,6 +1,6 @@
 {
   "name": "js-to-tkcode",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "JavaScript to TKcode",
   "main": "app.js",
   "bin": {
