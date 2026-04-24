@@ -23,7 +23,7 @@ class FunctionOptimizer{
       return false;
     }
 
-    const ret = structuredClone(node.body).body[0];
+    const ret = structuredClone(node.body);
 
     if (args.length > 0) {
       // パラメータのハッシュを作成
