@@ -29,7 +29,7 @@ class JsToTkcode {
         this.sqlOptimizer = new SqlOptimizer(this.database);
         this.sqlOptimizer.load().then(() => {
           resolve(true);
-        });
+        }).catch(reject);
       }
     });
   }
