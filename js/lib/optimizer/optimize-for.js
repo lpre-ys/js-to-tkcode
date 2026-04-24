@@ -58,7 +58,7 @@ function getMaxValue(node, Const) {
       node.right = optimizeConst(node.right, Const);
     }
     if (!literal.isLiteralTest(node)) {
-      throw Error('optimizerFor 対応外のMAX指定です: ${JSON.stringify(node)}');
+      throw Error(`optimizerFor 対応外のMAX指定です: ${JSON.stringify(node)}`);
     }
     return eval(`${literal.getLiteralVar(node.left)} ${node.operator} ${literal.getLiteralVar(node.right)}`);
   }
