@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class EventFlash extends Command {
 
   run(target, r = 31, g = 31, b = 31, volume = 31, time = 5, wait = true) {
@@ -18,4 +16,4 @@ class EventFlash extends Command {
   }
 }
 
-module.exports = EventFlash;
+export default EventFlash;

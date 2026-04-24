@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const SetDbRow = require('../../../js/util/commands/set-db-row');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import SetDbRow from '../../../js/util/commands/set-db-row.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('SetDbRow（DB行設定）', () => {
   const setDbRow = new SetDbRow();

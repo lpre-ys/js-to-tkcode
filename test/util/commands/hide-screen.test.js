@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const HideScreen = require('../../../js/util/commands/hide-screen');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import HideScreen from '../../../js/util/commands/hide-screen.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('HideScreen（画面の消去）', () => {
   const hideScreen = new HideScreen();

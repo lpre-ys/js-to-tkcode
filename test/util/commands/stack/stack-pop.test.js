@@ -1,11 +1,9 @@
-'use strict';
-
-const assert = require('power-assert');
-const StackPop = require('../../../../js/util/commands/stack/stack-pop');
-const Command = require('../../../../js/util/command');
-const executeLog = require('../../../../js/util/execute-log');
-const tkVarManager = require('../../../../js/lib/tk-var-manager');
-const tmpVarFactory = require('../../../../js/lib/tmp-var-factory');
+import assert from 'power-assert';
+import StackPop from '../../../../js/util/commands/stack/stack-pop.js';
+import Command from '../../../../js/util/command.js';
+import executeLog from '../../../../js/util/execute-log.js';
+import tkVarManager from '../../../../js/lib/tk-var-manager.js';
+import tmpVarFactory from '../../../../js/lib/tmp-var-factory.js';
 
 describe('StackPop', () => {
   const stackPop = new StackPop();

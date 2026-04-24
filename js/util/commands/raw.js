@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class Raw extends Command {
 
   run(cmd) {
@@ -21,4 +19,4 @@ class Raw extends Command {
   }
 }
 
-module.exports = Raw;
+export default Raw;

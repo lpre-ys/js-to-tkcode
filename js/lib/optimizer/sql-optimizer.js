@@ -1,8 +1,7 @@
-'use strict';
-
-const estraverse = require('estraverse');
-const escodegen = require('escodegen');
-const sqlite3 = require('sqlite3').verbose();
+import estraverse from 'estraverse';
+import escodegen from 'escodegen';
+import _sqlite3pkg from 'sqlite3';
+const sqlite3 = _sqlite3pkg.verbose();
 
 class SqlOptimizer {
   constructor(database) {
@@ -109,4 +108,4 @@ function replaceNode(node, data) {
   }
 }
 
-module.exports = SqlOptimizer;
+export default SqlOptimizer;

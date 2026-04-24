@@ -1,10 +1,8 @@
-'use strict';
-
-const assert = require('power-assert');
-const RangeAssign = require('../../../js/util/commands/range-assign');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
-const tkVarManager = require('../../../js/lib/tk-var-manager');
+import assert from 'power-assert';
+import RangeAssign from '../../../js/util/commands/range-assign.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
+import tkVarManager from '../../../js/lib/tk-var-manager.js';
 
 describe('RangeAssign（変数の操作・範囲初期化）', () => {
   const rangeAssign = new RangeAssign();

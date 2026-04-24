@@ -1,10 +1,8 @@
-'use strict';
-
-const assert = require('power-assert');
-const StackInit = require('../../../../js/util/commands/stack/stack-init');
-const Command = require('../../../../js/util/command');
-const executeLog = require('../../../../js/util/execute-log');
-const tkVarManager = require('../../../../js/lib/tk-var-manager');
+import assert from 'power-assert';
+import StackInit from '../../../../js/util/commands/stack/stack-init.js';
+import Command from '../../../../js/util/command.js';
+import executeLog from '../../../../js/util/execute-log.js';
+import tkVarManager from '../../../../js/lib/tk-var-manager.js';
 
 describe('StackInit', () => {
   const stackInit = new StackInit();

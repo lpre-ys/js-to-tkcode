@@ -1,7 +1,5 @@
-'use strict';
-
-const Command = require('../command');
-const tkVarManager = require('../../lib/tk-var-manager');
+import Command from '../command.js';
+import tkVarManager from '../../lib/tk-var-manager.js';
 
 const keys = ['enter', 'cancel', 'shift', 'down', 'left', 'right', 'up'];
 class KeyEntry extends Command {
@@ -28,4 +26,4 @@ class KeyEntry extends Command {
   }
 }
 
-module.exports = KeyEntry;
+export default KeyEntry;

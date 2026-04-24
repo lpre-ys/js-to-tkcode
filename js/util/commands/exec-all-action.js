@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class ExecAllAction extends Command {
 
   run() {
@@ -18,4 +16,4 @@ class ExecAllAction extends Command {
   }
 }
 
-module.exports = ExecAllAction;
+export default ExecAllAction;

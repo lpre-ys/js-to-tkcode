@@ -1,9 +1,4 @@
-'use strict';
+import JsToTkcode from './js/lib/js-to-tkcode.js';
+import TkMock from './js/util/tk-mock.js';
 
-const JsToTkcode = require('./js/lib/js-to-tkcode');
-const TkMock = require('./js/util/tk-mock');
-
-module.exports = {
-  "JsToTkcode": JsToTkcode,
-  "TkMock": TkMock
-};
+export { JsToTkcode, TkMock };

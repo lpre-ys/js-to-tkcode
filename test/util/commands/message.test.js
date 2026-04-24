@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const Message = require('../../../js/util/commands/message');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import Message from '../../../js/util/commands/message.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('Message（文章）', () => {
   const message = new Message();

@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class ResetFace extends Command {
 
   run() {
@@ -18,4 +16,4 @@ class ResetFace extends Command {
   }
 }
 
-module.exports = ResetFace;
+export default ResetFace;

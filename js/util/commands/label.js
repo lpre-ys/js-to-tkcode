@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class Label extends Command {
 
   run(label) {
@@ -18,4 +16,4 @@ class Label extends Command {
   }
 }
 
-module.exports = Label;
+export default Label;

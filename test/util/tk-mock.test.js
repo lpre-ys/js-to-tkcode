@@ -1,7 +1,8 @@
-const assert = require('power-assert');
-const sinon = require('sinon');
+import assert from 'power-assert';
+import sinon from 'sinon';
+import TkMock from '../../js/util/tk-mock.js';
+import executeLog from '../../js/util/execute-log.js';
 
-const TkMock = require('../../js/util/tk-mock');
 
 describe('TkMock', () => {
   let tkMock;
@@ -32,7 +33,6 @@ describe('TkMock', () => {
   describe('init', () => {
     describe('reset executeLog', () => {
       it('ログがリセットされること', () => {
-        const executeLog = require('../../js/util/execute-log');
         const spy = sinon.spy(executeLog, 'reset');
         new TkMock();
         assert(spy.calledOnce);

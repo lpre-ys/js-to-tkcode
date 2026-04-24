@@ -1,5 +1,4 @@
-'use strict';
-
+import Command from '../../command.js';
 /**
  * StackInit
  *
@@ -9,7 +8,6 @@
  * [TOP][MAX][0][][][][MAX - 1]
  */
 
-const Command = require('../../command');
 class StackInit extends Command {
 
   run(base, max) {
@@ -34,4 +32,4 @@ class StackInit extends Command {
   }
 }
 
-module.exports = StackInit;
+export default StackInit;

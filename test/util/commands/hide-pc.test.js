@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const HidePc = require('../../../js/util/commands/hide-pc');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import HidePc from '../../../js/util/commands/hide-pc.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('HidePc（主人公を非表示）', () => {
   const hidePc = new HidePc();

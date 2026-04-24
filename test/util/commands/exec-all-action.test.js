@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const ExecAllAction = require('../../../js/util/commands/exec-all-action');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import ExecAllAction from '../../../js/util/commands/exec-all-action.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('ExecAllAction（指定動作の全実行）', () => {
   const execAllAction = new ExecAllAction();

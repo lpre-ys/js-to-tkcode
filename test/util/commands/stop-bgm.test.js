@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const StopBgm = require('../../../js/util/commands/stop-bgm');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import StopBgm from '../../../js/util/commands/stop-bgm.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('StopBgm（BGMの停止）', () => {
   const stopBgm = new StopBgm();

@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class StorePlace extends Command {
 
   run(mapId, x, y) {
@@ -21,4 +19,4 @@ class StorePlace extends Command {
   }
 }
 
-module.exports = StorePlace;
+export default StorePlace;

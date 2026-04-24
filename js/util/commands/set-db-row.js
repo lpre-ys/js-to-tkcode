@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class SetDbRow extends Command {
 
   run(label, id = false) {
@@ -18,4 +16,4 @@ class SetDbRow extends Command {
   }
 }
 
-module.exports = SetDbRow;
+export default SetDbRow;

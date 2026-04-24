@@ -1,6 +1,4 @@
-'use strict';
-
-const parseVar = require('./parse-var');
+import parseVar from './parse-var.js';
 
 function parseAssign(node, parser) {
   let left = parseVar(node.left, parser);
@@ -53,4 +51,4 @@ const Operators = {
   '%' : 5
 };
 
-module.exports = parseAssign;
+export default parseAssign;

@@ -1,7 +1,5 @@
-'use strict';
-
-const assert = require('power-assert');
-const parseBreak = require('../../../js/lib/parser/parse-break');
+import assert from 'power-assert';
+import parseBreak from '../../../js/lib/parser/parse-break.js';
 
 describe('Parser parseBreak', () => {
   it('parser.outputsに"Break"が追加される', () => {

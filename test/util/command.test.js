@@ -1,8 +1,8 @@
-const assert = require('power-assert');
-const sinon = require('sinon');
+import assert from 'power-assert';
+import sinon from 'sinon';
+import Command from '../../js/util/command.js';
+import executeLog from '../../js/util/execute-log.js';
 
-const Command = require('../../js/util/command');
-const executeLog = require('../../js/util/execute-log');
 
 describe('Command', () => {
   const command = new Command();

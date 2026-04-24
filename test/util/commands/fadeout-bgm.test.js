@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const FadeoutBgm = require('../../../js/util/commands/fadeout-bgm');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import FadeoutBgm from '../../../js/util/commands/fadeout-bgm.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('FadeoutBgm（BGMのフェードアウト）', () => {
   const fadeoutBgm = new FadeoutBgm();

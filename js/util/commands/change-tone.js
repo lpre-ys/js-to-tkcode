@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class ChangeTone extends Command {
 
   run(r = 100, g = 100, b = 100, s = 100, time = 10, wait = true) {
@@ -18,4 +16,4 @@ class ChangeTone extends Command {
   }
 }
 
-module.exports = ChangeTone;
+export default ChangeTone;

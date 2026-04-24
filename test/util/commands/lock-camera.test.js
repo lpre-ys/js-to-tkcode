@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const LockCamera = require('../../../js/util/commands/lock-camera');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import LockCamera from '../../../js/util/commands/lock-camera.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('LockCamera（画面スクロール固定）', () => {
   const lockCamera = new LockCamera();

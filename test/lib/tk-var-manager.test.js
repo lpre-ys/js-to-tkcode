@@ -1,6 +1,6 @@
-const assert = require('power-assert');
+import assert from 'power-assert';
+import tkVarManager from '../../js/lib/tk-var-manager.js';
 
-const tkVarManager = require('../../js/lib/tk-var-manager');
 
 describe('TkVarManager', () => {
   // 一時変数

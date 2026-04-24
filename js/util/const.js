@@ -1,5 +1,3 @@
-'use strict';
-
 // TODO なんかYamlとかで定義する？
 /**
  * @readonly
@@ -97,4 +95,4 @@ const Const = {
 };
 
 /** @module Const */
-module.exports = Const;
+export default Const;

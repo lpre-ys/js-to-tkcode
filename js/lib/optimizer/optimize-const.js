@@ -1,5 +1,3 @@
-'use strict';
-
 function optimizeConst(node, Const) {
   if (
     node.object &&
@@ -26,7 +24,7 @@ function optimizeConst(node, Const) {
   return node;
 }
 
-module.exports = optimizeConst;
+export default optimizeConst;
 
 /*
 

@@ -1,11 +1,10 @@
-'use strict';
-
-const tkVarManager = require('../lib/tk-var-manager');
+import tkVarManager from '../lib/tk-var-manager.js';
+import executeLog from './execute-log.js';
 
 class Command {
   constructor() {
     this.mode = 'exec';
-    this.executeLog = require('./execute-log');
+    this.executeLog = executeLog;
   }
   execute(...args) {
     if (this.mode == 'exec') {
@@ -44,4 +43,4 @@ class Command {
     return tkVarManager.getTmpVarNumber(index);
   }
 }
-module.exports = Command;
+export default Command;

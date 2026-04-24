@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class StartAction extends Command {
 
   run(eventId, repeat = false, speed = 8, ignore = 0) {
@@ -18,4 +16,4 @@ class StartAction extends Command {
   }
 }
 
-module.exports = StartAction;
+export default StartAction;

@@ -1,8 +1,8 @@
-const assert = require('power-assert');
-const optimizeFor = require('../../../js/lib/optimizer/optimize-for');
+import assert from 'power-assert';
+import optimizeFor from '../../../js/lib/optimizer/optimize-for.js';
+import esprima from 'esprima';
+import escodegen from 'escodegen';
 
-const esprima = require('esprima');
-const escodegen = require('escodegen');
 
 const escodegenOption = {
   format: {

@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
   class StopBgm extends Command {
 
   run() {
@@ -18,4 +16,4 @@ const Command = require('../command');
   }
 }
 
-module.exports = StopBgm;
+export default StopBgm;

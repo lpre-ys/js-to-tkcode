@@ -1,6 +1,4 @@
-'use strict';
-
-const parseTest = require('./parse-test');
+import parseTest from './parse-test.js';
 
 function parseWhile(node, parser) {
   parser.outputs.push(`Loop`);
@@ -16,4 +14,4 @@ function parseWhile(node, parser) {
   parser.outputs.push(`EndLoop`);
 }
 
-module.exports = parseWhile;
+export default parseWhile;

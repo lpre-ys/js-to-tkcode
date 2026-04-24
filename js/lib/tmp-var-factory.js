@@ -1,5 +1,3 @@
-"use strict";
-
 const TMP_ARR_NAME = 'TMP';
 
 class TmpVarFactory {
@@ -21,4 +19,4 @@ class TmpVarFactory {
   }
 }
 
-module.exports = new TmpVarFactory();
+export default new TmpVarFactory();

@@ -1,9 +1,7 @@
-'use strict';
+import esprima from 'esprima';
+import escodegen from 'escodegen';
+import tmpVarFactory from '../tmp-var-factory.js';
 
-const esprima = require('esprima');
-const escodegen = require('escodegen');
-
-const tmpVarFactory = require('../tmp-var-factory');
 
 function parseBinary(node, parser) {
   let {
@@ -79,4 +77,4 @@ const BinaryOperators = {
   '%' : 5
 };
 
-module.exports = parseBinary;
+export default parseBinary;

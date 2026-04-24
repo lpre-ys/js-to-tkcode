@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class Rand extends Command {
 
   run(receive, min, max) {
@@ -19,4 +17,4 @@ class Rand extends Command {
   }
 }
 
-module.exports = Rand;
+export default Rand;

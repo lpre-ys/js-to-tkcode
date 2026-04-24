@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const SetString = require('../../../js/util/commands/set-string');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import SetString from '../../../js/util/commands/set-string.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('SetString（文章設定）', () => {
   const setString = new SetString();

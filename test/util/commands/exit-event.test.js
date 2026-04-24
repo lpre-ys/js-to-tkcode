@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const ExitEvent = require('../../../js/util/commands/exit-event');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import ExitEvent from '../../../js/util/commands/exit-event.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('ExitEvent（イベント処理の中断）', () => {
   const exitEvent = new ExitEvent();

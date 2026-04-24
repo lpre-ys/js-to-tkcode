@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const SaveBgm = require('../../../js/util/commands/save-bgm');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import SaveBgm from '../../../js/util/commands/save-bgm.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('SaveBgm（現在のBGMを記憶）', () => {
   const saveBgm = new SaveBgm();

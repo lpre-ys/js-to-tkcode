@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class ChangeBg extends Command {
 
   run(img) {
@@ -18,4 +16,4 @@ class ChangeBg extends Command {
   }
 }
 
-module.exports = ChangeBg;
+export default ChangeBg;

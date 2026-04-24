@@ -1,10 +1,8 @@
-'use strict';
-
-const assert = require('power-assert');
-const RangeBoolean = require('../../../js/util/commands/range-boolean');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
-const tkVarManager = require('../../../js/lib/tk-var-manager');
+import assert from 'power-assert';
+import RangeBoolean from '../../../js/util/commands/range-boolean.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
+import tkVarManager from '../../../js/lib/tk-var-manager.js';
 
 describe('RangeBoolean（スイッチの操作・範囲初期化）', () => {
   const rangeBoolean = new RangeBoolean();

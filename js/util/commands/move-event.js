@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class MoveEvent extends Command {
 
   run(eventId, x, y) {
@@ -24,4 +22,4 @@ class MoveEvent extends Command {
   }
 }
 
-module.exports = MoveEvent;
+export default MoveEvent;

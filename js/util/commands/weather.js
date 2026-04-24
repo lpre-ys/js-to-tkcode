@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class Weather extends Command {
 
   run(type, value) {
@@ -18,4 +16,4 @@ class Weather extends Command {
   }
 }
 
-module.exports = Weather;
+export default Weather;

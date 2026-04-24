@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class ExitEvent extends Command {
 
   run() {
@@ -18,4 +16,4 @@ class ExitEvent extends Command {
   }
 }
 
-module.exports = ExitEvent;
+export default ExitEvent;

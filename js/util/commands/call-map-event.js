@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class CallMapEvent extends Command {
 
   run(id, page = 1) {
@@ -25,4 +23,4 @@ class CallMapEvent extends Command {
   }
 }
 
-module.exports = CallMapEvent;
+export default CallMapEvent;

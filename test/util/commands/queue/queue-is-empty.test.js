@@ -1,10 +1,8 @@
-'use strict';
-
-const assert = require('power-assert');
-const QueueIsEmpty = require('../../../../js/util/commands/queue/queue-is-empty');
-const Command = require('../../../../js/util/command');
-const executeLog = require('../../../../js/util/execute-log');
-const tkVarManager = require('../../../../js/lib/tk-var-manager');
+import assert from 'power-assert';
+import QueueIsEmpty from '../../../../js/util/commands/queue/queue-is-empty.js';
+import Command from '../../../../js/util/command.js';
+import executeLog from '../../../../js/util/execute-log.js';
+import tkVarManager from '../../../../js/lib/tk-var-manager.js';
 
 describe('QueueIsEmpty', () => {
   const queueIsEmpty = new QueueIsEmpty();

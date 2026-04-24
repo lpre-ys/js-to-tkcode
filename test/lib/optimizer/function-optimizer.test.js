@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const esprima = require('esprima');
-const escodegen = require('escodegen');
-const FunctionOptimizer = require('../../../js/lib/optimizer/function-optimizer');
+import assert from 'power-assert';
+import esprima from 'esprima';
+import escodegen from 'escodegen';
+import FunctionOptimizer from '../../../js/lib/optimizer/function-optimizer.js';
 
 describe('FunctionOptimizer', () => {
   let optimizer;

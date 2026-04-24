@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const AddMember = require('../../../js/util/commands/add-member');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import AddMember from '../../../js/util/commands/add-member.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('AddMember（メンバーの入れ替え・追加）', () => {
   const addMember = new AddMember();

@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const Wait = require('../../../js/util/commands/wait');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import Wait from '../../../js/util/commands/wait.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('Wait（ウェイト）', () => {
   const wait = new Wait();

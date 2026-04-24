@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const PlaySound = require('../../../js/util/commands/play-sound');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import PlaySound from '../../../js/util/commands/play-sound.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('PlaySound（効果音の演奏）', () => {
   const playSound = new PlaySound();

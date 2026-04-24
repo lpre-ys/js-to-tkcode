@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class HidePc extends Command {
 
   run() {
@@ -18,4 +16,4 @@ class HidePc extends Command {
   }
 }
 
-module.exports = HidePc;
+export default HidePc;

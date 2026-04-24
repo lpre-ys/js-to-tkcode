@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class Flash extends Command {
 
   run(r, g, b, volume = 31, time = 5, wait = true) {
@@ -18,4 +16,4 @@ class Flash extends Command {
   }
 }
 
-module.exports = Flash;
+export default Flash;

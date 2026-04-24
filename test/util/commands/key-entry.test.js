@@ -1,10 +1,8 @@
-'use strict';
-
-const assert = require('power-assert');
-const KeyEntry = require('../../../js/util/commands/key-entry');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
-const tkVarManager = require('../../../js/lib/tk-var-manager');
+import assert from 'power-assert';
+import KeyEntry from '../../../js/util/commands/key-entry.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
+import tkVarManager from '../../../js/lib/tk-var-manager.js';
 
 describe('KeyEntry（キー入力の処理）', () => {
   const keyEntry = new KeyEntry();

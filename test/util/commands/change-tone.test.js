@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const ChangeTone = require('../../../js/util/commands/change-tone');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import ChangeTone from '../../../js/util/commands/change-tone.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('ChangeTone（画面の色調変更）', () => {
   const changeTone = new ChangeTone();

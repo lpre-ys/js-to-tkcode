@@ -1,5 +1,4 @@
-'use strict';
-
+import Command from '../../command.js';
 /**
  * QueueIsEmpty
  *
@@ -7,7 +6,6 @@
  * [head][tail][max][tmp][0][][][][MAX - 1][MAX]
  */
 
-const Command = require('../../command');
 class QueueIsEmpty extends Command {
 
   run(base, retBoolean) {
@@ -35,4 +33,4 @@ class QueueIsEmpty extends Command {
   }
 }
 
-module.exports = QueueIsEmpty;
+export default QueueIsEmpty;

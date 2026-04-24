@@ -1,5 +1,4 @@
-'use strict';
-
+import Command from '../../command.js';
 /**
  * QueueDequeue
  *
@@ -7,7 +6,6 @@
  * [head][tail][max][tmp][0][][][][MAX - 1][MAX]
  */
 
-const Command = require('../../command');
 class QueueDequeue extends Command {
 
   run(base, retVar) {
@@ -54,4 +52,4 @@ class QueueDequeue extends Command {
   }
 }
 
-module.exports = QueueDequeue;
+export default QueueDequeue;

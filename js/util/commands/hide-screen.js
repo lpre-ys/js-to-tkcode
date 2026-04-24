@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class HideScreen extends Command {
 
   run(type) {
@@ -24,4 +22,4 @@ class HideScreen extends Command {
   }
 }
 
-module.exports = HideScreen;
+export default HideScreen;

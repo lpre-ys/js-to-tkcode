@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class Message extends Command {
 
   run(text, isFlash = false) {
@@ -26,4 +24,4 @@ class Message extends Command {
   }
 }
 
-module.exports = Message;
+export default Message;

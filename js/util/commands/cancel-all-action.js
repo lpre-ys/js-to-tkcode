@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class CancelAllAction extends Command {
 
   run() {
@@ -18,4 +16,4 @@ class CancelAllAction extends Command {
   }
 }
 
-module.exports = CancelAllAction;
+export default CancelAllAction;

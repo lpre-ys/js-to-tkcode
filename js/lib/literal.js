@@ -1,5 +1,3 @@
-'use strict';
-
 function isLiteralTest(test) {
   if (!test.right || !test.left) {
     return false;
@@ -42,7 +40,7 @@ function parseLiteralBinary(node) {
   return eval(`${getLiteralVar(node.left)} ${node.operator} ${getLiteralVar(node.right)}`);
 }
 
-module.exports = {
+export default {
   isLiteralTest,
   isLiteral,
   getLiteralVar,

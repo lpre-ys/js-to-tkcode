@@ -1,25 +1,26 @@
 #!/usr/bin/env node
+import { createRequire } from 'module';
+import chokidar from 'chokidar';
+import parseArgs from 'minimist';
+import mkdirp from 'mkdirp';
+import path from 'path';
+import fs from 'fs';
+import yaml from 'js-yaml';
+import JsToTkcode from '../lib/js-to-tkcode.js';
+import md5 from 'md5';
+import md5File from 'md5-file';
+import pLimit from 'p-limit';
 
-const chokidar = require("chokidar");
-const parseArgs = require("minimist");
-const mkdirp = require("mkdirp");
-const path = require("path");
-const fs = require("fs");
-const fsPromises = require("fs").promises;
-
-const yaml = require("js-yaml");
-const JsToTkcode = require("../lib/js-to-tkcode");
-
-const md5 = require("md5");
-const md5File = require("md5-file");
-const pLimit = require("p-limit");
+const _require = createRequire(import.meta.url);
+const { version } = _require('../../package.json');
+const fsPromises = fs.promises;
 
 const args = parseArgs(process.argv);
 if (!args.config) {
   args.config = "js2tk.config.js";
 }
 const configPath = path.resolve(args.config);
-const config = require(configPath);
+const config = _require(configPath);
 const scriptsPath = path.resolve(config.scripts);
 const libPath = config.lib ? path.resolve(config.lib) : false;
 
@@ -34,7 +35,6 @@ const cyan = "\u001b[36m";
 
 const reset = "\u001b[0m";
 
-const { version } = require("../../package.json");
 
 // init
 console.log(`INIT-START v${version}`);

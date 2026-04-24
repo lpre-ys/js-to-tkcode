@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class RemoveMember extends Command {
 
   run(member) {
@@ -18,4 +16,4 @@ class RemoveMember extends Command {
   }
 }
 
-module.exports = RemoveMember;
+export default RemoveMember;
