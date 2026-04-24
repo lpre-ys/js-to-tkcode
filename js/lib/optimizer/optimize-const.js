@@ -1,10 +1,13 @@
 'use strict';
 
-const escodegen = require('escodegen');
-
 function optimizeConst(node, Const) {
-  const code = escodegen.generate(node);
-  if (code.startsWith('tkMock.Const') && Object.keys(Const).includes(node.property.name)) {
+  if (
+    node.object &&
+    node.object.type === 'MemberExpression' &&
+    node.object.object.name === 'tkMock' &&
+    node.object.property.name === 'Const' &&
+    Object.prototype.hasOwnProperty.call(Const, node.property.name)
+  ) {
     const value =  Const[node.property.name];
     if (value < 0) {
       return {
