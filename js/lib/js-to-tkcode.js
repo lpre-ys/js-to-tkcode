@@ -47,6 +47,7 @@ class JsToTkcode {
   resetConfig(options) {
     tkVarManager.setOptions(options);
     this.tkMock = new TkMock(options.pjConst || {});
+    this.parser = new Parser(this.tkMock);
   }
 }
 
