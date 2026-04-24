@@ -19,7 +19,7 @@ class SqlOptimizer {
         const tables = [];
         this.db.all(`SELECT name FROM sqlite_master WHERE type = 'table'`, (err, rows) => {
           if (err) {
-            reject(err);
+            return reject(err);
           }
           rows.forEach((row) => {
             tables.push(row.name);
@@ -34,7 +34,7 @@ class SqlOptimizer {
         promises.push(new Promise((resolve, reject) => {
           this.db.all(`SELECT * FROM ${table}`, (err, rows) => {
             if (err) {
-              reject(err);
+              return reject(err);
             }
             rows.forEach((row) => {
               this.data[table][row.label] = row;

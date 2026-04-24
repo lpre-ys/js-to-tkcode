@@ -1,7 +1,5 @@
 'use strict';
 
-const esprima = require('esprima');
-const escodegen = require('escodegen');
 const estraverse = require('estraverse');
 
 const literal = require('../literal');
@@ -22,7 +20,7 @@ function optimizeFor(node, Const) {
   let result = esprima.parse(`{}`).body[0];
   for (let i = init; i < max; i += add) {
     // TODO body parse
-    const bodyAst = esprima.parse(escodegen.generate(node.body));
+    const bodyAst = structuredClone(node.body);
     estraverse.replace(bodyAst, {
       leave: function (subNode) {
         // TODO String
@@ -37,7 +35,7 @@ function optimizeFor(node, Const) {
         }
       }
     });
-    result.body.push(bodyAst);
+    result.body.push(...bodyAst.body);
   }
   return result;
 }
@@ -58,7 +56,7 @@ function getMaxValue(node, Const) {
       node.right = optimizeConst(node.right, Const);
     }
     if (!literal.isLiteralTest(node)) {
-      throw Error('optimizerFor 対応外のMAX指定です: ${JSON.stringify(node)}');
+      throw Error(`optimizerFor 対応外のMAX指定です: ${JSON.stringify(node)}`);
     }
     return eval(`${literal.getLiteralVar(node.left)} ${node.operator} ${literal.getLiteralVar(node.right)}`);
   }

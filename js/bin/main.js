@@ -12,6 +12,7 @@ const JsToTkcode = require("../lib/js-to-tkcode");
 
 const md5 = require("md5");
 const md5File = require("md5-file");
+const pLimit = require("p-limit");
 
 const args = parseArgs(process.argv);
 if (!args.config) {
@@ -98,9 +99,10 @@ jsToTkcode
     buildedLib = result;
 
     // build
+    const limit = pLimit(16);
     return Promise.all(
       scripts.map((script) => {
-        return build(script, buildedLib).then((result) => {
+        return limit(() => build(script, buildedLib)).then((result) => {
           if (result.type === "skip") {
             skipped += 1;
           }

@@ -29,7 +29,7 @@ class JsToTkcode {
         this.sqlOptimizer = new SqlOptimizer(this.database);
         this.sqlOptimizer.load().then(() => {
           resolve(true);
-        });
+        }).catch(reject);
       }
     });
   }
@@ -47,6 +47,7 @@ class JsToTkcode {
   resetConfig(options) {
     tkVarManager.setOptions(options);
     this.tkMock = new TkMock(options.pjConst || {});
+    this.parser = new Parser(this.tkMock);
   }
 }
 
