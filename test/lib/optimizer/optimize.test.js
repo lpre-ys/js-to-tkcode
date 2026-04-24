@@ -19,7 +19,7 @@ describe('Optimizer optimize', () => {
     const ast = esprima.parse(code);
     const ret = optimize(ast);
 
-    assert(escodegen.generate(ret, escodegenOption) == `{{test = 1;}{test = 1;}{test = 1;}}`);
+    assert(escodegen.generate(ret, escodegenOption) == `{test = 1;test = 1;test = 1;}`);
   });
   describe('Function系', () => {
     it('引数無し', () => {

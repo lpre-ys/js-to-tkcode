@@ -55,5 +55,26 @@ describe('FunctionOptimizer', () => {
       assert(!code.includes(' x'));
       assert(code.includes('7'));
     });
+
+    it('複数文の関数本体が全て返される', () => {
+      const node = esprima.parse('function multi() { a = 1; b = 2; c = 3; }').body[0];
+      optimizer.addFunction('multi', node);
+      const result = optimizer.getNode('multi', []);
+      const code = escodegen.generate(result);
+      assert(code.includes('a = 1'));
+      assert(code.includes('b = 2'));
+      assert(code.includes('c = 3'));
+    });
+
+    it('複数文＋引数置換で全文に置換が適用される', () => {
+      const node = esprima.parse('function setTwo(x) { a = x; b = x + 1; }').body[0];
+      optimizer.addFunction('setTwo', node);
+      const arg = esprima.parse('10').body[0].expression;
+      const result = optimizer.getNode('setTwo', [arg]);
+      const code = escodegen.generate(result);
+      assert(code.includes('a = 10'));
+      assert(code.includes('b = 10'));
+      assert(!code.includes(' x'));
+    });
   });
 });
