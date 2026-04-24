@@ -37,7 +37,7 @@ function optimizeFor(node, Const) {
         }
       }
     });
-    result.body.push(bodyAst);
+    result.body.push(...bodyAst.body);
   }
   return result;
 }
