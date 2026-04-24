@@ -1,7 +1,5 @@
 'use strict';
 
-const esprima = require('esprima');
-const escodegen = require('escodegen');
 const estraverse = require('estraverse');
 
 const literal = require('../literal');
@@ -22,7 +20,7 @@ function optimizeFor(node, Const) {
   let result = esprima.parse(`{}`).body[0];
   for (let i = init; i < max; i += add) {
     // TODO body parse
-    const bodyAst = esprima.parse(escodegen.generate(node.body));
+    const bodyAst = structuredClone(node.body);
     estraverse.replace(bodyAst, {
       leave: function (subNode) {
         // TODO String

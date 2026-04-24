@@ -1,6 +1,4 @@
-const esprima = require('esprima');
 const estraverse = require('estraverse');
-const escodegen = require('escodegen');
 
 class FunctionOptimizer{
   constructor() {
@@ -25,7 +23,7 @@ class FunctionOptimizer{
       return false;
     }
 
-    const ret = esprima.parse(escodegen.generate(node.body)).body[0];
+    const ret = structuredClone(node.body).body[0];
 
     if (args.length > 0) {
       // パラメータのハッシュを作成
