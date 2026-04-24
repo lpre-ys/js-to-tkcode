@@ -17,7 +17,7 @@ function optimizeFor(node, Const) {
   }
   const add = 1;  //TODO
   // 複雑な条件文には対応しない
-  let result = esprima.parse(`{}`).body[0];
+  let result = { type: 'BlockStatement', body: [] };
   for (let i = init; i < max; i += add) {
     // TODO body parse
     const bodyAst = structuredClone(node.body);
