@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const Goto = require('../../../js/util/commands/goto');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import Goto from '../../../js/util/commands/goto.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('Goto（指定ラベルへ飛ぶ）', () => {
   const goto = new Goto();

@@ -1,5 +1,5 @@
-const assert = require('power-assert');
-const JsToTkcode = require('../js/lib/js-to-tkcode');
+import assert from 'power-assert';
+import JsToTkcode from '../js/lib/js-to-tkcode.js';
 
 describe('シナリオテスト', () => {
   const varList = {

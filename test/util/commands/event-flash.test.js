@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const EventFlash = require('../../../js/util/commands/event-flash');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import EventFlash from '../../../js/util/commands/event-flash.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('EventFlash（キャラクターのフラッシュ）', () => {
   const eventFlash = new EventFlash();

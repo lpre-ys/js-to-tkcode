@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class ActionSwitch extends Command {
 
   run(target, value) {
@@ -20,4 +18,4 @@ class ActionSwitch extends Command {
   }
 }
 
-module.exports = ActionSwitch;
+export default ActionSwitch;

@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class SetTransition extends Command {
 
   run(type, effect) {
@@ -24,4 +22,4 @@ class SetTransition extends Command {
   }
 }
 
-module.exports = SetTransition;
+export default SetTransition;

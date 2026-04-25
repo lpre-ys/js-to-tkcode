@@ -1,17 +1,17 @@
-const escodegen = require('escodegen');
+import escodegen from 'escodegen';
 
 function parseCall(node, parser) {
   const tkMock = parser.tkMock;
   const callee = node.callee;
   if (callee.type === 'MemberExpression' && callee.object.name === tkMock.name) {
     const code = escodegen.generate(node);
-    eval(`parser.appendOutput(ret = ${code})`); // TODO eval......
+    eval(`parser.appendOutput(${code})`); // TODO eval...
   } else {
     // TODO function parser
   }
 }
 
-module.exports = parseCall;
+export default parseCall;
 
 // 古いコード
 /*

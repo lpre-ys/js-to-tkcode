@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const RemoveMember = require('../../../js/util/commands/remove-member');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import RemoveMember from '../../../js/util/commands/remove-member.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('RemoveMember（メンバーの入れ替え・削除）', () => {
   const removeMember = new RemoveMember();

@@ -1,10 +1,10 @@
-const assert = require('power-assert');
-const optimizeConst = require('../../../js/lib/optimizer/optimize-const');
+import assert from 'power-assert';
+import optimizeConst from '../../../js/lib/optimizer/optimize-const.js';
+import Const from '../../../js/util/const.js';
+import esprima from 'esprima';
+import escodegen from 'escodegen';
 
-const Const = require('../../../js/util/const');
 
-const esprima = require('esprima');
-const escodegen = require('escodegen');
 
 const escodegenOption = {
   format: {

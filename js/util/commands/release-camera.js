@@ -1,6 +1,4 @@
-"use strict";
-
-const Command = require("../command");
+import Command from '../command.js';
 class ReleaseCamera extends Command {
   run() {
     this.writeLog(``);
@@ -17,4 +15,4 @@ class ReleaseCamera extends Command {
   }
 }
 
-module.exports = ReleaseCamera;
+export default ReleaseCamera;

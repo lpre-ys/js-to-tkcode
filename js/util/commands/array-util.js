@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 /**
  * パーサが変数の添え字に対応していないので、補助関数
  * TODO そのうちパーサ側で対応する
@@ -58,4 +56,4 @@ class ArrayUtil extends Command {
 
 }
 
-module.exports = ArrayUtil;
+export default ArrayUtil;

@@ -1,7 +1,5 @@
-'use strict';
-
-const Command = require('../command');
-const Const = require('../const');
+import Command from '../command.js';
+import Const from '../const.js';
 class MessageOption extends Command {
 
   run(isShowBg, position = -1) {
@@ -22,4 +20,4 @@ class MessageOption extends Command {
   }
 }
 
-module.exports = MessageOption;
+export default MessageOption;

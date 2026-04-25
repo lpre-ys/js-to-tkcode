@@ -1,8 +1,8 @@
-const assert = require('power-assert');
-const parseAssign = require('../../../js/lib/parser/parse-assign');
-const Parser = require('../../../js/lib/parser/parser');
+import assert from 'power-assert';
+import parseAssign from '../../../js/lib/parser/parse-assign.js';
+import Parser from '../../../js/lib/parser/parser.js';
+import esprima from 'esprima';
 
-const esprima = require('esprima');
 
 describe('Parser parseAssign', () => {
   let parser;

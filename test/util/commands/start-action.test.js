@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const StartAction = require('../../../js/util/commands/start-action');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import StartAction from '../../../js/util/commands/start-action.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('StartAction（キャラクターの動作指定）', () => {
   const startAction = new StartAction();

@@ -1,10 +1,8 @@
-'use strict';
-
-const assert = require('power-assert');
-const ActionSwitch = require('../../../js/util/commands/action-switch');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
-const tkVarManager = require('../../../js/lib/tk-var-manager');
+import assert from 'power-assert';
+import ActionSwitch from '../../../js/util/commands/action-switch.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
+import tkVarManager from '../../../js/lib/tk-var-manager.js';
 
 describe('ActionSwitch（アクション・スイッチ）', () => {
   const actionSwitch = new ActionSwitch();

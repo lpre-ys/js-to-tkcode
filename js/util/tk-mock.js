@@ -1,7 +1,6 @@
-'use strict';
-
-const executeLog = require('./execute-log');
-const commandList = require('./command-list');
+import executeLog from './execute-log.js';
+import commandList from './command-list.js';
+import _Const from './const.js';
 
 class TkMock {
   constructor(pjConst = {}) {
@@ -9,8 +8,7 @@ class TkMock {
     this.commands = [];
     executeLog.reset();
     // const merge
-    this.Const = require('./const');
-    this.Const = Object.assign(this.Const, pjConst.hasOwnProperty('pjConst') ? pjConst.pjConst : pjConst);
+    this.Const = Object.assign({..._Const}, pjConst.hasOwnProperty('pjConst') ? pjConst.pjConst : pjConst);
 
     // setFunctions
     Object.keys(commandList).forEach((key) => {
@@ -45,4 +43,4 @@ class TkMock {
     return executeLog.log;
   }
 }
-module.exports = TkMock;
+export default TkMock;

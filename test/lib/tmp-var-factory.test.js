@@ -1,5 +1,5 @@
-const assert = require('power-assert');
-const tmpVarFactory = require('../../js/lib/tmp-var-factory');
+import assert from 'power-assert';
+import tmpVarFactory from '../../js/lib/tmp-var-factory.js';
 
 describe('tmpVarFactory', () => {
   beforeEach(() => {

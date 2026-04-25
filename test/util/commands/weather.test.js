@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const Weather = require('../../../js/util/commands/weather');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import Weather from '../../../js/util/commands/weather.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('Weather（天候エフェクトの設定）', () => {
   const weather = new Weather();

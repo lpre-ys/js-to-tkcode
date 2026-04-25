@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class DeletePicture extends Command {
 
   run(num) {
@@ -18,4 +16,4 @@ class DeletePicture extends Command {
   }
 }
 
-module.exports = DeletePicture;
+export default DeletePicture;

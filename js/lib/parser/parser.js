@@ -1,15 +1,13 @@
-'use strict';
+import estraverse from 'estraverse';
+import tmpVarFactory from '../tmp-var-factory.js';
+import parseAssign from './parse-assign.js';
+import parseBinary from './parse-binary.js';
+import parseIf from './parse-if.js';
+import parseWhile from './parse-while.js';
+import parseCall from './parse-call.js';
+import parseBreak from './parse-break.js';
 
-const estraverse = require('estraverse');
 
-const tmpVarFactory = require('../tmp-var-factory');
-
-const parseAssign = require('./parse-assign');
-const parseBinary = require('./parse-binary');
-const parseIf = require('./parse-if');
-const parseWhile = require('./parse-while');
-const parseCall = require('./parse-call');
-const parseBreak = require('./parse-break');
 
 class Parser {
   constructor(tkMock) {
@@ -91,4 +89,4 @@ class Parser {
 }
 
 
-module.exports = Parser;
+export default Parser;

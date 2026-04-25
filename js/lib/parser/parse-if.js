@@ -1,7 +1,5 @@
-'use strict';
-
-const parseTest = require('./parse-test');
-const literal = require('../literal');
+import parseTest from './parse-test.js';
+import literal from '../literal.js';
 
 function parseIf(node, parser) {
   let {test, consequent, alternate} = node;
@@ -42,4 +40,4 @@ function parseIf(node, parser) {
   }
 }
 
-module.exports = parseIf;
+export default parseIf;

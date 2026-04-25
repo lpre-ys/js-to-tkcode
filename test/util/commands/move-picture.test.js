@@ -1,10 +1,8 @@
-'use strict';
-
-const assert = require('power-assert');
-const MovePicture = require('../../../js/util/commands/move-picture');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
-const tkVarManager = require('../../../js/lib/tk-var-manager');
+import assert from 'power-assert';
+import MovePicture from '../../../js/util/commands/move-picture.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
+import tkVarManager from '../../../js/lib/tk-var-manager.js';
 
 describe('MovePicture（ピクチャーの移動）', () => {
   const movePicture = new MovePicture();

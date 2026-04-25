@@ -1,10 +1,8 @@
-'use strict';
-
-const assert = require('power-assert');
-const GetCharaInfo = require('../../../js/util/commands/get-chara-info');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
-const tkVarManager = require('../../../js/lib/tk-var-manager');
+import assert from 'power-assert';
+import GetCharaInfo from '../../../js/util/commands/get-chara-info.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
+import tkVarManager from '../../../js/lib/tk-var-manager.js';
 
 describe('GetCharaInfo（キャラ情報取得）', () => {
   const getCharaInfo = new GetCharaInfo();

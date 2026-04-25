@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const ClearString = require('../../../js/util/commands/clear-string');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import ClearString from '../../../js/util/commands/clear-string.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('ClearString（文章クリア）', () => {
   const clearString = new ClearString();

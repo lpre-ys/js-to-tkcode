@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const ReleaseCamera = require('../../../js/util/commands/release-camera');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import ReleaseCamera from '../../../js/util/commands/release-camera.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('ReleaseCamera（画面スクロール固定解除）', () => {
   const releaseCamera = new ReleaseCamera();

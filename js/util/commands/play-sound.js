@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class PlaySound extends Command {
 
   run(file, volume = 100, tempo = 100, balance = 50) {
@@ -18,4 +16,4 @@ class PlaySound extends Command {
   }
 }
 
-module.exports = PlaySound;
+export default PlaySound;

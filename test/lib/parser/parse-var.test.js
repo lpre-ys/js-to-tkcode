@@ -1,8 +1,8 @@
-const assert = require('power-assert');
-const parseVar = require('../../../js/lib/parser/parse-var');
-const tkVarManager = require('../../../js/lib/tk-var-manager');
+import assert from 'power-assert';
+import parseVar from '../../../js/lib/parser/parse-var.js';
+import tkVarManager from '../../../js/lib/tk-var-manager.js';
+import esprima from 'esprima';
 
-const esprima = require('esprima');
 
 describe('Parser parseVar', () => {
   beforeEach(() => {

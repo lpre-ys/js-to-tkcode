@@ -1,8 +1,6 @@
-'use strict';
-
-const tkVarManager = require('../tk-var-manager');
-const tmpVarFactory = require('../tmp-var-factory');
-const esprima = require('esprima');
+import tkVarManager from '../tk-var-manager.js';
+import tmpVarFactory from '../tmp-var-factory.js';
+import esprima from 'esprima';
 
 function parseVar(node, parser = false) {
   switch (node.type) {
@@ -54,4 +52,4 @@ function parseVar(node, parser = false) {
   }
 }
 
-module.exports = parseVar;
+export default parseVar;

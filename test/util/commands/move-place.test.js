@@ -1,8 +1,8 @@
-const assert = require('power-assert');
+import assert from 'power-assert';
+import MovePlace from '../../../js/util/commands/move-place.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
-const MovePlace = require('../../../js/util/commands/move-place');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
 // const tkVarManager = require('../../../js/lib/tk-var-manager');
 
 describe('movePlace(場所移動)', () => {

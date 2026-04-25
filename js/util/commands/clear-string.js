@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class ClearString extends Command {
 
   run(num, length = 1) {
@@ -22,4 +20,4 @@ class ClearString extends Command {
   }
 }
 
-module.exports = ClearString;
+export default ClearString;

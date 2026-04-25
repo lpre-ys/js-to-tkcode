@@ -1,7 +1,5 @@
-'use strict';
-
-const assert = require('power-assert');
-const executeLog = require('../../js/util/execute-log');
+import assert from 'power-assert';
+import executeLog from '../../js/util/execute-log.js';
 
 describe('ExecuteLog', () => {
   beforeEach(() => {

@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const Comment = require('../../../js/util/commands/comment');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import Comment from '../../../js/util/commands/comment.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('Comment（注釈）', () => {
   const comment = new Comment();

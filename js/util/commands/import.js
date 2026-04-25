@@ -1,9 +1,7 @@
-'use strict';
+import path from 'path';
+import fs from 'fs';
+import Command from '../command.js';
 
-const path = require('path');
-const fs = require('fs');
-
-const Command = require('../command');
 class Import extends Command {
 
   run(filepath) {
@@ -23,4 +21,4 @@ class Import extends Command {
   }
 }
 
-module.exports = Import;
+export default Import;

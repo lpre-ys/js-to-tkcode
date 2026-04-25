@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const DeletePicture = require('../../../js/util/commands/delete-picture');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import DeletePicture from '../../../js/util/commands/delete-picture.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('DeletePicture（ピクチャーの消去）', () => {
   const deletePicture = new DeletePicture();

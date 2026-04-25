@@ -1,7 +1,5 @@
-'use strict';
-
-const Command = require('../command');
-const tkVarManager = require('../../lib/tk-var-manager');
+import Command from '../command.js';
+import tkVarManager from '../../lib/tk-var-manager.js';
 
 class Choice extends Command {
 
@@ -48,4 +46,4 @@ class Choice extends Command {
   }
 }
 
-module.exports = Choice;
+export default Choice;

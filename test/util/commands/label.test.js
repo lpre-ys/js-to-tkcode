@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const Label = require('../../../js/util/commands/label');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import Label from '../../../js/util/commands/label.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('Label（ラベルの設定）', () => {
   const label = new Label();

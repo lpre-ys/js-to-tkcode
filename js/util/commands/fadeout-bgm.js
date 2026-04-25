@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class FadeoutBgm extends Command {
 
   run(time = 10) {
@@ -19,4 +17,4 @@ class FadeoutBgm extends Command {
   }
 }
 
-module.exports = FadeoutBgm;
+export default FadeoutBgm;

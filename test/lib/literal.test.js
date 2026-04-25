@@ -1,8 +1,6 @@
-'use strict';
-
-const assert = require('power-assert');
-const esprima = require('esprima');
-const literal = require('../../js/lib/literal');
+import assert from 'power-assert';
+import esprima from 'esprima';
+import literal from '../../js/lib/literal.js';
 
 describe('literal', () => {
   describe('isLiteral', () => {

@@ -1,5 +1,4 @@
-'use strict';
-
+import Command from '../../command.js';
 /**
  * QueueRevert(1個巻き戻す)
  *
@@ -7,7 +6,6 @@
  * [head][tail][max][tmp][0][][][][MAX - 1][MAX]
  */
 
-const Command = require('../../command');
 class QueueRevert extends Command {
 
   run(base) {
@@ -44,4 +42,4 @@ class QueueRevert extends Command {
   }
 }
 
-module.exports = QueueRevert;
+export default QueueRevert;

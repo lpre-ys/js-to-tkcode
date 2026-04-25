@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const Action = require('../../../js/util/commands/action');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import Action from '../../../js/util/commands/action.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('Action（アクション）', () => {
   const action = new Action();

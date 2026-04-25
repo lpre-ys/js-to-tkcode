@@ -1,10 +1,8 @@
-'use strict';
+import estraverse from 'estraverse';
+import optimizeFor from './optimize-for.js';
+import optimizeConst from './optimize-const.js';
+import FunctionOptimizer from './function-optimizer.js';
 
-const estraverse = require('estraverse');
-
-const optimizeFor = require('./optimize-for');
-const optimizeConst = require('./optimize-const');
-const FunctionOptimizer = require('./function-optimizer');
 
 function optimize(ast, Const) {
   const functionOptimizer = new FunctionOptimizer();
@@ -60,4 +58,4 @@ function optimize(ast, Const) {
   return ast;
 }
 
-module.exports = optimize;
+export default optimize;

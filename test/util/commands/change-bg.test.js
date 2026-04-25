@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const ChangeBg = require('../../../js/util/commands/change-bg');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import ChangeBg from '../../../js/util/commands/change-bg.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('ChangeBg（遠景の変更）', () => {
   const changeBg = new ChangeBg();

@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const ShowPc = require('../../../js/util/commands/show-pc');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import ShowPc from '../../../js/util/commands/show-pc.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('ShowPc（主人公を表示）', () => {
   const showPc = new ShowPc();

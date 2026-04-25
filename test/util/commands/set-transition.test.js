@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const SetTransition = require('../../../js/util/commands/set-transition');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import SetTransition from '../../../js/util/commands/set-transition.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('SetTransition（画面切り替え方式の変更）', () => {
   const setTransition = new SetTransition();

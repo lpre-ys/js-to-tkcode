@@ -1,4 +1,4 @@
-const estraverse = require('estraverse');
+import estraverse from 'estraverse';
 
 class FunctionOptimizer{
   constructor() {
@@ -51,4 +51,4 @@ class FunctionOptimizer{
   }
 }
 
-module.exports = FunctionOptimizer;
+export default FunctionOptimizer;

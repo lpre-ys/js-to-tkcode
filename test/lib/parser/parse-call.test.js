@@ -1,9 +1,9 @@
-const assert = require('power-assert');
-const parseCall = require('../../../js/lib/parser/parse-call');
-const TkMock = require('../../../js/util/tk-mock');
-const Parser = require('../../../js/lib/parser/parser');
+import assert from 'power-assert';
+import parseCall from '../../../js/lib/parser/parse-call.js';
+import TkMock from '../../../js/util/tk-mock.js';
+import Parser from '../../../js/lib/parser/parser.js';
+import esprima from 'esprima';
 
-const esprima = require('esprima');
 
 describe('Parser parseCall', () => {
   let parser;

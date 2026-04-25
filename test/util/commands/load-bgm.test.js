@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const LoadBgm = require('../../../js/util/commands/load-bgm');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import LoadBgm from '../../../js/util/commands/load-bgm.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('LoadBgm（記憶したBGMを演奏）', () => {
   const loadBgm = new LoadBgm();

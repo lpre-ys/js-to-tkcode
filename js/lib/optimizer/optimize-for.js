@@ -1,9 +1,7 @@
-'use strict';
+import estraverse from 'estraverse';
+import literal from '../literal.js';
+import optimizeConst from './optimize-const.js';
 
-const estraverse = require('estraverse');
-
-const literal = require('../literal');
-const optimizeConst = require('./optimize-const');
 
 function optimizeFor(node, Const) {
   // pre perseが必要
@@ -69,4 +67,4 @@ function getConstValue(node, Const) {
   return Const[node.property.name];
 }
 
-module.exports = optimizeFor;
+export default optimizeFor;

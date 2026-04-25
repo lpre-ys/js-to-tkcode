@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const Flash = require('../../../js/util/commands/flash');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import Flash from '../../../js/util/commands/flash.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('Flash（画面のフラッシュ）', () => {
   const flash = new Flash();

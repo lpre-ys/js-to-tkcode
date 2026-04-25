@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class ShowScreen extends Command {
 
   run(type) {
@@ -24,4 +22,4 @@ class ShowScreen extends Command {
   }
 }
 
-module.exports = ShowScreen;
+export default ShowScreen;

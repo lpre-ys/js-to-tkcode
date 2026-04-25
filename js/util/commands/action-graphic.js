@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class ActionGraphic extends Command {
 
   run(file, num) {
@@ -18,4 +16,4 @@ class ActionGraphic extends Command {
   }
 }
 
-module.exports = ActionGraphic;
+export default ActionGraphic;

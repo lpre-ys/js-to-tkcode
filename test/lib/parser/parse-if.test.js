@@ -1,11 +1,9 @@
-'use strict';
-
-const assert = require('power-assert');
-const esprima = require('esprima');
-const parseIf = require('../../../js/lib/parser/parse-if');
-const Parser = require('../../../js/lib/parser/parser');
-const tkVarManager = require('../../../js/lib/tk-var-manager');
-const tmpVarFactory = require('../../../js/lib/tmp-var-factory');
+import assert from 'power-assert';
+import esprima from 'esprima';
+import parseIf from '../../../js/lib/parser/parse-if.js';
+import Parser from '../../../js/lib/parser/parser.js';
+import tkVarManager from '../../../js/lib/tk-var-manager.js';
+import tmpVarFactory from '../../../js/lib/tmp-var-factory.js';
 
 describe('Parser parseIf', () => {
   let parser;

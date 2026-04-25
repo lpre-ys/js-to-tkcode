@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const ResetFace = require('../../../js/util/commands/reset-face');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import ResetFace from '../../../js/util/commands/reset-face.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('ResetFace（顔グラフィックの変更・無し）', () => {
   const resetFace = new ResetFace();

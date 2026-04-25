@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const CancelAllAction = require('../../../js/util/commands/cancel-all-action');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import CancelAllAction from '../../../js/util/commands/cancel-all-action.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('CancelAllAction（指定動作の全解除）', () => {
   const cancelAllAction = new CancelAllAction();

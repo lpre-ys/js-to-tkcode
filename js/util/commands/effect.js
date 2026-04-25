@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class Effect extends Command {
 
   run(animeId, eventId, wait = true) {
@@ -18,4 +16,4 @@ class Effect extends Command {
   }
 }
 
-module.exports = Effect;
+export default Effect;

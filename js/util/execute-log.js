@@ -25,4 +25,4 @@ class ExecuteLog {
 
 const executeLog = new ExecuteLog();
 
-module.exports = executeLog;
+export default executeLog;

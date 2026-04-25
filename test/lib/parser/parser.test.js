@@ -1,6 +1,6 @@
-const assert = require('power-assert');
+import assert from 'power-assert';
+import Parser from '../../../js/lib/parser/parser.js';
 // const TkMock = require('../../../js/util/tk-mock');
-const Parser = require('../../../js/lib/parser/parser');
 
 // const esprima = require('esprima');
 

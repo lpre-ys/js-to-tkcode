@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class CallEvent extends Command {
 
   run(id) {
@@ -18,4 +16,4 @@ class CallEvent extends Command {
   }
 }
 
-module.exports = CallEvent;
+export default CallEvent;

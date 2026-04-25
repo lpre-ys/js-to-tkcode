@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class Wait extends Command {
 
   run(tick) {
@@ -18,4 +16,4 @@ class Wait extends Command {
   }
 }
 
-module.exports = Wait;
+export default Wait;

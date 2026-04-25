@@ -1,10 +1,8 @@
-'use strict';
-
-const assert = require('power-assert');
-const StorePlace = require('../../../js/util/commands/store-place');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
-const tkVarManager = require('../../../js/lib/tk-var-manager');
+import assert from 'power-assert';
+import StorePlace from '../../../js/util/commands/store-place.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
+import tkVarManager from '../../../js/lib/tk-var-manager.js';
 
 describe('StorePlace（現在の場所を記憶）', () => {
   const storePlace = new StorePlace();

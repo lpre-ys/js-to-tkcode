@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class RangeAssign extends Command {
 
   run(base, quantity, value) {
@@ -19,4 +17,4 @@ class RangeAssign extends Command {
   }
 }
 
-module.exports = RangeAssign;
+export default RangeAssign;

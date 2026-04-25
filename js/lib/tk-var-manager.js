@@ -1,5 +1,3 @@
-'use strict';
-
 class TkVarManager {
   setOptions(options = {}) {
     this.varList = options.varList || {};
@@ -28,4 +26,4 @@ class TkVarManager {
   }
 }
 const instance = new TkVarManager();
-module.exports = instance;
+export default instance;

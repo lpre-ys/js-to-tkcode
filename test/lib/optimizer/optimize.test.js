@@ -1,8 +1,8 @@
-const assert = require('power-assert');
-const optimize = require('../../../js/lib/optimizer/optimize');
+import assert from 'power-assert';
+import optimize from '../../../js/lib/optimizer/optimize.js';
+import esprima from 'esprima';
+import escodegen from 'escodegen';
 
-const esprima = require('esprima');
-const escodegen = require('escodegen');
 
 const escodegenOption = {
   format: {
@@ -19,7 +19,7 @@ describe('Optimizer optimize', () => {
     const ast = esprima.parse(code);
     const ret = optimize(ast);
 
-    assert(escodegen.generate(ret, escodegenOption) == `{{test = 1;}{test = 1;}{test = 1;}}`);
+    assert(escodegen.generate(ret, escodegenOption) == `{test = 1;test = 1;test = 1;}`);
   });
   describe('Function系', () => {
     it('引数無し', () => {

@@ -1,6 +1,4 @@
-"use strict";
-
-const Command = require("../command");
+import Command from '../command.js';
 
 class getCharaInfo extends Command {
   run(receive, ev, type) {
@@ -21,4 +19,4 @@ class getCharaInfo extends Command {
   }
 }
 
-module.exports = getCharaInfo;
+export default getCharaInfo;

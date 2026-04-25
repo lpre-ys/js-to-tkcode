@@ -1,8 +1,6 @@
-'use strict';
-
-const parseVar = require('./parse-var');
-const tkVarManager = require('../tk-var-manager');
-const tmpVarFactory = require('../tmp-var-factory');
+import parseVar from './parse-var.js';
+import tkVarManager from '../tk-var-manager.js';
+import tmpVarFactory from '../tmp-var-factory.js';
 
 function parseTest(node, parser, hasElse = false) {
   // test句のパース
@@ -76,4 +74,4 @@ function parseVarForIf(node, parser) {
   return varNum;
 }
 
-module.exports = parseTest;
+export default parseTest;

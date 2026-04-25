@@ -1,10 +1,8 @@
-'use strict';
-
-const assert = require('power-assert');
-const ShowPicture = require('../../../js/util/commands/show-picture');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
-const tkVarManager = require('../../../js/lib/tk-var-manager');
+import assert from 'power-assert';
+import ShowPicture from '../../../js/util/commands/show-picture.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
+import tkVarManager from '../../../js/lib/tk-var-manager.js';
 
 describe('ShowPicture（ピクチャーの表示）', () => {
   const showPicture = new ShowPicture();

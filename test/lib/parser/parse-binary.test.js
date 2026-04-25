@@ -1,11 +1,11 @@
-const assert = require('power-assert');
-const parseBinary = require('../../../js/lib/parser/parse-binary');
-const tmpVarFactory = require('../../../js/lib/tmp-var-factory');
-const tkVarManager = require('../../../js/lib/tk-var-manager');
-const Parser = require('../../../js/lib/parser/parser');
+import assert from 'power-assert';
+import parseBinary from '../../../js/lib/parser/parse-binary.js';
+import tmpVarFactory from '../../../js/lib/tmp-var-factory.js';
+import tkVarManager from '../../../js/lib/tk-var-manager.js';
+import Parser from '../../../js/lib/parser/parser.js';
+import esprima from 'esprima';
+import escodegen from 'escodegen';
 
-const esprima = require('esprima');
-const escodegen = require('escodegen');
 
 describe('Parser parseBinary', () => {
   let parser;

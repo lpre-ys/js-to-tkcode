@@ -1,12 +1,10 @@
-'use strict';
-
+import Command from '../../command.js';
 /**
  * StackPush
  *
  * [TOP][MAX][0][][][][MAX - 1]
  */
 
-const Command = require('../../command');
 class StackPush extends Command {
 
   run(base, value, length = 1) {
@@ -59,4 +57,4 @@ class StackPush extends Command {
   }
 }
 
-module.exports = StackPush;
+export default StackPush;

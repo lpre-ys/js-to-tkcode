@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const CallEvent = require('../../../js/util/commands/call-event');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import CallEvent from '../../../js/util/commands/call-event.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('CallEvent（イベントの呼び出し・コモン）', () => {
   const callEvent = new CallEvent();

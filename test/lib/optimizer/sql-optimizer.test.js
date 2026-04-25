@@ -1,12 +1,14 @@
-'use strict';
+import assert from 'power-assert';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
+import esprima from 'esprima';
+import escodegen from 'escodegen';
+import _sqlite3pkg from 'sqlite3';
+import SqlOptimizer from '../../../js/lib/optimizer/sql-optimizer.js';
 
-const assert = require('power-assert');
-const path = require('path');
-const fs = require('fs');
-const esprima = require('esprima');
-const escodegen = require('escodegen');
-const sqlite3 = require('sqlite3').verbose();
-const SqlOptimizer = require('../../../js/lib/optimizer/sql-optimizer');
+const sqlite3 = _sqlite3pkg.verbose();
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const escodegenOption = {
   format: {

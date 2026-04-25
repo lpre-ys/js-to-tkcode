@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const ActionSound = require('../../../js/util/commands/action-sound');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import ActionSound from '../../../js/util/commands/action-sound.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('ActionSound（アクション・効果音）', () => {
   const actionSound = new ActionSound();

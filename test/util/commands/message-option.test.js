@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const MessageOption = require('../../../js/util/commands/message-option');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import MessageOption from '../../../js/util/commands/message-option.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('MessageOption（メッセージオプション）', () => {
   const messageOption = new MessageOption();

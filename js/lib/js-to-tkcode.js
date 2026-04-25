@@ -1,16 +1,14 @@
-'use strict';
-
-const esprima = require('esprima');
+import esprima from 'esprima';
+import tkVarManager from './tk-var-manager.js';
+import TkMock from '../util/tk-mock.js';
+import optimize from './optimizer/optimize.js';
+import SqlOptimizer from './optimizer/sql-optimizer.js';
+import Parser from './parser/parser.js';
 // const estraverse = require('estraverse');
 // const escodegen = require('escodegen');
 
-const tkVarManager = require('./tk-var-manager');
-const TkMock = require('../util/tk-mock');
 
 
-const optimize = require('./optimizer/optimize');
-const SqlOptimizer = require('./optimizer/sql-optimizer');
-const Parser = require('./parser/parser');
 
 class JsToTkcode {
   constructor(options) {
@@ -51,4 +49,4 @@ class JsToTkcode {
   }
 }
 
-module.exports = JsToTkcode;
+export default JsToTkcode;

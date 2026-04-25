@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 
 class ShowStickyPicture extends Command {
 
@@ -25,4 +23,4 @@ class ShowStickyPicture extends Command {
   }
 }
 
-module.exports = ShowStickyPicture;
+export default ShowStickyPicture;

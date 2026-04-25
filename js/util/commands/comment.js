@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class Comment extends Command {
 
   run(comments) {
@@ -22,4 +20,4 @@ class Comment extends Command {
   }
 }
 
-module.exports = Comment;
+export default Comment;

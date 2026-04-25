@@ -1,5 +1,4 @@
-'use strict';
-
+import Command from '../../command.js';
 /**
  * QueueInit
  *
@@ -9,7 +8,6 @@
  * [head][tail][max][tmp][0][][][][MAX - 1][MAX](判定用に1個余分に確保する)
  */
 
-const Command = require('../../command');
 class QueueInit extends Command {
 
   run(base, max) {
@@ -35,4 +33,4 @@ class QueueInit extends Command {
   }
 }
 
-module.exports = QueueInit;
+export default QueueInit;

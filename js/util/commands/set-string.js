@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
 class SetString extends Command {
 
   run(str, num) {
@@ -18,4 +16,4 @@ class SetString extends Command {
   }
 }
 
-module.exports = SetString;
+export default SetString;

@@ -1,10 +1,8 @@
-'use strict';
-
-const assert = require('power-assert');
-const Choice = require('../../../js/util/commands/choice');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
-const tkVarManager = require('../../../js/lib/tk-var-manager');
+import assert from 'power-assert';
+import Choice from '../../../js/util/commands/choice.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
+import tkVarManager from '../../../js/lib/tk-var-manager.js';
 
 describe('Choice（選択肢の表示）', () => {
   const choice = new Choice();

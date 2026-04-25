@@ -1,6 +1,4 @@
-'use strict';
-
-const Command = require('../command');
+import Command from '../command.js';
   class PlayBgm extends Command {
 
   run(file, time = 0, volume = 100, tempo = 100, balance = 50) {
@@ -18,4 +16,4 @@ const Command = require('../command');
   }
 }
 
-module.exports = PlayBgm;
+export default PlayBgm;

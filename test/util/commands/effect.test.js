@@ -1,9 +1,7 @@
-'use strict';
-
-const assert = require('power-assert');
-const Effect = require('../../../js/util/commands/effect');
-const Command = require('../../../js/util/command');
-const executeLog = require('../../../js/util/execute-log');
+import assert from 'power-assert';
+import Effect from '../../../js/util/commands/effect.js';
+import Command from '../../../js/util/command.js';
+import executeLog from '../../../js/util/execute-log.js';
 
 describe('Effect（戦闘アニメの表示）', () => {
   const effect = new Effect();
