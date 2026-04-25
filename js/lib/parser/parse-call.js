@@ -1,41 +1,25 @@
-import escodegen from 'escodegen';
-
 function parseCall(node, parser) {
   const tkMock = parser.tkMock;
   const callee = node.callee;
   if (callee.type === 'MemberExpression' && callee.object.name === tkMock.name) {
-    const code = escodegen.generate(node);
-    eval(`parser.appendOutput(${code})`); // TODO eval...
+    const funcName = callee.property.name;
+    const args = node.arguments.map(argNode => extractArgValue(argNode));
+    const ret = tkMock[funcName](...args);
+    parser.appendOutput(ret);
   } else {
     // TODO function parser
   }
 }
 
-export default parseCall;
-
-// 古いコード
-/*
-const funcName = callee.property.name;
-const args = [];
-node.arguments.forEach((argNode) => {
+function extractArgValue(argNode) {
   switch (argNode.type) {
-    case 'Literal': {
-      args.push(argNode.value);
-      break;
-    }
-    case 'ArrayExpression': {
-      // TODO 深い階層のパース。必要？
-      const tmp = [];
-      argNode.elements.forEach((aryNode) => {
-        tmp.push(aryNode.value);
-      });
-      args.push(tmp);
-      break;
-    }
+    case 'Literal':
+      return argNode.value;
+    case 'ArrayExpression':
+      return argNode.elements.map(el => el.value);
     default:
-      throw Error(`未対応のargments.type: ${argNode.type}`);
+      throw Error(`未対応のarguments.type: ${argNode.type}`);
   }
-});
-const ret = tkMock[funcName](args);
-parser.appendOutput(ret);
-*/
+}
+
+export default parseCall;

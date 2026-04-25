@@ -12,7 +12,7 @@ function parseIf(node, parser) {
     }
   } else if (literal.isLiteralTest(test)) {
     // リテラル同士の比較も崩す
-    const checkResult = eval(`${literal.getLiteralVar(test.left)} ${test.operator} ${literal.getLiteralVar(test.right)}`);
+    const checkResult = literal.parseLiteralBinary(test);
     if (checkResult) {
       parser.parseAst(consequent);
     } else if (alternate) {
@@ -21,7 +21,7 @@ function parseIf(node, parser) {
   } else if (literal.isLiteral(test.right) && literal.isLiteralTest(test.left)) {
     // 左項が定数式、右が定数の場合
     const leftResult = literal.parseLiteralBinary(test.left);
-    const checkResult = eval(`${leftResult} ${test.operator} ${literal.getLiteralVar(test.right)}`);
+    const checkResult = literal.applyBinaryOp(leftResult, test.operator, literal.getLiteralVar(test.right));
     if (checkResult) {
       parser.parseAst(consequent);
     } else if (alternate) {

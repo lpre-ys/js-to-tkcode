@@ -1,3 +1,26 @@
+const UNARY_OPS = {
+  '-': v => -v,
+  '+': v => +v,
+  '!': v => !v,
+  '~': v => ~v,
+};
+
+const BINARY_OPS = {
+  '+': (l, r) => l + r,
+  '-': (l, r) => l - r,
+  '*': (l, r) => l * r,
+  '/': (l, r) => l / r,
+  '%': (l, r) => l % r,
+  '<': (l, r) => l < r,
+  '>': (l, r) => l > r,
+  '<=': (l, r) => l <= r,
+  '>=': (l, r) => l >= r,
+  '==': (l, r) => l == r,
+  '===': (l, r) => l === r,
+  '!=': (l, r) => l != r,
+  '!==': (l, r) => l !== r,
+};
+
 function isLiteralTest(test) {
   if (!test.right || !test.left) {
     return false;
@@ -30,19 +53,24 @@ function isUnary(node) {
 // TODO 他でも使う気がする……
 function getLiteralVar(node) {
   if (isUnary(node)) {
-    return eval(`0 ${node.operator} ${node.argument.value}`);
+    return UNARY_OPS[node.operator](node.argument.value);
   } else {
     return node.value;
   }
 }
 
 function parseLiteralBinary(node) {
-  return eval(`${getLiteralVar(node.left)} ${node.operator} ${getLiteralVar(node.right)}`);
+  return BINARY_OPS[node.operator](getLiteralVar(node.left), getLiteralVar(node.right));
+}
+
+function applyBinaryOp(left, operator, right) {
+  return BINARY_OPS[operator](left, right);
 }
 
 export default {
   isLiteralTest,
   isLiteral,
   getLiteralVar,
-  parseLiteralBinary
+  parseLiteralBinary,
+  applyBinaryOp
 };
