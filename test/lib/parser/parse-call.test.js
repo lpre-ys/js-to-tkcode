@@ -71,5 +71,33 @@ describe('Parser parseCall', () => {
       assert(parser.outputs[0] === 'Text("1行目")');
       assert(parser.outputs[1] === 'SubT("2行目: 15")');
     });
+    it('引数がUnaryExpression（負の数）', () => {
+      const code = 'tkMock.keyEntry(-1)';
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs[0] === 'KeyEntry(-1, 1, 1, 1, 1, 1, 1, 1, 1, 1)');
+    });
+    it('引数が未対応のtype（Identifier）はエラーを投げる', () => {
+      const code = 'tkMock.keyEntry(someVar)';
+      const node = esprima.parse(code).body[0].expression;
+
+      assert.throws(() => { parseCall(node, parser); }, Error);
+    });
+    it('未定義の定数参照はエラーを投げる', () => {
+      const code = 'tkMock.keyEntry(tkMock.Const.UNDEFINED_KEY)';
+      const node = esprima.parse(code).body[0].expression;
+
+      assert.throws(() => { parseCall(node, parser); }, Error);
+    });
+  });
+  describe('tkMock以外の関数呼び出し', () => {
+    it('何も出力しない', () => {
+      const code = 'someFunc(42)';
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs.length === 0);
+    });
   });
 });

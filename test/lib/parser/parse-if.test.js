@@ -52,6 +52,28 @@ describe('Parser parseIf', () => {
     });
   });
 
+  describe('左辺が定数式・右辺がリテラルの最適化', () => {
+    it('(1+2) > 2 はtrueなのでconsequentのみ展開される', () => {
+      const node = esprima.parse('if ((1 + 2) > 2) { test = 1; } else { test = 2; }').body[0];
+      parseIf(node, parser);
+
+      assert(parser.outputs.length === 1);
+      assert(parser.outputs[0] === 'Variable(0, 42, 42, 0, 0, 1, 0)');
+    });
+    it('(1+2) > 5 はfalseなのでalternateのみ展開される', () => {
+      const node = esprima.parse('if ((1 + 2) > 5) { test = 1; } else { test = 2; }').body[0];
+      parseIf(node, parser);
+
+      assert(parser.outputs.length === 1);
+      assert(parser.outputs[0] === 'Variable(0, 42, 42, 0, 0, 2, 0)');
+    });
+    it('(1+2) > 5 でelseなしの場合は何も出力されない', () => {
+      const node = esprima.parse('if ((1 + 2) > 5) { test = 1; }').body[0];
+      parseIf(node, parser);
+
+      assert(parser.outputs.length === 0);
+    });
+  });
   describe('動的条件のIFコマンド生成', () => {
     it('else無しの場合、If/body/EndIfを出力する', () => {
       const node = esprima.parse('if (test > 5) { test = 1; }').body[0];

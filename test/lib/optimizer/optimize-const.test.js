@@ -30,4 +30,13 @@ describe('Optimizer optimizeConst', () => {
 
     assert(escodegen.generate(ret, escodegenOption) == `test_var`);
   });
+  it('Const定義あり（負の値）はUnaryExpressionで返す', () => {
+    const code = `tkMock.Const.MY_NEG`;
+    const node = esprima.parse(code).body[0].expression;
+    const ret = optimizeConst(node, { MY_NEG: -5 });
+
+    assert(ret.type === 'UnaryExpression');
+    assert(ret.operator === '-');
+    assert(ret.argument.value === 5);
+  });
 });

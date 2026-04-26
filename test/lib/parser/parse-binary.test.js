@@ -62,6 +62,16 @@ describe('Parser parseBinary', () => {
       assert(escodegen.generate(ret) == 1);
     });
   });
+  describe('BinaryOperators外の演算子', () => {
+    it('比較演算子（>）はノードをそのまま返す', () => {
+      const node = esprima.parse('test > 5').body[0].expression;
+      const ret = parseBinary(node, parser);
+
+      assert(ret.operator === '>');
+      assert(ret.left === node.left);
+      assert(ret.right === node.right);
+    });
+  });
   describe('変数を含む計算', () => {
     it('左辺が変数、右辺がリテラル', () => {
       const node = esprima.parse('test2 + 2').body[0].expression;
