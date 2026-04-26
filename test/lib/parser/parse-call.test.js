@@ -10,7 +10,7 @@ describe('Parser parseCall', () => {
   beforeEach(() => {
     // TODO TkMockのmock化
     //      以後のテストはすべてKeyEntryが存在する前提で書かれている。依存……。
-    const tkMock = new TkMock();
+    const tkMock = new TkMock({ MY_KEY: 42 });
     parser = new Parser(tkMock);
   });
   describe('TkMockのファンクション', () => {
@@ -55,6 +55,13 @@ describe('Parser parseCall', () => {
       parseCall(node, parser);
 
       assert(parser.outputs[0] === 'Text("HP: 8")');
+    });
+    it('引数が定数参照（MemberExpression）', () => {
+      const code = 'tkMock.keyEntry(tkMock.Const.MY_KEY)';
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs[0] === 'KeyEntry(42, 1, 1, 1, 1, 1, 1, 1, 1, 1)');
     });
   });
 });
