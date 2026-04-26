@@ -17,6 +17,13 @@ function extractArgValue(argNode) {
       return argNode.value;
     case 'ArrayExpression':
       return argNode.elements.map(el => el.value);
+    case 'TemplateLiteral':
+      return argNode.quasis.reduce((result, quasi, i) => {
+        const expr = i < argNode.expressions.length
+          ? extractArgValue(argNode.expressions[i])
+          : '';
+        return result + quasi.value.cooked + expr;
+      }, '');
     default:
       throw Error(`未対応のarguments.type: ${argNode.type}`);
   }

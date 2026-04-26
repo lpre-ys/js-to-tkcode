@@ -28,5 +28,19 @@ describe('Parser parseCall', () => {
 
       assert(parser.outputs[0] === 'KeyEntry(42, 0, 1, 1, 0, 0, 0, 0, 0, 0)');
     });
+    it('引数がテンプレートリテラル（式なし）', () => {
+      const code = 'tkMock.message(`こんにちは`)';
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs[0] === 'Text("こんにちは")');
+    });
+    it('引数がテンプレートリテラル（リテラル式あり）', () => {
+      const code = 'tkMock.message(`level${10}up`)';
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs[0] === 'Text("level10up")');
+    });
   });
 });
