@@ -19,7 +19,7 @@ function extractArgValue(argNode, Const) {
     case 'Literal':
       return argNode.value;
     case 'ArrayExpression':
-      return argNode.elements.map(el => el.value);
+      return argNode.elements.map(el => extractArgValue(el, Const));
     case 'TemplateLiteral':
       return argNode.quasis.reduce((result, quasi, i) => {
         const expr = i < argNode.expressions.length

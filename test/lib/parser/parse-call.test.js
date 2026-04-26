@@ -63,5 +63,13 @@ describe('Parser parseCall', () => {
 
       assert(parser.outputs[0] === 'KeyEntry(42, 1, 1, 1, 1, 1, 1, 1, 1, 1)');
     });
+    it('配列の要素にテンプレートリテラルを含む', () => {
+      const code = 'tkMock.message([\'1行目\', `2行目: ${10 + 5}`])';
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs[0] === 'Text("1行目")');
+      assert(parser.outputs[1] === 'SubT("2行目: 15")');
+    });
   });
 });
