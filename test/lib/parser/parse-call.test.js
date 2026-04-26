@@ -42,5 +42,19 @@ describe('Parser parseCall', () => {
 
       assert(parser.outputs[0] === 'Text("level10up")');
     });
+    it('引数が二項式', () => {
+      const code = `tkMock.keyEntry(40 + 2)`;
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs[0] === 'KeyEntry(42, 1, 1, 1, 1, 1, 1, 1, 1, 1)');
+    });
+    it('テンプレートリテラルの式に二項式', () => {
+      const code = 'tkMock.message(`HP: ${5 + 3}`)';
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs[0] === 'Text("HP: 8")');
+    });
   });
 });

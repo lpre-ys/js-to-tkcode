@@ -1,3 +1,5 @@
+import literal from '../literal.js';
+
 function parseCall(node, parser) {
   const tkMock = parser.tkMock;
   const callee = node.callee;
@@ -24,6 +26,13 @@ function extractArgValue(argNode) {
           : '';
         return result + quasi.value.cooked + expr;
       }, '');
+    case 'BinaryExpression': {
+      const left = extractArgValue(argNode.left);
+      const right = extractArgValue(argNode.right);
+      return literal.applyBinaryOp(left, argNode.operator, right);
+    }
+    case 'UnaryExpression':
+      return literal.getLiteralVar(argNode);
     default:
       throw Error(`未対応のarguments.type: ${argNode.type}`);
   }
