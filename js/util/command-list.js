@@ -66,6 +66,7 @@ import Raw from './commands/raw.js';
 import Comment from './commands/comment.js';
 import SetDbRow from './commands/set-db-row.js';
 import Import from './commands/import.js';
+import Panorama from './commands/panorama.js';
 
 
 
@@ -140,6 +141,7 @@ const commandList = {
   Raw,
   SetDbRow,
   Import,
+  Panorama,
 };
 
 export default commandList;
