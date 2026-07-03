@@ -53,6 +53,7 @@ import ChangeBg from './commands/change-bg.js';
 import Weather from './commands/weather.js';
 import LockCamera from './commands/lock-camera.js';
 import ReleaseCamera from './commands/release-camera.js';
+import AllowMenu from './commands/allow-menu.js';
 import StackInit from './commands/stack/stack-init.js';
 import StackPush from './commands/stack/stack-push.js';
 import StackPop from './commands/stack/stack-pop.js';
@@ -126,6 +127,7 @@ const commandList = {
   Weather,
   LockCamera,
   ReleaseCamera,
+  AllowMenu,
   StackInit,
   StackPush,
   StackPop,
