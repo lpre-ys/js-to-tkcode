@@ -67,6 +67,7 @@ import Comment from './commands/comment.js';
 import SetDbRow from './commands/set-db-row.js';
 import Import from './commands/import.js';
 import Panorama from './commands/panorama.js';
+import Save from './commands/save.js';
 
 
 
@@ -142,6 +143,7 @@ const commandList = {
   SetDbRow,
   Import,
   Panorama,
+  Save,
 };
 
 export default commandList;
