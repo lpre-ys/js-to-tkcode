@@ -13,6 +13,7 @@
     "dllbuild": "webpack --config webpack.dll.config.cjs",
     "watch": "webpack --watch --config webpack.config.cjs",
     "test": "mocha --recursive --watch 'test/**/*.test.js'",
+    "test:ci": "mocha --recursive 'test/**/*.test.js'",
     "coverage": "c8 mocha --recursive 'test/**/*.test.js'"
   },
   "repository": {
@@ -51,6 +52,7 @@
     "power-assert": "^1.6.1",
     "serialize-javascript": "^7.0.5",
     "sinon": "^12.0.1",
-    "webpack": "^5.65.0"
+    "webpack": "^5.65.0",
+    "webpack-cli": "^7.2.1"
   }
 }
