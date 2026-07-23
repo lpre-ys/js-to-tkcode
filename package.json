@@ -28,7 +28,7 @@
   "homepage": "https://github.com/lpre-ys/js-to-tkcode#readme",
   "dependencies": {
     "chokidar": "^3.5.2",
-    "escodegen": "^2.0.0",
+    "escodegen": "^2.1.0",
     "fs": "0.0.2",
     "fs-readdir-recursive": "^1.1.0",
     "js-yaml": "^4.1.0",
@@ -36,7 +36,7 @@
     "md5": "^2.3.0",
     "md5-file": "^5.0.0",
     "minimist": "^1.2.5",
-    "mithril": "^2.0.4",
+    "mithril": "^2.3.8",
     "mkdirp": "^1.0.4",
     "p-limit": "^6.2.0",
     "path": "^0.12.7",
@@ -46,13 +46,13 @@
     "c8": "^11.0.0",
     "diff": "^8.0.4",
     "karma": "^6.3.9",
-    "karma-chrome-launcher": "^3.1.0",
+    "karma-chrome-launcher": "^3.2.0",
     "karma-mocha": "^2.0.1",
-    "mocha": "^11.7.5",
+    "mocha": "^11.7.6",
     "power-assert": "^1.6.1",
-    "serialize-javascript": "^7.0.5",
+    "serialize-javascript": "^7.0.7",
     "sinon": "^12.0.1",
-    "webpack": "^5.65.0",
+    "webpack": "^5.108.4",
     "webpack-cli": "^7.2.1"
   }
 }
