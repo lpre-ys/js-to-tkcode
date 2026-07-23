@@ -13,6 +13,7 @@
     "dllbuild": "webpack --config webpack.dll.config.cjs",
     "watch": "webpack --watch --config webpack.config.cjs",
     "test": "mocha --recursive --watch 'test/**/*.test.js'",
+    "test:ci": "mocha --recursive 'test/**/*.test.js'",
     "coverage": "c8 mocha --recursive 'test/**/*.test.js'"
   },
   "repository": {
