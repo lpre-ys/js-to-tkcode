@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/lpre-ys/js-to-tkcode#readme",
   "dependencies": {
-    "chokidar": "^3.5.2",
+    "chokidar": "^5.0.0",
     "escodegen": "^2.1.0",
     "fs": "0.0.2",
     "fs-readdir-recursive": "^1.1.0",
