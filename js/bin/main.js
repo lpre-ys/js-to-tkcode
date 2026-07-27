@@ -2,10 +2,10 @@
 import { createRequire } from 'module';
 import chokidar from 'chokidar';
 import parseArgs from 'minimist';
-import mkdirp from 'mkdirp';
+import { mkdirp } from 'mkdirp';
 import path from 'path';
 import fs from 'fs';
-import yaml from 'js-yaml';
+import * as yaml from 'js-yaml';
 import JsToTkcode from '../lib/js-to-tkcode.js';
 import md5 from 'md5';
 import md5File from 'md5-file';
