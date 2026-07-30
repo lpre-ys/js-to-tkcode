@@ -11,19 +11,7 @@ module.exports = {
     filename: '[name].bundle.js'
   },
   resolve: {
-    root: path.join(current, './js')
-  },
-  module: {
-    loaders:[
-      // {
-      //   test: /\.js$/,
-      //   loader: 'babel-loader',
-      //   query: {
-      //     plugins: ['transform-es2015-modules-commonjs']
-      //   }
-      // },
-      { test: /\.json$/, loader: "json-loader" }
-    ]
+    modules: [path.join(current, './js'), 'node_modules']
   },
   plugins: [
     new webpack.DllReferencePlugin({

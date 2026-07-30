@@ -10,11 +10,6 @@ module.exports = {
     filename: '[name].dll.js',
     library: '[name]_library'
   },
-  module: {
-    loaders: [
-      { test: /\.json$/, loader: "json-loader" }
-    ]
-  },
   plugins: [
     new webpack.DllPlugin({
       path: path.join(__dirname, 'docs/build', '[name]-manifest.json'),
