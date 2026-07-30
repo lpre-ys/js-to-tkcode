@@ -32,7 +32,6 @@
     "fs": "0.0.2",
     "fs-readdir-recursive": "^1.1.0",
     "js-yaml": "^5.2.2",
-    "json-loader": "^0.5.7",
     "md5": "^2.3.0",
     "md5-file": "^5.0.0",
     "minimist": "^1.2.5",
@@ -53,5 +52,9 @@
     "sinon": "^22.1.0",
     "webpack": "^5.109.0",
     "webpack-cli": "^7.2.1"
+  },
+  "overrides": {
+    "diff": "^8.0.3",
+    "serialize-javascript": "^7.0.7"
   }
 }
