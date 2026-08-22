@@ -67,10 +67,15 @@ function applyBinaryOp(left, operator, right) {
   return BINARY_OPS[operator](left, right);
 }
 
+function applyUnaryOp(operator, value) {
+  return UNARY_OPS[operator](value);
+}
+
 export default {
   isLiteralTest,
   isLiteral,
   getLiteralVar,
   parseLiteralBinary,
-  applyBinaryOp
+  applyBinaryOp,
+  applyUnaryOp
 };
