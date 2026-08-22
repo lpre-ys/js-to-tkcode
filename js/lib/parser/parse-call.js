@@ -32,8 +32,31 @@ function extractArgValue(argNode, Const) {
       const right = extractArgValue(argNode.right, Const);
       return literal.applyBinaryOp(left, argNode.operator, right);
     }
-    case 'UnaryExpression':
-      return literal.getLiteralVar(argNode);
+    case 'UnaryExpression': {
+      const value = extractArgValue(argNode.argument, Const);
+      return literal.applyUnaryOp(argNode.operator, value);
+    }
+    case 'NewExpression': {
+      const ctorName = argNode.callee.name;
+      const Ctor = globalThis[ctorName];
+      if (typeof Ctor !== 'function') {
+        throw Error(`未対応のコンストラクタ: ${ctorName}`);
+      }
+      const args = argNode.arguments.map(argNode => extractArgValue(argNode, Const));
+      return new Ctor(...args);
+    }
+    case 'CallExpression': {
+      if (argNode.callee.type !== 'MemberExpression') {
+        throw Error(`未対応のCallExpression: callee.type=${argNode.callee.type}`);
+      }
+      const obj = extractArgValue(argNode.callee.object, Const);
+      const methodName = argNode.callee.property.name;
+      if (typeof obj?.[methodName] !== 'function') {
+        throw Error(`未対応のメソッド呼び出し: ${methodName}`);
+      }
+      const args = argNode.arguments.map(argNode => extractArgValue(argNode, Const));
+      return obj[methodName](...args);
+    }
     case 'MemberExpression': {
       const resolved = optimizeConst(argNode, Const);
       if (resolved.type !== 'MemberExpression') {

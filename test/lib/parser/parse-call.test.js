@@ -90,6 +90,26 @@ describe('Parser parseCall', () => {
 
       assert.throws(() => { parseCall(node, parser); }, Error);
     });
+    it('引数がNewExpression経由のメソッド呼び出し（テンプレートリテラル内）', () => {
+      const code = 'tkMock.message(`Date: ${(new Date(2026, 0, 1)).getFullYear()}`)';
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs[0] === 'Text("Date: 2026")');
+    });
+    it('未対応のコンストラクタはエラーを投げる', () => {
+      const code = 'tkMock.keyEntry((new NoSuchCtor()).valueOf())';
+      const node = esprima.parse(code).body[0].expression;
+
+      assert.throws(() => { parseCall(node, parser); }, Error);
+    });
+    it('単項演算子とCallExpressionを組み合わせても正しく評価される', () => {
+      const code = 'tkMock.keyEntry(-((new Date(2026, 0, 1)).getFullYear()))';
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs[0] === 'KeyEntry(-2026, 1, 1, 1, 1, 1, 1, 1, 1, 1)');
+    });
   });
   describe('tkMock以外の関数呼び出し', () => {
     it('何も出力しない', () => {
