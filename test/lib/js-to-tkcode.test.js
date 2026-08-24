@@ -183,6 +183,28 @@ Variable(0, 43, 43, 0, 0, 789, 0)
 EndIf`);
       });
     });
+    describe('関数のインライン展開で生じる否定リテラル', () => {
+      it('main(true)を渡すとif(!_isReplay)は展開されない', () => {
+        const ret = jsToTkcode.translate(`
+main(true);
+function main(_isReplay) {
+  if (!_isReplay) {
+    test2 = 456;
+  }
+}`);
+        assert(ret == '');
+      });
+      it('main(false)を渡すとif(!_isReplay)のconsequentが展開される', () => {
+        const ret = jsToTkcode.translate(`
+main(false);
+function main(_isReplay) {
+  if (!_isReplay) {
+    test2 = 456;
+  }
+}`);
+        assert(ret == 'Variable(0, 43, 43, 0, 0, 456, 0)');
+      });
+    });
   });
   describe('Constの合算', () => {
     it('Const追加無し', () => {

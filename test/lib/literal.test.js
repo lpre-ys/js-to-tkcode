@@ -16,6 +16,14 @@ describe('literal', () => {
       const node = esprima.parse('x').body[0].expression;
       assert(literal.isLiteral(node) === false);
     });
+    it('!trueのようなUnaryExpression(引数がLiteral)はtrueを返す', () => {
+      const node = esprima.parse('!true').body[0].expression;
+      assert(literal.isLiteral(node) === true);
+    });
+    it('!xのようなUnaryExpression(引数がIdentifier)はfalseを返す', () => {
+      const node = esprima.parse('!x').body[0].expression;
+      assert(literal.isLiteral(node) === false);
+    });
     it('nullはfalseを返す', () => {
       assert(literal.isLiteral(null) === false);
     });
@@ -65,6 +73,10 @@ describe('literal', () => {
     it('UnaryExpression(-0)は0を返す', () => {
       const node = esprima.parse('-0').body[0].expression;
       assert(literal.getLiteralVar(node) === 0);
+    });
+    it('UnaryExpression(!true)はfalseを返す', () => {
+      const node = esprima.parse('!true').body[0].expression;
+      assert(literal.getLiteralVar(node) === false);
     });
   });
 

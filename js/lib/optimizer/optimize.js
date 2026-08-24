@@ -1,10 +1,16 @@
 import estraverse from 'estraverse';
 import optimizeFor from './optimize-for.js';
 import optimizeConst from './optimize-const.js';
+import optimizeConstVars from './optimize-const-vars.js';
 import FunctionOptimizer from './function-optimizer.js';
 
 
 function optimize(ast, Const) {
+  // トップレベルのconst宣言をコンパイル時に評価し、値をスコープに退避（宣言文自体はASTから削除）
+  const constVarScope = optimizeConstVars.collectTopLevelConsts(ast, Const);
+  // for文の上限指定など、関数の外側でだけ先に解決しておく（関数の中はパラメータによる
+  // シャドーイングがあり得るため、関数展開が終わるまで踏み込まない）
+  optimizeConstVars.inlineConstVars(ast, constVarScope, { topLevelOnly: true });
   const functionOptimizer = new FunctionOptimizer();
   // 基本のoptimizeと、functionを退避
   estraverse.replace(ast, {
@@ -54,6 +60,9 @@ function optimize(ast, Const) {
       }
     }
   });
+
+  // 関数のインライン展開が終わったフラットな状態で、退避しておいたconst変数の参照を解決する
+  optimizeConstVars.inlineConstVars(ast, constVarScope);
 
   return ast;
 }

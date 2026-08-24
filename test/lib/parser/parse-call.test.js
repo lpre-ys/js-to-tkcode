@@ -110,6 +110,41 @@ describe('Parser parseCall', () => {
 
       assert(parser.outputs[0] === 'KeyEntry(-2026, 1, 1, 1, 1, 1, 1, 1, 1, 1)');
     });
+    it('テンプレートリテラルの式に三項演算子（trueの場合）', () => {
+      const code = 'tkMock.message(`#${true ? 5 : 1} Knight`)';
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs[0] === 'Text("#5 Knight")');
+    });
+    it('テンプレートリテラルの式に三項演算子（falseの場合）', () => {
+      const code = 'tkMock.message(`#${false ? 5 : 1} Knight`)';
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs[0] === 'Text("#1 Knight")');
+    });
+    it('三項演算子はネストしても評価できる', () => {
+      const code = 'tkMock.message(`${3 > 5 ? "S" : (3 > 2 ? "A" : "B")}`)';
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs[0] === 'Text("A")');
+    });
+    it('テンプレートリテラルの式に論理演算子(||)', () => {
+      const code = 'tkMock.message(`HP: ${0 || 99}`)';
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs[0] === 'Text("HP: 99")');
+    });
+    it('テンプレートリテラルの式に論理演算子(&&)', () => {
+      const code = 'tkMock.message(`HP: ${1 && 99}`)';
+      const node = esprima.parse(code).body[0].expression;
+      parseCall(node, parser);
+
+      assert(parser.outputs[0] === 'Text("HP: 99")');
+    });
   });
   describe('tkMock以外の関数呼び出し', () => {
     it('何も出力しない', () => {
