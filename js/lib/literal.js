@@ -44,7 +44,7 @@ function isLiteral(node) {
 }
 
 function isUnary(node) {
-  if (node.type == 'UnaryExpression') {
+  if (node.type == 'UnaryExpression' && node.argument.type === 'Literal') {
     return true;
   }
   return false;

@@ -35,6 +35,17 @@ describe('Parser parseIf', () => {
       assert(parser.outputs.length === 1);
       assert(parser.outputs[0] === 'Variable(0, 42, 42, 0, 0, 2, 0)');
     });
+    it('if(!true)は何も出力されない（関数のインライン展開で生じる否定リテラル）', () => {
+      const node = esprima.parse('if (!true) { test = 1; }').body[0];
+      parseIf(node, parser);
+      assert(parser.outputs.length === 0);
+    });
+    it('if(!false)はconsequentのみ展開される', () => {
+      const node = esprima.parse('if (!false) { test = 1; }').body[0];
+      parseIf(node, parser);
+      assert(parser.outputs.length === 1);
+      assert(parser.outputs[0] === 'Variable(0, 42, 42, 0, 0, 1, 0)');
+    });
   });
 
   describe('リテラル同士の比較による最適化', () => {

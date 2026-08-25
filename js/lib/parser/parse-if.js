@@ -3,9 +3,10 @@ import literal from '../literal.js';
 
 function parseIf(node, parser) {
   let {test, consequent, alternate} = node;
-  if (test.type === 'Literal' && typeof test.value === 'boolean') {
+  if (literal.isLiteral(test) && typeof literal.getLiteralVar(test) === 'boolean') {
     // booleanの場合、固定でなんやかんやするなんやかんや……？なんやかんやー
-    if (test.value) {
+    // (!true のような、リテラルへの単項演算子も含む)
+    if (literal.getLiteralVar(test)) {
       parser.parseAst(consequent);
     } else if (alternate) {
       parser.parseAst(alternate);
